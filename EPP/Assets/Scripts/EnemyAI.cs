@@ -1,25 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CodeMonkey.Utils;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAi : MonoBehaviour
 {
-    private Vector3 startingPosition;
-    private Vector3 roamPosition;
-   private void Start ()
-   {
-        startingPosition = transform.position;
-        roamPosition = GetRoamingPosition();
-   }
-
-   private void Update()
-   {
+    public GameObject player;
+    public float speed;
+    public float range;
+    private float distance;
     
-   }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
-   private Vector3 GetRoamingPosition()
-   {
-        return startingPosition + UtilsClass.GetRandomDir() * Random.Range(10f, 50f);
-   }
+    // Update is called once per frame
+    void Update()
+    {
+        distance = Vector2.Distance(transform.position, player.transform.position);
+        Vector2 direction = player.transform.position - transform.position;
+        direction.Normalize();
+
+        if(distance < range)
+        {
+            transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+        }
+        
+    }
+
+
 }
