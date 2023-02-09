@@ -30,13 +30,12 @@ public class EnemyPatrol : MonoBehaviour
     }*/
 
     public GameObject player;
-    public GameObject safeZone;
+    //public GameObject safeZone;
 
-    ZoneCheck _zone;
+    public ZoneCheck _zone;
 
     public bool chase;
     public bool patrol;
-    public bool inZone;
 
     public float speed;
     public float range;
@@ -49,7 +48,7 @@ public class EnemyPatrol : MonoBehaviour
 
     void Start()
     {
-        inZone = false;
+        _zone.inZone = false;
         patrol = true;
         waitTime = startWaitTime;
         randomSpot = Random.Range(0, moveSpots.Length);
@@ -62,13 +61,14 @@ public class EnemyPatrol : MonoBehaviour
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
 
-        if (inZone == true)
+        if (_zone.inZone == true)
         {
             chase = false;
+            Debug.Log("ChaseOff");
             patrol = true;
         }
 
-       if(distance < range)
+       if(distance < range & _zone.inZone == false)
        {
             chase = true;
             patrol = false;
@@ -90,25 +90,6 @@ public class EnemyPatrol : MonoBehaviour
         
     }
 
-    
-     void OnTriggerEnter2D(Collider2D safeZone)
-    {
-        if (safeZone.gameObject.CompareTag("Player"))
-        {
-            inZone = true;
-            Debug.Log("Safe Zone Enter");
-        }
-        
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-       if (other.gameObject.CompareTag("Player"))
-        {
-            inZone = false;
-            Debug.Log("Safe Zone Exit");
-        }
-    }
 
     public void Patrol()
     {
