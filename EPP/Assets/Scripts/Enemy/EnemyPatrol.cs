@@ -34,6 +34,8 @@ public class EnemyPatrol : MonoBehaviour
 
     public ZoneCheck _zone;
 
+    [SerializeField] private float damage;
+
     public bool chase;
     public bool patrol;
 
@@ -46,7 +48,7 @@ public class EnemyPatrol : MonoBehaviour
     public Transform[] moveSpots;
     private int randomSpot;
 
-    [SerializeField] private float damage;
+    
 
     void Start()
     {
