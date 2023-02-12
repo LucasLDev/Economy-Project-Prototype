@@ -22,6 +22,8 @@ public class ZmHealth : MonoBehaviour
     void Update()
     {
         enemySlider.value = zmCurrentHealth;
+        
+       
     }
 
     public void ZMTakeDamage(float zmAmount)
@@ -42,6 +44,7 @@ public class ZmHealth : MonoBehaviour
 
                 GetComponent<EnemyPatrol>().enabled = false;
                 zmDead = true;
+                //gameObject.SetActive(false);
                 Destroy(gameObject);
             }
         }

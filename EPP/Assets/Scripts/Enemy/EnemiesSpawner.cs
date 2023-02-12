@@ -9,7 +9,7 @@ public class EnemiesSpawner : MonoBehaviour
 
     [SerializeField] GameObject _player;
 
-    //Creats there int varibles.
+    //Creates the int varibles.
     int xvalue;
     int yvalue;
 

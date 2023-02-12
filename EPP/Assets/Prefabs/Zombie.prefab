@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zmMaxHealth: 5
-  zmCurrentHealth: 0
+  zmCurrentHealth: 5
   enemySlider: {fileID: 3110637401200652734}
 --- !u!114 &8786209973125955971
 MonoBehaviour:
@@ -253,8 +253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1993c4d65434e9a4890679515efe65e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  _zone: {fileID: 0}
+  player: {fileID: 7866122822188526223, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
+  _zone: {fileID: 8548541264820739927, guid: 97203591221424941b2a2cb8713e6751, type: 3}
   damage: 1
   chase: 0
   patrol: 0
@@ -262,40 +262,40 @@ MonoBehaviour:
   range: 3
   startWaitTime: 1
   moveSpots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8116440538735887962, guid: cdc52d391ae937a42a99cd6ad15243f9, type: 3}
+  - {fileID: 126471601735754962, guid: 421c126ebb390284ca3686dddec1d2e2, type: 3}
+  - {fileID: 424104937067671939, guid: 4d3d1b7a99a1ca44ebd05db54ba30cc1, type: 3}
+  - {fileID: 1996220049969171355, guid: 7bf9ccef9684dec488120140558a53af, type: 3}
+  - {fileID: 5344181054680603757, guid: cdf4c4417daf440419d8cd1bbb3bd23b, type: 3}
+  - {fileID: 7695471742514303894, guid: 6f7d3ebc5a4b43145a0063157db83f8a, type: 3}
+  - {fileID: 3593378712592278556, guid: b29d501515cbe54418414f58b1ecde7c, type: 3}
+  - {fileID: 1160056331118601889, guid: 98d3ee297962f7d43853616d44a1215e, type: 3}
+  - {fileID: 54052405094102595, guid: 7c3b3f950c8462743a004d0fb533975b, type: 3}
+  - {fileID: 5718194598492555115, guid: 5f1b6b1d4c279ba459e43f0bcb42669d, type: 3}
+  - {fileID: 2966382400600487154, guid: 2a0bfa7cf28298a4aa6509e242d3f68c, type: 3}
+  - {fileID: 3344622487594376252, guid: 0d467047513ea21468fc6dbcc32bbb66, type: 3}
+  - {fileID: 718455467803046213, guid: ed7610eaa9ddd9e41ad7f442b687b629, type: 3}
+  - {fileID: 1088854265389135877, guid: 5d2d8a3a9ae2219489506801a04fd43a, type: 3}
+  - {fileID: 5620646092625981396, guid: 5fcda9ecfc094d94f970b6dc247c66e3, type: 3}
+  - {fileID: 1372497197314750063, guid: 38d37852b545a2f4ea641137295f4d26, type: 3}
+  - {fileID: 5969281174786359493, guid: 84d29e272e8138741ae841532c6cd2b6, type: 3}
+  - {fileID: 4812135010753119706, guid: 32ea5b4940a0b154094d4be69416b41f, type: 3}
+  - {fileID: 2629463134816509927, guid: 2c4d45b8baf688a4b80a131a967f3e83, type: 3}
+  - {fileID: 1350478617707214881, guid: f9f1137600bc90d4693beaaa47993bf2, type: 3}
+  - {fileID: 1708974377534219803, guid: 1f9d96435d3f78a469e42da1e0c0c0e7, type: 3}
+  - {fileID: 579488749905385263, guid: 62e9c79104531bf49b2cfe5d6c2036cb, type: 3}
+  - {fileID: 441666747141506246, guid: c3eda069a09798b46ba8f4b0ea88a84d, type: 3}
+  - {fileID: 4777751004405765292, guid: 2f2584554e3f7194faf87f86494a9200, type: 3}
+  - {fileID: 5743975243361960124, guid: 3dbb1abddb9dd624f8fc3657e365570f, type: 3}
+  - {fileID: 349348737593295420, guid: cbef9ac7b40a08140b32b7d27124dc5b, type: 3}
+  - {fileID: 4115413819993387196, guid: d63111ee12c597840a182c909818b4bf, type: 3}
+  - {fileID: 7393118034538786726, guid: 3e61b244c7f7a7b49ae04630ff2d64c5, type: 3}
+  - {fileID: 1175337114239020415, guid: ef40a5d1d241466449876ec3b72fcf2b, type: 3}
+  - {fileID: 263905013860374559, guid: 69184ae9f4ffad448b3c3850d4de84a5, type: 3}
+  - {fileID: 775595893055920210, guid: 85fde93e49c844d4484b44fca369a3fd, type: 3}
+  - {fileID: 3901675262876449976, guid: 7da0c8513887be74b8504a0c9482bb40, type: 3}
+  - {fileID: 1049898320591679873, guid: da8ae2b7b7183fb49b38ac41210288b6, type: 3}
+  - {fileID: 4086836008648306033, guid: d8e4a51d4843e69409a0c9f73150fb51, type: 3}
 --- !u!1 &2551384805412390364
 GameObject:
   m_ObjectHideFlags: 0
