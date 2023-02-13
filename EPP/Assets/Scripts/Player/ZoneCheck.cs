@@ -11,7 +11,6 @@ public class ZoneCheck : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             inZone = true;
-            Debug.Log("Safe Zone");
         } 
         
 
@@ -23,7 +22,6 @@ public class ZoneCheck : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             inZone = false;
-            Debug.Log("zone exit");
         }
         
     }

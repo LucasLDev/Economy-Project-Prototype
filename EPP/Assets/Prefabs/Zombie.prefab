@@ -254,7 +254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1993c4d65434e9a4890679515efe65e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _zone: {fileID: -6287240454624695474, guid: 97203591221424941b2a2cb8713e6751, type: 3}
   damage: 1
   chase: 0
   patrol: 1

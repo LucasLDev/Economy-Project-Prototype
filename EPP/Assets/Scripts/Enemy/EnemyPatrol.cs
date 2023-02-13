@@ -107,7 +107,6 @@ public class EnemyPatrol : MonoBehaviour
 
     public void Patrol()
     {
-    Debug.Log("Patrolling");
         transform.position = Vector2.MoveTowards(transform.position, moveSpots[randomSpot].position, speed * Time.deltaTime);
 
             if(Vector2.Distance(transform.position, moveSpots[randomSpot].position) < 0.2f)
@@ -124,7 +123,6 @@ public class EnemyPatrol : MonoBehaviour
 
     public void Chase()
     {
-            Debug.Log("Chasing");
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
     }
 

@@ -10,11 +10,17 @@ public class ZmHealth : MonoBehaviour
     public float zmCurrentHealth;
     public Slider enemySlider;
 
+    private Currency currency;
+    private GameObject _currency;
+
     private bool zmDead;
 
     // Start is called before the first frame update
     void Start()
     {
+        _currency = GameObject.FindWithTag("GameManager");
+        currency = _currency.GetComponent<Currency>();
+        
         zmCurrentHealth = zmMaxHealth;
         enemySlider.maxValue = zmMaxHealth;
     }
@@ -23,7 +29,6 @@ public class ZmHealth : MonoBehaviour
     {
         enemySlider.value = zmCurrentHealth;
         
-       
     }
 
     public void ZMTakeDamage(float zmAmount)
@@ -44,6 +49,8 @@ public class ZmHealth : MonoBehaviour
 
                 GetComponent<EnemyPatrol>().enabled = false;
                 zmDead = true;
+                currency.count += currency.currencyGain;
+                PlayerPrefs.SetInt("amount", currency.count);
                 //gameObject.SetActive(false);
                 Destroy(gameObject);
             }
