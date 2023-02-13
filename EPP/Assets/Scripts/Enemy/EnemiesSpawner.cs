@@ -34,7 +34,7 @@ public class EnemiesSpawner : MonoBehaviour
             yvalue = Random.Range(2, 2);
 
             //spawn an enemy with the generated values
-            Instantiate(EnemySpawner, new Vector2(xvalue, yvalue), _player.transform.rotation);
+            Instantiate(EnemySpawner, new Vector2(xvalue, yvalue), transform.rotation);
 
             //reset
             EnemyKilled = false;

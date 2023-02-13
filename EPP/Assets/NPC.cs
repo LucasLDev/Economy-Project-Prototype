@@ -25,11 +25,9 @@ public class NPC : MonoBehaviour
     {
          if (GameObject.FindWithTag("Zombie") == null)
         {
-            Debug.Log("zombie not spawned");
             zombiesSpawned = false;
 
         } else if (GameObject.FindWithTag("Zombie") != null) {
-            Debug.Log("zombie spawned");
             zombiesSpawned = true;
         }
     }
@@ -49,13 +47,16 @@ public class NPC : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (zombiesSpawned == false)
+        {
+            Debug.Log("Press F to Talk");
+        }
         
-        Debug.Log("Press F to Talk");
     }
 
     public void EnemySpawn()
     {
-        for(int i = 0; i<10; i++)
+        for(int i = 0; i<numberOfZombies; i++)
         {
             zombiesSpawned = true;
 

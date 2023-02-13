@@ -29,10 +29,11 @@ public class EnemyPatrol : MonoBehaviour
         
     }*/
 
-    public GameObject player;
+    private GameObject player;
     //public GameObject safeZone;
 
-    public ZoneCheck _zone;
+    private ZoneCheck _zone;
+    private GameObject zoneTrigger;
 
     [SerializeField] private float damage;
 
@@ -48,12 +49,21 @@ public class EnemyPatrol : MonoBehaviour
     public Transform[] moveSpots;
     private int randomSpot;
 
+
+    public bool inZone;
+
     
 
     void Start()
     {
-        _zone.inZone = false;
+       // _zone = GameObject.FindWithTag("Trigger");
+       // _zone.GetComponent<ZoneCheck>();
+       zoneTrigger = GameObject.FindWithTag("Trigger");
+       _zone = zoneTrigger.GetComponent<ZoneCheck>();
+        player = GameObject.FindWithTag("Player");
+        _zone.inZone = true;
         patrol = true;
+        chase = false;
         waitTime = startWaitTime;
         randomSpot = Random.Range(0, moveSpots.Length);
     }
@@ -65,39 +75,39 @@ public class EnemyPatrol : MonoBehaviour
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
 
-        if (_zone.inZone == true)
-        {
-            chase = false;
-            Debug.Log("ChaseOff");
-            patrol = true;
-        }
-
-       if(distance < range & _zone.inZone == false)
+         if(distance < range && _zone.inZone == false)
        {
             chase = true;
-            patrol = false;
-       } else {
+
+       }    else   {
+
+            patrol = true;
+       }
+
+       if(_zone.inZone == true)
+       {
             patrol = true;
             chase = false;
        }
-        
 
-        if (chase == true)
-        {
+       if (chase == true)
+       {
             patrol = false;
             Chase();
-        } else if (patrol == true)
-        {
+
+       }    else if (patrol == true)   {
+
             chase = false;
             Patrol();
-        }
+       }
+        
         
     }
 
 
     public void Patrol()
     {
-    
+    Debug.Log("Patrolling");
         transform.position = Vector2.MoveTowards(transform.position, moveSpots[randomSpot].position, speed * Time.deltaTime);
 
             if(Vector2.Distance(transform.position, moveSpots[randomSpot].position) < 0.2f)
@@ -114,6 +124,7 @@ public class EnemyPatrol : MonoBehaviour
 
     public void Chase()
     {
+            Debug.Log("Chasing");
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
     }
 

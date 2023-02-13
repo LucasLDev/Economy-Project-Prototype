@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8548541264820739925}
   - component: {fileID: 8548541264820739926}
-  - component: {fileID: 8548541264820739927}
+  - component: {fileID: -6287240454624695474}
   m_Layer: 0
   m_Name: ZoneTrigger
   m_TagString: Untagged
@@ -59,7 +59,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6.085926, y: 6.989853}
   m_EdgeRadius: 0
---- !u!114 &8548541264820739927
+--- !u!114 &-6287240454624695474
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,3 +72,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inZone: 0
+  _enemy: {fileID: 0}
