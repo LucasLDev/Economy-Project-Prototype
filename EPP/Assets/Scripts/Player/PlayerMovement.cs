@@ -9,10 +9,15 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public Camera cam;
 
-    public Animator animator;
+    private Animator animator;
 
     Vector2 movement;
     Vector2 mousePos;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -32,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
 
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
+
+
     }
 
     
