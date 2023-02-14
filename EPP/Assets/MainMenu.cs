@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public bool hasSave = false;
+    public GameObject information;
+    public GameObject controlsScreen;
+    public GameObject informationScreen;
    public void NewGame()
    {
         hasSave = true;
@@ -18,22 +21,40 @@ public class MainMenu : MonoBehaviour
    {
         if (hasSave != false)
         {
-            SceneManager.LoadScene("MainScene");
+          SceneManager.LoadScene("MainScene");
         }
    }
 
    public void DeleteSave()
    {
-        PlayerPrefs.DeleteAll();
+     PlayerPrefs.DeleteAll();
    }
 
-   public void Information()
-   {
-        SceneManager.LoadScene("Information");
-   }
 
    public void Quit()
    {
-        Application.Quit();
+     Application.Quit();
+   }
+
+   public void InformationMenu()
+   {
+     information.SetActive(true);
+   }
+
+   public void Controls()
+   {
+     controlsScreen.SetActive(true);
+   }
+
+   public void Info()
+   {
+     informationScreen.SetActive(true);
+   }
+
+   public void Back()
+   {
+     information.SetActive(false);
+     informationScreen.SetActive(false);
+     controlsScreen.SetActive(false);
    }
 }
