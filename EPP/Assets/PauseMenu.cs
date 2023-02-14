@@ -9,6 +9,9 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     public Currency currency;
 
+    public MainMenu mainMenu;
+
+
     // Update is called once per frame
     void Update()
     {
@@ -41,7 +44,11 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
+        mainMenu.hasSave = true;
+        SceneManager.LoadScene("MainMenu");
         Debug.Log("Loading menu...");
+        Time.timeScale = 1f;
+        GameIsPaused = false;
         //SceneManager.LoadScene("Menu");
     }
 
@@ -49,6 +56,7 @@ public class PauseMenu : MonoBehaviour
     {
         Debug.Log("Cleared Currency");
         PlayerPrefs.DeleteAll();
+        DeleteInt();
     }
 
     public void QuitGame()

@@ -17,6 +17,14 @@ public class StoreMenu : MonoBehaviour
 
     [Space]
 
+    public int maxUpgradedHealth = 15;
+    public int maxUpgradedDamage = 5;
+    public int maxUpgradedSpeed = 10;
+    public int maxUpgradedProjectile = 40;
+    public int maxUpgradedCurrency = 10;
+
+    [Space]
+
     public TMP_Text healthCostText;
     public TMP_Text damageCostText;
     public TMP_Text speedCostText;
@@ -52,6 +60,7 @@ public class StoreMenu : MonoBehaviour
         movement.moveSpeed = PlayerPrefs.GetInt("speedValue", movement.moveSpeed);
         shooting.bulletForce = PlayerPrefs.GetFloat("projectileValue", shooting.bulletForce);
         currency.currencyGain = PlayerPrefs.GetInt("currencyGainValue", currency.currencyGain);
+        currency.count = PlayerPrefs.GetInt("amount", currency.count);
 
     }
 
@@ -81,6 +90,7 @@ public class StoreMenu : MonoBehaviour
 
     public void Store()
     {
+        
         healthBar.SetActive(false);
         currencyDisplay.SetActive(false);
         storeMenuUI.SetActive(true);
@@ -99,13 +109,14 @@ public class StoreMenu : MonoBehaviour
 
     public void HealthIncrease()
     {
-        if (currency.count >= healthCost)
+        if (currency.count >= healthCost && health.maxHealth < maxUpgradedHealth)
         {
             health.maxHealth++;
             PlayerPrefs.SetInt("healthValue", health.maxHealth);
             health.playerHealth.maxValue = health.maxHealth;
             //health.currentHealth = health.maxHealth;
             currency.count -= healthCost;
+            PlayerPrefs.SetInt("amount", currency.count);
             healthCost += healthCost * 1/2;
             
             Debug.Log("Health Increased");
@@ -115,11 +126,12 @@ public class StoreMenu : MonoBehaviour
 
     public void DamageIncrease()
     {
-        if (currency.count >= damageCost)
+        if (currency.count >= damageCost && health.playerDamage < maxUpgradedDamage)
         {
             health.playerDamage++;
             PlayerPrefs.SetFloat("damageValue", health.playerDamage);
             currency.count -= damageCost;
+            PlayerPrefs.SetInt("amount", currency.count);
             damageCost += damageCost * 1/2;
             Debug.Log("Damage Increased");
         }
@@ -128,10 +140,11 @@ public class StoreMenu : MonoBehaviour
 
     public void SpeedIncrease()
     {
-        if (currency.count >= speedCost)
+        if (currency.count >= speedCost && movement.moveSpeed < maxUpgradedSpeed)
         {
             movement.moveSpeed++;
             currency.count -= speedCost;
+            PlayerPrefs.SetInt("amount", currency.count);
             speedCost += speedCost * 1/2;
             PlayerPrefs.SetInt("speedValue", movement.moveSpeed);
             Debug.Log("Speed Increased");
@@ -141,10 +154,11 @@ public class StoreMenu : MonoBehaviour
 
     public void ProjectileSpeedIncrease()
     {
-        if (currency.count >= projectileCost)
+        if (currency.count >= projectileCost && shooting.bulletForce < maxUpgradedProjectile)
         {
             shooting.bulletForce++;
             currency.count -= projectileCost;
+            PlayerPrefs.SetInt("amount", currency.count);
             projectileCost += projectileCost * 1/2;
             PlayerPrefs.SetFloat("projectileValue", shooting.bulletForce);
             Debug.Log("Projectile Speed Increased");
@@ -154,10 +168,11 @@ public class StoreMenu : MonoBehaviour
 
     public void CurrencyGainIncrease()
     {
-        if (currency.count >= currencyCost)
+        if (currency.count >= currencyCost && currency.currencyGain < maxUpgradedCurrency)
         {
             currency.currencyGain++;
             currency.count -= currencyCost;
+            PlayerPrefs.SetInt("amount", currency.count);
             currencyCost += currencyCost * 1/2;
             PlayerPrefs.SetInt("currencyGainValue", currency.currencyGain);
             Debug.Log("Currency Gain Increased");

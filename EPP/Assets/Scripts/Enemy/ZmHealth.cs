@@ -12,6 +12,8 @@ public class ZmHealth : MonoBehaviour
 
     private Currency currency;
     private GameObject _currency;
+    private Health health;
+    private GameObject _health;
 
     private bool zmDead;
 
@@ -20,7 +22,11 @@ public class ZmHealth : MonoBehaviour
     {
         _currency = GameObject.FindWithTag("GameManager");
         currency = _currency.GetComponent<Currency>();
-        
+
+        _health = GameObject.FindWithTag("Player");
+        health = _health.GetComponent<Health>();
+
+        zmMaxHealth += health.maxHealth * 9/10;
         zmCurrentHealth = zmMaxHealth;
         enemySlider.maxValue = zmMaxHealth;
     }

@@ -6,12 +6,19 @@ public class Bullet : MonoBehaviour
 {
 
     public GameObject hitEffect;
-    public float bulletDamage;
+    private Health pHealth;
+    private GameObject _pHealth;
+
+    void Start()
+    {
+        _pHealth = GameObject.FindWithTag("Player");
+        pHealth = _pHealth.GetComponent<Health>();
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-        Destroy(effect, 5f);
+        Destroy(effect, 3f);
         Destroy(gameObject);
 
     }
@@ -21,7 +28,7 @@ public class Bullet : MonoBehaviour
         if (collision.tag == "Zombie")
         {
             //Debug.Log("hit");
-            collision.GetComponent<ZmHealth>().ZMTakeDamage(bulletDamage);
+            collision.GetComponent<ZmHealth>().ZMTakeDamage(pHealth.playerDamage);
         }
     }
 }
