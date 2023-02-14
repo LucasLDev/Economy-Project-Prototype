@@ -5,11 +5,14 @@ using TMPro;
 
 public class PlayerStats : MonoBehaviour
 {
+    [Space]
     public Health _health;
     public PlayerMovement _movement;
     public Shooting _shooting;
     public Currency _currency;
 
+    [Space]
+    
     public TMP_Text healthStat;
     public TMP_Text dmgStat;
     public TMP_Text speedStat;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
@@ -10,10 +11,18 @@ public class Health : MonoBehaviour
     public float currentHealth;
 
     private bool dead;
+
+    public Slider playerHealth;
  
     void Start()
     {
         currentHealth = maxHealth;
+        playerHealth.maxValue = maxHealth;
+    }
+
+    void Update()
+    {
+        playerHealth.value = currentHealth;
     }
 
     public void TakeDamage(float amount)
