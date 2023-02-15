@@ -27,7 +27,8 @@ public class MainMenu : MonoBehaviour
 
    public void DeleteSave()
    {
-     PlayerPrefs.DeleteAll();
+      hasSave = false;
+      PlayerPrefs.DeleteAll();
    }
 
 

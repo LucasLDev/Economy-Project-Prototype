@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public int moveSpeed = 4;
     
+    
 
     public Rigidbody2D rb;
     public Camera cam;
@@ -17,12 +18,20 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        
         animator = GetComponent<Animator>();
+        animator.SetBool("move", false);
     }
 
     void Update()
     {
         //input
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            animator.SetBool("move", true);
+        } else {
+            animator.SetBool("move", false);
+        }
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
