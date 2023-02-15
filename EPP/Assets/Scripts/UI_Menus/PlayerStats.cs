@@ -31,5 +31,6 @@ public class PlayerStats : MonoBehaviour
          speedStat.SetText("" + _movement.moveSpeed);
          projectileSpeedStat.SetText("" + _shooting.bulletForce);
          currencyGainStat.SetText("" + _currency.currencyGain);
+
     }
 }
