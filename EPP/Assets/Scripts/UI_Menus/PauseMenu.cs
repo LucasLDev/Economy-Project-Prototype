@@ -5,10 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    [Space]
     public static bool GameIsPaused = false;
+    [Space]
     public GameObject pauseMenuUI;
+    public GameObject healthBar;
+    public GameObject currencyDisplay;
+    [Space]
     public Currency currency;
-
+    public Health _health;
     public MainMenu mainMenu;
 
 
@@ -31,6 +36,8 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+        healthBar.SetActive(true);
+        currencyDisplay.SetActive(true);
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
@@ -38,6 +45,8 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
         pauseMenuUI.SetActive(true);
+        healthBar.SetActive(false);
+        currencyDisplay.SetActive(false);
         Time.timeScale = 0f;
         GameIsPaused = true;
     }

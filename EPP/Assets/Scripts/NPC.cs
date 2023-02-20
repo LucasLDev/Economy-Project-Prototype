@@ -8,6 +8,7 @@ public class NPC : MonoBehaviour
     [SerializeField] private GameObject player;
 
     public ZmHealth _zmhealth;
+    public GameObject interact;
 
     public bool zombiesSpawned;
 
@@ -35,8 +36,11 @@ public class NPC : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
+        interact.SetActive(true);
+
         if (collision.tag == "Player" && Input.GetKeyDown(KeyCode.F) && zombiesSpawned == false)
         {
+            
             //Talk to NPC
             //Choose if accept or decline
             zombiesSpawned = true;
@@ -45,13 +49,9 @@ public class NPC : MonoBehaviour
         } 
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D collision)
     {
-        if (zombiesSpawned == false)
-        {
-            Debug.Log("Press F to Talk");
-        }
-        
+        interact.SetActive(false); 
     }
 
     public void EnemySpawn()
