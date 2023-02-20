@@ -10,6 +10,8 @@ public class Health : MonoBehaviour
     public int maxHealth = 3;
     public float currentHealth;
 
+    [SerializeField] private float zombieDamage;
+
     private bool dead;
 
     public Slider playerHealth;
@@ -47,6 +49,15 @@ public class Health : MonoBehaviour
             }
         }
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Zombie")
+        {
+            //collision.GetComponent<Health>().
+            TakeDamage(zombieDamage);
+        }
     }
 
     public void AddHealth(float _value)

@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 7009763900266127133}
   - component: {fileID: 7866122822188526196}
   - component: {fileID: 7866122822188526197}
+  - component: {fileID: 3417999711144717641}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -62,7 +63,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7866122822188526223}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2568, y: -1.9221, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4831013, y: 0.4831013, z: 0.4831013}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -158,7 +159,6 @@ MonoBehaviour:
   moveSpeed: 4
   rb: {fileID: 7866122822188526219}
   cam: {fileID: 0}
-  animator: {fileID: 7866122822188526196}
 --- !u!114 &7009763900266127134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +189,8 @@ MonoBehaviour:
   playerDamage: 1
   maxHealth: 5
   currentHealth: 0
+  zombieDamage: 0
+  playerHealth: {fileID: 0}
 --- !u!95 &7866122822188526196
 Animator:
   serializedVersion: 4
@@ -234,4 +236,30 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 1.600615, y: 1.2155405}
+  m_EdgeRadius: 0
+--- !u!61 &3417999711144717641
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7866122822188526223}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.020406127, y: -0.1581493}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.53, y: 2.16}
+    newSize: {x: 0.8, y: 1.1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.55}
   m_EdgeRadius: 0

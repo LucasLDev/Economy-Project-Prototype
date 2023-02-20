@@ -35,7 +35,7 @@ public class EnemyPatrol : MonoBehaviour
     private ZoneCheck _zone;
     private GameObject zoneTrigger;
 
-    [SerializeField] private float damage;
+    //[SerializeField] private float damage;
 
     public bool chase;
     public bool patrol;
@@ -126,12 +126,12 @@ public class EnemyPatrol : MonoBehaviour
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
             collision.GetComponent<Health>().TakeDamage(damage);
         }
-    }
+    }*/
         
 }

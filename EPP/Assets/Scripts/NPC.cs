@@ -9,6 +9,7 @@ public class NPC : MonoBehaviour
 
     public ZmHealth _zmhealth;
     public GameObject interact;
+    public GameObject interactor;
 
     public bool zombiesSpawned;
 
@@ -20,6 +21,7 @@ public class NPC : MonoBehaviour
     void Start()
     {
         zombiesSpawned = false;
+        interactor.SetActive(true);
     }
 
     void Update()
@@ -27,9 +29,11 @@ public class NPC : MonoBehaviour
          if (GameObject.FindWithTag("Zombie") == null)
         {
             zombiesSpawned = false;
+            interactor.SetActive(true);
 
         } else if (GameObject.FindWithTag("Zombie") != null) {
             zombiesSpawned = true;
+            interactor.SetActive(false);
         }
     }
 

@@ -8,8 +8,8 @@ public class DeathMenu : MonoBehaviour
     public MainMenu _mainmenu;
   public void ToMenu()
   {
-    _mainmenu.hasSave = false;
-    PlayerPrefs.DeleteAll();
+    //_mainmenu.hasSave = false;
+    //PlayerPrefs.DeleteAll();
     SceneManager.LoadScene("MainMenu");
   }
 

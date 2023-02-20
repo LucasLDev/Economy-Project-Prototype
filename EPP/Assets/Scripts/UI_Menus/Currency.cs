@@ -12,12 +12,12 @@ public class Currency : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        count = PlayerPrefs.GetInt("amount");
+        //count = PlayerPrefs.GetInt("amount");
     }
 
     // Update is called once per frame
     void Update()
     {
-        currencyAmount.SetText("Currency: " + count);
+        currencyAmount.SetText("Fuel Cans: " + count);
     }
 }

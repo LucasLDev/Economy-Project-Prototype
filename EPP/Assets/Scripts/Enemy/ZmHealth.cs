@@ -56,7 +56,7 @@ public class ZmHealth : MonoBehaviour
                 GetComponent<EnemyPatrol>().enabled = false;
                 zmDead = true;
                 currency.count += currency.currencyGain;
-                PlayerPrefs.SetInt("amount", currency.count);
+                //PlayerPrefs.SetInt("amount", currency.count);
                 //gameObject.SetActive(false);
                 Destroy(gameObject);
             }

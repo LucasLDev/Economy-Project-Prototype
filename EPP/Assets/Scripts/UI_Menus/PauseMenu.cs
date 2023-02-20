@@ -16,8 +16,6 @@ public class PauseMenu : MonoBehaviour
     public Health _health;
     public MainMenu mainMenu;
 
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -53,7 +51,7 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
-        mainMenu.hasSave = true;
+        //mainMenu.hasSave = true;
         PlayerPrefs.Save();
         SceneManager.LoadScene("MainMenu");
         Debug.Log("Loading menu...");
@@ -62,21 +60,10 @@ public class PauseMenu : MonoBehaviour
         //SceneManager.LoadScene("Menu");
     }
 
-    public void ClearProgress()
-    {
-        Debug.Log("Cleared Currency");
-        PlayerPrefs.DeleteAll();
-        DeleteInt();
-    }
-
     public void QuitGame()
     {
         Debug.Log("Quitting Game ...");
         Application.Quit();
     }
 
-    public void DeleteInt()
-    {
-        PlayerPrefs.DeleteKey("amount");
-    }
 }
