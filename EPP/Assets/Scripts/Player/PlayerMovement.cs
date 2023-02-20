@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public int moveSpeed = 4;
+    public GameManager gameManager;
     
-    
-
     public Rigidbody2D rb;
     public Camera cam;
 
@@ -41,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         //movement
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * gameManager.playerMoveSpeed * Time.fixedDeltaTime);
 
         Vector2 lookDir = mousePos - rb.position;
 

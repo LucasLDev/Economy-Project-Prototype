@@ -7,20 +7,16 @@ public class NPC : MonoBehaviour
     [SerializeField] private GameObject zombie;
     [SerializeField] private GameObject player;
 
-    public ZmHealth _zmhealth;
+    public GameManager gameManager;
     public GameObject interact;
     public GameObject interactor;
 
-    public bool zombiesSpawned;
-
-
-    public int numberOfZombies;
     int xvalue;
     int yvalue;
 
     void Start()
     {
-        zombiesSpawned = false;
+        gameManager.zombiesSpawned = false;
         interactor.SetActive(true);
     }
 
@@ -28,11 +24,11 @@ public class NPC : MonoBehaviour
     {
          if (GameObject.FindWithTag("Zombie") == null)
         {
-            zombiesSpawned = false;
+            gameManager.zombiesSpawned = false;
             interactor.SetActive(true);
 
         } else if (GameObject.FindWithTag("Zombie") != null) {
-            zombiesSpawned = true;
+            gameManager.zombiesSpawned = true;
             interactor.SetActive(false);
         }
     }
@@ -42,12 +38,12 @@ public class NPC : MonoBehaviour
     {
         interact.SetActive(true);
 
-        if (collision.tag == "Player" && Input.GetKeyDown(KeyCode.F) && zombiesSpawned == false)
+        if (collision.tag == "Player" && Input.GetKeyDown(KeyCode.F) && gameManager.zombiesSpawned == false)
         {
             
             //Talk to NPC
             //Choose if accept or decline
-            zombiesSpawned = true;
+            gameManager.zombiesSpawned = true;
             EnemySpawn();
             Debug.Log("Zombies Spawned");
         } 
@@ -60,9 +56,9 @@ public class NPC : MonoBehaviour
 
     public void EnemySpawn()
     {
-        for(int i = 0; i<numberOfZombies; i++)
+        for(int i = 0; i<gameManager.numberOfZombies; i++)
         {
-            zombiesSpawned = true;
+            gameManager.zombiesSpawned = true;
 
             xvalue = Random.Range(-13, 4);
             yvalue = Random.Range(-5, 6);
@@ -71,7 +67,7 @@ public class NPC : MonoBehaviour
 
             zombie.SetActive(true);
 
-            _zmhealth.zmCurrentHealth = _zmhealth.zmMaxHealth;
+            gameManager.zombieCurrentHealth = gameManager.zombieMaxHealth;
         }
         
         

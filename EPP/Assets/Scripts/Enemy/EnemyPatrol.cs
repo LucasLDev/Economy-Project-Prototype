@@ -31,20 +31,13 @@ public class EnemyPatrol : MonoBehaviour
 
     private GameObject player;
     //public GameObject safeZone;
-
+    public GameManager gameManager;
     private ZoneCheck _zone;
     private GameObject zoneTrigger;
 
     //[SerializeField] private float damage;
 
-    public bool chase;
-    public bool patrol;
-
-    public float speed;
-    public float range;
     private float distance;
-    private float waitTime;
-    public float startWaitTime;
 
     public Transform[] moveSpots;
     private int randomSpot;
@@ -62,9 +55,9 @@ public class EnemyPatrol : MonoBehaviour
        _zone = zoneTrigger.GetComponent<ZoneCheck>();
         player = GameObject.FindWithTag("Player");
         _zone.inZone = true;
-        patrol = true;
-        chase = false;
-        waitTime = startWaitTime;
+        gameManager.zombiePatrolling = true;
+        gameManager.zombieChasing = false;
+        gameManager.waitTime = gameManager.startWaitTime;
         randomSpot = Random.Range(0, moveSpots.Length);
     }
 
@@ -75,29 +68,29 @@ public class EnemyPatrol : MonoBehaviour
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
 
-         if(distance < range && _zone.inZone == false)
+         if(distance < gameManager.zombieChaseRange && _zone.inZone == false)
        {
-            chase = true;
+            gameManager.zombieChasing = true;
 
        }    else   {
 
-            patrol = true;
+            gameManager.zombiePatrolling = true;
        }
 
        if(_zone.inZone == true)
        {
-            patrol = true;
-            chase = false;
+            gameManager.zombiePatrolling = true;
+            gameManager.zombieChasing = false;
        }
 
-       if (chase == true)
+       if (gameManager.zombieChasing == true)
        {
-            patrol = false;
+            gameManager.zombiePatrolling = false;
             Chase();
 
-       }    else if (patrol == true)   {
+       }    else if (gameManager.zombiePatrolling == true)   {
 
-            chase = false;
+            gameManager.zombieChasing = false;
             Patrol();
        }
         
@@ -107,23 +100,23 @@ public class EnemyPatrol : MonoBehaviour
 
     public void Patrol()
     {
-        transform.position = Vector2.MoveTowards(transform.position, moveSpots[randomSpot].position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, moveSpots[randomSpot].position, gameManager.zombieSpeed * Time.deltaTime);
 
             if(Vector2.Distance(transform.position, moveSpots[randomSpot].position) < 0.2f)
             {
-                if(waitTime <= 0)
+                if(gameManager.waitTime <= 0)
                 {
                     randomSpot = Random.Range(0, moveSpots.Length);
-                    waitTime = startWaitTime;
+                    gameManager.waitTime = gameManager.startWaitTime;
                 } else{
-                    waitTime -= Time.deltaTime;
+                    gameManager.waitTime -= Time.deltaTime;
                 }
             }
     }
 
     public void Chase()
     {
-        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, gameManager.zombieSpeed * Time.deltaTime);
     }
 
     /*private void OnTriggerEnter2D(Collider2D collision)

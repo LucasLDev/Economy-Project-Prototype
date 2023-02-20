@@ -5,31 +5,6 @@ using TMPro;
 
 public class StoreMenu : MonoBehaviour
 {
-    public static bool storeEnabled = false;
-
-    [Space]
-
-    public int healthCost = 50;
-    public int damageCost = 100;
-    public int speedCost = 150;
-    public int projectileCost = 25;
-    public int currencyCost = 75;
-
-    [Space]
-
-    public int maxUpgradedHealth = 15;
-    public int maxUpgradedDamage = 5;
-    public int maxUpgradedSpeed = 10;
-    public int maxUpgradedProjectile = 40;
-    public int maxUpgradedCurrency = 10;
-
-    [Space]
-
-    public TMP_Text healthCostText;
-    public TMP_Text damageCostText;
-    public TMP_Text speedCostText;
-    public TMP_Text projectileCostText;
-    public TMP_Text currencyCostText;
 
     [Space]
 
@@ -39,9 +14,7 @@ public class StoreMenu : MonoBehaviour
 
     [Space]
 
-    public Health health;
-    public PlayerMovement movement;
-    public Shooting shooting;
+    public GameManager gameManager;
     public Currency currency;
 
     [Space]
@@ -52,39 +25,17 @@ public class StoreMenu : MonoBehaviour
 
     void Start()
     {
-        _currency = GameObject.FindWithTag("GameManager");
-        currency = _currency.GetComponent<Currency>();
-
-        /*health.maxHealth = PlayerPrefs.GetInt("healthValue", health.maxHealth);
-        health.playerDamage = PlayerPrefs.GetFloat("damageValue", health.playerDamage);
-        movement.moveSpeed = PlayerPrefs.GetInt("speedValue", movement.moveSpeed);
-        shooting.bulletForce = PlayerPrefs.GetFloat("projectileValue", shooting.bulletForce);
-        currency.currencyGain = PlayerPrefs.GetInt("currencyGainValue", currency.currencyGain);
-        currency.count = PlayerPrefs.GetInt("amount", currency.count);
-
-        healthCost = PlayerPrefs.GetInt("healthAmount", healthCost);
-        damageCost = PlayerPrefs.GetInt("damageAmount", damageCost);
-        speedCost = PlayerPrefs.GetInt("speedAmount", speedCost);
-        projectileCost = PlayerPrefs.GetInt("projectileAmount", projectileCost);
-        currencyCost = PlayerPrefs.GetInt("currencyCostAmount", currencyCost);*/
 
     }
 
 
     void Update()
     {
-        healthCostText.SetText("" + healthCost);
-        damageCostText.SetText("" + damageCost);
-        speedCostText.SetText("" + speedCost);
-        projectileCostText.SetText("" + projectileCost);
-        currencyCostText.SetText("" + currencyCost);
-        currencyAmount.SetText("" + currency.count);
         
-        //PlayerPrefs.SetInt("amount", currency.count);
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if(storeEnabled)
+            if(gameManager.storeEnabled)
             {
                 StoreOff();
             } else 
@@ -101,7 +52,7 @@ public class StoreMenu : MonoBehaviour
         currencyDisplay.SetActive(false);
         storeMenuUI.SetActive(true);
         Time.timeScale = 0f;
-        storeEnabled = true;
+        gameManager.storeEnabled = true;
     }
 
     public void StoreOff()
@@ -110,21 +61,21 @@ public class StoreMenu : MonoBehaviour
         currencyDisplay.SetActive(true);
         storeMenuUI.SetActive(false);
         Time.timeScale = 1f;
-        storeEnabled = false;
+        gameManager.storeEnabled = false;
     }
 
     public void HealthIncrease()
     {
-        if (currency.count >= healthCost && health.maxHealth < maxUpgradedHealth)
+        if (gameManager.currentFuel >= gameManager.healthCost && gameManager.playerMaxHealth < gameManager.maxUpgradedHealth)
         {
-            health.maxHealth++;
-            //PlayerPrefs.SetInt("healthValue", health.maxHealth);
-            health.playerHealth.maxValue = health.maxHealth;
-            //health.currentHealth = health.maxHealth;
-            currency.count -= healthCost;
-            //PlayerPrefs.SetInt("amount", currency.count);
-            healthCost += healthCost * 1/2;
-            //PlayerPrefs.SetInt("healthAmount", healthCost);
+            gameManager.playerMaxHealth++;
+            
+            gameManager.playerHealthBar.maxValue = gameManager.playerMaxHealth;
+            
+            gameManager.currentFuel -= gameManager.healthCost;
+            
+            gameManager.healthCost += gameManager.healthCost * 1/2;
+            
             
             Debug.Log("Health Increased");
         }
@@ -133,14 +84,14 @@ public class StoreMenu : MonoBehaviour
 
     public void DamageIncrease()
     {
-        if (currency.count >= damageCost && health.playerDamage < maxUpgradedDamage)
+        if (gameManager.currentFuel >= gameManager.damageCost && gameManager.playerDamage < gameManager.maxUpgradedDamage)
         {
-            health.playerDamage++;
-            //PlayerPrefs.SetFloat("damageValue", health.playerDamage);
-            currency.count -= damageCost;
-            //PlayerPrefs.SetInt("amount", currency.count);
-            damageCost += damageCost * 1/2;
-            //PlayerPrefs.SetInt("damageAmount", damageCost);
+            gameManager.playerDamage++;
+            
+            gameManager.currentFuel -= gameManager.damageCost;
+            
+            gameManager.damageCost += gameManager.damageCost * 1/2;
+            
             Debug.Log("Damage Increased");
         }
         
@@ -148,14 +99,14 @@ public class StoreMenu : MonoBehaviour
 
     public void SpeedIncrease()
     {
-        if (currency.count >= speedCost && movement.moveSpeed < maxUpgradedSpeed)
+        if (gameManager.currentFuel >= gameManager.speedCost && gameManager.playerMoveSpeed < gameManager.maxUpgradedSpeed)
         {
-            movement.moveSpeed++;
-            //PlayerPrefs.SetInt("speedValue", movement.moveSpeed);
-            currency.count -= speedCost;
-            //PlayerPrefs.SetInt("amount", currency.count);
-            speedCost += speedCost * 1/2;
-            //PlayerPrefs.SetInt("speedAmount", speedCost);
+            gameManager.playerMoveSpeed++;
+            
+            gameManager.currentFuel -= gameManager.speedCost;
+            
+            gameManager.speedCost += gameManager.speedCost * 1/2;
+            
             Debug.Log("Speed Increased");
         }
         
@@ -163,14 +114,14 @@ public class StoreMenu : MonoBehaviour
 
     public void ProjectileSpeedIncrease()
     {
-        if (currency.count >= projectileCost && shooting.bulletForce < maxUpgradedProjectile)
+        if (gameManager.currentFuel >= gameManager.fuelCost && gameManager.projectileSpeed < gameManager.maxUpgradedProjectile)
         {
-            shooting.bulletForce++;
-            //PlayerPrefs.SetFloat("projectileValue", shooting.bulletForce);
-            currency.count -= projectileCost;
-            //PlayerPrefs.SetInt("amount", currency.count);
-            projectileCost += projectileCost * 1/2;
-            //PlayerPrefs.SetInt("projectileAmount", projectileCost);
+            gameManager.projectileSpeed++;
+            
+            gameManager.currentFuel -= gameManager.projectileCost;
+            
+            gameManager.projectileCost += gameManager.projectileCost * 1/2;
+            
             Debug.Log("Projectile Speed Increased");
         }
         
@@ -178,23 +129,18 @@ public class StoreMenu : MonoBehaviour
 
     public void CurrencyGainIncrease()
     {
-        if (currency.count >= currencyCost && currency.currencyGain < maxUpgradedCurrency)
+        if (gameManager.currentFuel >= gameManager.fuelCost && currency.currencyGain < gameManager.maxUpgradedFuel)
         {
-            currency.currencyGain++;
-            //PlayerPrefs.SetInt("currencyGainValue", currency.currencyGain);
-            currency.count -= currencyCost;
-            //PlayerPrefs.SetInt("amount", currency.count);
-            currencyCost += currencyCost * 1/2;
-            //PlayerPrefs.SetInt("currencCostAmount", currencyCost);
+            gameManager.fuelGain++;
+            
+            gameManager.currentFuel -= gameManager.fuelCost;
+            
+            gameManager.fuelCost += gameManager.fuelCost * 1/2;
+            
             Debug.Log("Currency Gain Increased");
         }
         
     }
 
-    /*public void Save()
-    {
-        SaveSystem.Save(this);
-        Debug.Log("Saved Data");
-    }*/
 
 }

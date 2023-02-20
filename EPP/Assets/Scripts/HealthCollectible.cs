@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class HealthCollectible : MonoBehaviour
 {
-   [SerializeField] private float healthValue;
-   public Health _health;
+   public GameManager gameManager;
 
    private void OnTriggerEnter2D(Collider2D collision)
    {
-        if (collision.tag == "Player" && _health.currentHealth != _health.maxHealth)
+        if (collision.tag == "Player" && gameManager.playerCurrentHealth != gameManager.playerMaxHealth)
         {
-            collision.GetComponent<Health>().AddHealth(healthValue);
+            collision.GetComponent<Health>().AddHealth(gameManager.medkitPotency);
             gameObject.SetActive(false);
         }
    }

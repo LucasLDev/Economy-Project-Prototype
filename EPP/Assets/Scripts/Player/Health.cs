@@ -6,32 +6,14 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public float playerDamage = 1;
-    public int maxHealth = 3;
-    public float currentHealth;
-
-    [SerializeField] private float zombieDamage;
-
     private bool dead;
+    public GameManager gameManager;
 
-    public Slider playerHealth;
- 
-    void Start()
+    public void TakeDamage(int amount)
     {
-        currentHealth = maxHealth;
-        playerHealth.maxValue = maxHealth;
-    }
+        gameManager.playerCurrentHealth = Mathf.Clamp(gameManager.playerCurrentHealth - amount, 0, gameManager.playerMaxHealth);
 
-    void Update()
-    {
-        playerHealth.value = currentHealth;
-    }
-
-    public void TakeDamage(float amount)
-    {
-        currentHealth = Mathf.Clamp(currentHealth - amount, 0, maxHealth);
-
-        if(currentHealth > 0)
+        if(gameManager.playerCurrentHealth > 0)
         {
             //hurt
         }
@@ -56,13 +38,13 @@ public class Health : MonoBehaviour
         if (collision.tag == "Zombie")
         {
             //collision.GetComponent<Health>().
-            TakeDamage(zombieDamage);
+            TakeDamage(gameManager.zombieDamage);
         }
     }
 
-    public void AddHealth(float _value)
+    public void AddHealth(int _value)
     {
-        currentHealth = Mathf.Clamp(currentHealth + _value, 0, maxHealth);
+        gameManager.playerCurrentHealth = Mathf.Clamp(gameManager.playerCurrentHealth + _value, 0, gameManager.playerMaxHealth);
     }
 
     /*private void Update()
