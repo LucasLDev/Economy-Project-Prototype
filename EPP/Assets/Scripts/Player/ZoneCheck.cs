@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class ZoneCheck : MonoBehaviour
 {
-    public bool inZone;
+    private GameManager gameManager;
+    private GameObject _gameManager;
+    void Start()
+    {
+        _gameManager = GameObject.FindWithTag("GameManager");
+        gameManager = _gameManager.GetComponent<GameManager>();
+    }
 
     public void OnTriggerStay2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            inZone = true;
+             gameManager.inSafeZone = true;
         } 
         
 
@@ -21,7 +27,7 @@ public class ZoneCheck : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            inZone = false;
+            gameManager.inSafeZone = false;
         }
         
     }

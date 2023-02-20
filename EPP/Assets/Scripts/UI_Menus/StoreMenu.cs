@@ -15,18 +15,9 @@ public class StoreMenu : MonoBehaviour
     [Space]
 
     public GameManager gameManager;
-    public Currency currency;
 
-    [Space]
-
-    private GameObject _currency;
     [Space]
     public TMP_Text currencyAmount;
-
-    void Start()
-    {
-
-    }
 
 
     void Update()
@@ -38,7 +29,7 @@ public class StoreMenu : MonoBehaviour
             if(gameManager.storeEnabled)
             {
                 StoreOff();
-            } else 
+            } else if (gameManager.gameIsPaused == false)
             {
                 Store();
             }
@@ -69,6 +60,8 @@ public class StoreMenu : MonoBehaviour
         if (gameManager.currentFuel >= gameManager.healthCost && gameManager.playerMaxHealth < gameManager.maxUpgradedHealth)
         {
             gameManager.playerMaxHealth++;
+
+            gameManager.zombieMaxHealth += gameManager.playerMaxHealth/2;
             
             gameManager.playerHealthBar.maxValue = gameManager.playerMaxHealth;
             
@@ -129,9 +122,10 @@ public class StoreMenu : MonoBehaviour
 
     public void CurrencyGainIncrease()
     {
-        if (gameManager.currentFuel >= gameManager.fuelCost && currency.currencyGain < gameManager.maxUpgradedFuel)
+        if (gameManager.currentFuel >= gameManager.fuelCost && gameManager.minfuelGain < gameManager.maxUpgradedFuel)
         {
-            gameManager.fuelGain++;
+            gameManager.minfuelGain++;
+            gameManager.maxfuelGain++;
             
             gameManager.currentFuel -= gameManager.fuelCost;
             

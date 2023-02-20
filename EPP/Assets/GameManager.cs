@@ -8,6 +8,11 @@ public class GameManager : MonoBehaviour
 {
     [Space]
 
+    public bool gameIsPaused = false;
+    public bool storeEnabled = false;
+
+    [Space]
+
     [Header("Player")]
     public int playerMaxHealth = 5;
     public int playerCurrentHealth;
@@ -26,8 +31,6 @@ public class GameManager : MonoBehaviour
     [Header("Zombies")]
     public int numberOfZombies;
     public int zombieMaxHealth = 5;
-    public int zombieCurrentHealth;
-    public Slider ZombieHealthBar;
     public int zombieDamage = 1;
     public int zombieSpeed = 1;
     public int zombieChaseRange;
@@ -41,16 +44,14 @@ public class GameManager : MonoBehaviour
     [Space]
 
     public int currentFuel;
-    public int fuelGain;
+    public int minfuelGain;
+    public int maxfuelGain;
     public TMP_Text fuelAmount;
+    public TMP_Text fuelAmountStore;
 
     [Space]
 
     [Header("Store")]
-
-    [Space]
-
-    public bool storeEnabled;
 
     [Space]
 
@@ -90,25 +91,21 @@ public class GameManager : MonoBehaviour
         playerCurrentHealth = playerMaxHealth;
         playerHealthBar.maxValue = playerMaxHealth;
 
-        zombieMaxHealth += playerMaxHealth * 5/10;
-        zombieCurrentHealth = zombieMaxHealth;
-        ZombieHealthBar.maxValue = zombieMaxHealth;
-
         storeEnabled = false;
     }
 
     void Update()
     {
         playerHealthBar.value = playerCurrentHealth;
-        ZombieHealthBar.value = zombieCurrentHealth;
 
         fuelAmount.SetText("Fuel:" + currentFuel);
+        fuelAmountStore.SetText("Fuel:" + currentFuel);
 
         healthStat.SetText("" + playerMaxHealth);
         dmgStat.SetText("" + playerDamage);
         speedStat.SetText("" + playerMoveSpeed);
         projectileSpeedStat.SetText("" + projectileSpeed);
-        FuelGainStat.SetText("" + fuelGain);
+        FuelGainStat.SetText("" + minfuelGain);
 
         healthCostText.SetText("" + healthCost);
         damageCostText.SetText("" + damageCost);

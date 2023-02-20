@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f52be09887cd4754589761be72e60607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1731260696909543817, guid: 7b27c2c2f0dcb44488f6b16bdb9342f4, type: 3}
+  ZombieHealthBar: {fileID: 3110637401200652734}
 --- !u!114 &8786209973125955971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1993c4d65434e9a4890679515efe65e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1731260696909543817, guid: 7b27c2c2f0dcb44488f6b16bdb9342f4, type: 3}
   moveSpots:
   - {fileID: 3345568466739720474, guid: cdc52d391ae937a42a99cd6ad15243f9, type: 3}
   - {fileID: 6702420781260893227, guid: 421c126ebb390284ca3686dddec1d2e2, type: 3}
@@ -197,7 +196,6 @@ MonoBehaviour:
   - {fileID: 3577120093062864878, guid: 7da0c8513887be74b8504a0c9482bb40, type: 3}
   - {fileID: 6905172273576851504, guid: da8ae2b7b7183fb49b38ac41210288b6, type: 3}
   - {fileID: 3102077573721863274, guid: d8e4a51d4843e69409a0c9f73150fb51, type: 3}
-  inZone: 0
 --- !u!1 &2551384805412390364
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,3 +415,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1239124108762453093, guid: dd932b85b1b0a50489e802ce2b8c7f0a, type: 3}
   m_PrefabInstance: {fileID: 3990738942284415115}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3110637401200652734 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2038661481225367861, guid: dd932b85b1b0a50489e802ce2b8c7f0a, type: 3}
+  m_PrefabInstance: {fileID: 3990738942284415115}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

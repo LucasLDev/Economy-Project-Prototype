@@ -29,6 +29,7 @@ public class NPC : MonoBehaviour
 
         } else if (GameObject.FindWithTag("Zombie") != null) {
             gameManager.zombiesSpawned = true;
+            zombie.GetComponent<ZmHealth>();
             interactor.SetActive(false);
         }
     }
@@ -59,6 +60,7 @@ public class NPC : MonoBehaviour
         for(int i = 0; i<gameManager.numberOfZombies; i++)
         {
             gameManager.zombiesSpawned = true;
+            gameManager.zombiesDead = false;
 
             xvalue = Random.Range(-13, 4);
             yvalue = Random.Range(-5, 6);
@@ -66,8 +68,6 @@ public class NPC : MonoBehaviour
             Instantiate(zombie, new Vector2(xvalue, yvalue), transform.rotation);
 
             zombie.SetActive(true);
-
-            gameManager.zombieCurrentHealth = gameManager.zombieMaxHealth;
         }
         
         

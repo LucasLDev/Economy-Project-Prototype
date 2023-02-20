@@ -5,14 +5,32 @@ using UnityEngine.UI;
 
 public class ZmHealth : MonoBehaviour
 {
-    public GameManager gameManager;
+    private GameManager gameManager;
+    private GameObject _gameManager;
+    public int zombieCurrentHealth;
+    public Slider ZombieHealthBar;
+
+    void Start()
+    {
+        _gameManager = GameObject.FindWithTag("GameManager");
+        gameManager = _gameManager.GetComponent<GameManager>();
+
+        //gameManager.zombieMaxHealth += gameManager.playerMaxHealth * 8/10;
+        zombieCurrentHealth = gameManager.zombieMaxHealth;
+        ZombieHealthBar.maxValue = gameManager.zombieMaxHealth;
+    }
+
+    void Update()
+    {
+        ZombieHealthBar.value = zombieCurrentHealth;
+    }
 
 
     public void ZMTakeDamage(int zmAmount)
     {
-        gameManager.zombieCurrentHealth = Mathf.Clamp(gameManager.zombieCurrentHealth - zmAmount, 0, gameManager.zombieMaxHealth);
+        zombieCurrentHealth = Mathf.Clamp(zombieCurrentHealth - zmAmount, 0, gameManager.zombieMaxHealth);
 
-        if(gameManager.zombieCurrentHealth > 0)
+        if(zombieCurrentHealth > 0)
         {
             //hurt
         }
@@ -25,9 +43,7 @@ public class ZmHealth : MonoBehaviour
                 //anim.SetTrigger("");
 
                 GetComponent<EnemyPatrol>().enabled = false;
-                gameManager.zombiesDead = true;
-                gameManager.currentFuel += gameManager.fuelGain;
-                //PlayerPrefs.SetInt("amount", currency.count);
+                gameManager.currentFuel += Random.Range(gameManager.minfuelGain, gameManager.maxfuelGain);
                 //gameObject.SetActive(false);
                 Destroy(gameObject);
             }

@@ -5,8 +5,15 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 
-    public GameManager gameManager;
+    private GameManager gameManager;
+    private GameObject _gameManager;
     public GameObject hitEffect;
+
+    void Start()
+    {
+        _gameManager = GameObject.FindWithTag("GameManager");
+        gameManager = _gameManager.GetComponent<GameManager>();
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -20,7 +27,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.tag == "Zombie")
         {
-            //Debug.Log("hit");
+            Debug.Log("hit");
             collision.GetComponent<ZmHealth>().ZMTakeDamage(gameManager.playerDamage);
         }
     }

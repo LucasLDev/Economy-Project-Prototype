@@ -6,24 +6,23 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [Space]
-    public static bool GameIsPaused = false;
+    public GameManager gameManager;
     [Space]
     public GameObject pauseMenuUI;
     public GameObject healthBar;
-    public GameObject currencyDisplay;
+    public GameObject fuelDisplay;
     [Space]
-    public Currency currency;
-    public Health _health;
+
     public MainMenu mainMenu;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPaused)
+            if (gameManager.gameIsPaused)
             {
                 Resume();
-            } else    
+            } else if(gameManager.storeEnabled == false)   
             {
 
                 Pause();
@@ -34,19 +33,20 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+
         healthBar.SetActive(true);
-        currencyDisplay.SetActive(true);
+        fuelDisplay.SetActive(true);
         Time.timeScale = 1f;
-        GameIsPaused = false;
+        gameManager.gameIsPaused = false;
     }
 
     void Pause()
     {
         pauseMenuUI.SetActive(true);
         healthBar.SetActive(false);
-        currencyDisplay.SetActive(false);
+        fuelDisplay.SetActive(false);
         Time.timeScale = 0f;
-        GameIsPaused = true;
+        gameManager.gameIsPaused = true;
     }
 
     public void LoadMenu()
@@ -56,7 +56,7 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
         Debug.Log("Loading menu...");
         Time.timeScale = 1f;
-        GameIsPaused = false;
+        gameManager.gameIsPaused = false;
         //SceneManager.LoadScene("Menu");
     }
 

@@ -31,9 +31,8 @@ public class EnemyPatrol : MonoBehaviour
 
     private GameObject player;
     //public GameObject safeZone;
-    public GameManager gameManager;
-    private ZoneCheck _zone;
-    private GameObject zoneTrigger;
+    private GameManager gameManager;
+    private GameObject _gameManager;
 
     //[SerializeField] private float damage;
 
@@ -42,19 +41,17 @@ public class EnemyPatrol : MonoBehaviour
     public Transform[] moveSpots;
     private int randomSpot;
 
-
-    public bool inZone;
-
     
 
     void Start()
     {
-       // _zone = GameObject.FindWithTag("Trigger");
-       // _zone.GetComponent<ZoneCheck>();
-       zoneTrigger = GameObject.FindWithTag("Trigger");
-       _zone = zoneTrigger.GetComponent<ZoneCheck>();
         player = GameObject.FindWithTag("Player");
-        _zone.inZone = true;
+
+        _gameManager = GameObject.FindWithTag("GameManager");
+        gameManager = _gameManager.GetComponent<GameManager>();
+        
+       
+        gameManager.inSafeZone = false;
         gameManager.zombiePatrolling = true;
         gameManager.zombieChasing = false;
         gameManager.waitTime = gameManager.startWaitTime;
@@ -68,16 +65,17 @@ public class EnemyPatrol : MonoBehaviour
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
 
-         if(distance < gameManager.zombieChaseRange && _zone.inZone == false)
+         if(distance < gameManager.zombieChaseRange && gameManager.inSafeZone == false)
        {
             gameManager.zombieChasing = true;
 
        }    else   {
 
             gameManager.zombiePatrolling = true;
+            gameManager.zombieChasing = false;
        }
 
-       if(_zone.inZone == true)
+       if(gameManager.inSafeZone == true)
        {
             gameManager.zombiePatrolling = true;
             gameManager.zombieChasing = false;
