@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &2454907 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7866122822188526223, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
-  m_PrefabInstance: {fileID: 7866122822186606580}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &29628882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3442,8 +3437,8 @@ GameObject:
   m_Component:
   - component: {fileID: 439028486}
   - component: {fileID: 439028485}
-  - component: {fileID: 439028488}
   - component: {fileID: 439028487}
+  - component: {fileID: 439028488}
   - component: {fileID: 439028489}
   m_Layer: 0
   m_Name: NPC
@@ -3534,7 +3529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombie: {fileID: 1909349876497907751, guid: 3010fd3353ec5cc49b5da8196ec5c91c, type: 3}
-  player: {fileID: 2454907}
+  player: {fileID: 7866122822188526223, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
   gameManager: {fileID: 2786380147399074273}
   interact: {fileID: 710022559}
   interactor: {fileID: 911739697}
@@ -10778,7 +10773,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1776863208}
-  - component: {fileID: 1776863209}
   - component: {fileID: 2786380147399074273}
   m_Layer: 0
   m_Name: GameManager
@@ -10802,18 +10796,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1776863209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1776863206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e6258e0c5280164785453a29f0d80df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1799475432
 GameObject:
   m_ObjectHideFlags: 0
@@ -27780,6 +27762,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2827232584504851255, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 2827232584504851255, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 2786380147399074273}
+    - target: {fileID: 7009763900266127133, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 7009763900266127133, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
       propertyPath: gameManager
       value: 
@@ -27792,10 +27786,6 @@ PrefabInstance:
       propertyPath: zombieDamage
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7009763900266127134, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
-      propertyPath: gameManager
-      value: 
-      objectReference: {fileID: 2786380147399074273}
     - target: {fileID: 7866122822188526217, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -27840,14 +27830,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7866122822188526218, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 519420031}
-    - target: {fileID: 7866122822188526218, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
-      propertyPath: gameManager
-      value: 
-      objectReference: {fileID: 2786380147399074273}
     - target: {fileID: 7866122822188526223, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
       propertyPath: m_Name
       value: Player

@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
         if (collision.tag == "Zombie")
         {
             Debug.Log("hit");
-            collision.GetComponent<ZmHealth>().ZMTakeDamage(gameManager.playerDamage);
+            collision.GetComponent<Enemy>().ZMTakeDamage(gameManager.playerDamage);
         }
     }
 }

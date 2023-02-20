@@ -41,10 +41,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7866122822188526217}
   - component: {fileID: 7866122822188526216}
+  - component: {fileID: 2827232584504851255}
   - component: {fileID: 7866122822188526219}
-  - component: {fileID: 7866122822188526218}
-  - component: {fileID: 7009763900266127134}
-  - component: {fileID: 7009763900266127133}
   - component: {fileID: 7866122822188526196}
   - component: {fileID: 7866122822188526197}
   - component: {fileID: 3417999711144717641}
@@ -123,6 +121,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2827232584504851255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7866122822188526223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f65dad73abce8489c542d9f20614a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  rb: {fileID: 7866122822188526219}
+  cam: {fileID: 0}
+  firePoint: {fileID: 7866122821763003975}
+  bulletPrefab: {fileID: 4096159615000044804, guid: c4232887aa27da447b104209e3efe6a1, type: 3}
 --- !u!50 &7866122822188526219
 Rigidbody2D:
   serializedVersion: 4
@@ -144,53 +159,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7866122822188526218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7866122822188526223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dbd0b21ec85a794dabbe48668e8c60f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 4
-  rb: {fileID: 7866122822188526219}
-  cam: {fileID: 0}
---- !u!114 &7009763900266127134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7866122822188526223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e71061102887af549aa66a77a088e88c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 7866122821763003975}
-  bulletPrefab: {fileID: 4096159615000044804, guid: c4232887aa27da447b104209e3efe6a1, type: 3}
-  bulletForce: 20
---- !u!114 &7009763900266127133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7866122822188526223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19f65dad73abce8489c542d9f20614a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerDamage: 1
-  maxHealth: 5
-  currentHealth: 0
-  zombieDamage: 0
-  playerHealth: {fileID: 0}
 --- !u!95 &7866122822188526196
 Animator:
   serializedVersion: 4

@@ -1,45 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class EnemyPatrol : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
-  /*public GameObject player;
-    public float speed;
-    public float range;
-    private float distance;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        distance = Vector2.Distance(transform.position, player.transform.position);
-        Vector2 direction = player.transform.position - transform.position;
-        direction.Normalize();
-
-        if(distance < range)
-        {
-            transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
-        }
-        
-    }*/
+    [Header("Enemy Patrol")]
+    public Transform[] moveSpots;
 
     private GameObject player;
-    //public GameObject safeZone;
     private GameManager gameManager;
     private GameObject _gameManager;
 
-    //[SerializeField] private float damage;
-
     private float distance;
-
-    public Transform[] moveSpots;
     private int randomSpot;
+
+    [Header("Zombie Health")]
+
+    public int zombieCurrentHealth;
+    public Slider ZombieHealthBar;
 
     
 
@@ -49,17 +28,21 @@ public class EnemyPatrol : MonoBehaviour
 
         _gameManager = GameObject.FindWithTag("GameManager");
         gameManager = _gameManager.GetComponent<GameManager>();
+
+        zombieCurrentHealth = gameManager.zombieMaxHealth;
+        ZombieHealthBar.maxValue = gameManager.zombieMaxHealth;
         
-       
         gameManager.inSafeZone = false;
         gameManager.zombiePatrolling = true;
         gameManager.zombieChasing = false;
+        
         gameManager.waitTime = gameManager.startWaitTime;
         randomSpot = Random.Range(0, moveSpots.Length);
     }
 
     void Update()
     {
+        ZombieHealthBar.value = zombieCurrentHealth;
 
         distance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
@@ -115,6 +98,30 @@ public class EnemyPatrol : MonoBehaviour
     public void Chase()
     {
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, gameManager.zombieSpeed * Time.deltaTime);
+    }
+
+    public void ZMTakeDamage(int zmAmount)
+    {
+        zombieCurrentHealth = Mathf.Clamp(zombieCurrentHealth - zmAmount, 0, gameManager.zombieMaxHealth);
+
+        if(zombieCurrentHealth > 0)
+        {
+            //hurt
+        }
+        else
+        {
+            //dead
+            if(!gameManager.zombiesDead)
+            {
+                //death animation
+                //anim.SetTrigger("");
+
+                GetComponent<Enemy>().enabled = false;
+                gameManager.currentFuel += Random.Range(gameManager.minfuelGain, gameManager.maxfuelGain);
+                //gameObject.SetActive(false);
+                Destroy(gameObject);
+            }
+        }
     }
 
     /*private void OnTriggerEnter2D(Collider2D collision)

@@ -10,7 +10,7 @@ public class HealthCollectible : MonoBehaviour
    {
         if (collision.tag == "Player" && gameManager.playerCurrentHealth != gameManager.playerMaxHealth)
         {
-            collision.GetComponent<Health>().AddHealth(gameManager.medkitPotency);
+            collision.GetComponent<Player>().AddHealth(gameManager.medkitPotency);
             gameObject.SetActive(false);
         }
    }

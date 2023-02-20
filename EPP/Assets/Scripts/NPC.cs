@@ -29,7 +29,7 @@ public class NPC : MonoBehaviour
 
         } else if (GameObject.FindWithTag("Zombie") != null) {
             gameManager.zombiesSpawned = true;
-            zombie.GetComponent<ZmHealth>();
+            zombie.GetComponent<Enemy>();
             interactor.SetActive(false);
         }
     }
