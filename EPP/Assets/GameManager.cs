@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public int playerDamage = 1;
     public float projectileSpeed = 20f;
     public bool inSafeZone;
+    public bool canMove;
 
     [Space]
 
@@ -90,6 +91,8 @@ public class GameManager : MonoBehaviour
     {
         playerCurrentHealth = playerMaxHealth;
         playerHealthBar.maxValue = playerMaxHealth;
+
+        canMove = true;
 
         storeEnabled = false;
     }

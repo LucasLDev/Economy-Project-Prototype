@@ -7,6 +7,7 @@ public class NPC : MonoBehaviour
     [SerializeField] private GameObject zombie;
     [SerializeField] private GameObject player;
 
+    public DialogueTrigger _dialogue;
     public GameManager gameManager;
     public GameObject interact;
     public GameObject interactor;
@@ -14,10 +15,13 @@ public class NPC : MonoBehaviour
     int xvalue;
     int yvalue;
 
+    public bool interactOn;
+
     void Start()
     {
         gameManager.zombiesSpawned = false;
         interactor.SetActive(true);
+        interactOn = false;
     }
 
     void Update()
@@ -32,27 +36,41 @@ public class NPC : MonoBehaviour
             zombie.GetComponent<Enemy>();
             interactor.SetActive(false);
         }
+
+        if (interactOn == true && Input.GetKeyDown(KeyCode.F))
+        {
+            _dialogue.TriggerDialogue();
+            gameManager.canMove = false;
+        }
+
     }
 
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        interact.SetActive(true);
-
-        if (collision.tag == "Player" && Input.GetKeyDown(KeyCode.F) && gameManager.zombiesSpawned == false)
+        if(gameManager.zombiesSpawned == false)
         {
+            interact.SetActive(true);
+            interactOn = true;
+        }
+        
+
+        /*if (collision.tag == "Player" && Input.GetKeyDown(KeyCode.F) && gameManager.zombiesSpawned == false)
+        {
+            _dialogue.TriggerDialogue();
+            
             
             //Talk to NPC
             //Choose if accept or decline
-            gameManager.zombiesSpawned = true;
-            EnemySpawn();
-            Debug.Log("Zombies Spawned");
-        } 
+            //gameManager.zombiesSpawned = true;
+            //EnemySpawn();
+        } */
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
         interact.SetActive(false); 
+        interactOn = false;
     }
 
     public void EnemySpawn()
@@ -72,4 +90,6 @@ public class NPC : MonoBehaviour
         
         
     }
+
+   
 }
