@@ -8,6 +8,9 @@ public class DialogueManager : MonoBehaviour
 {
     private Queue<string> sentences;
     [Space]
+
+
+    [Space]
     public TMP_Text nameText;
     public TMP_Text dialogueText;
     [Space]
@@ -17,6 +20,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject yesButton;
     public GameObject noButton;
     public GameObject continueButton;
+    public GameObject acceptButton;
     [Space]
     public NPC _npc;
     [Space]
@@ -25,6 +29,7 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _npc.deniedFavour = false;
         sentences = new Queue<string>();
     }
 
@@ -33,6 +38,7 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("IsOpen",true);
         yesButton.SetActive(false);
         noButton.SetActive(false);
+        acceptButton.SetActive(false);
         continueButton.SetActive(true);
 
         nameText.text = dialogue.name;
@@ -49,25 +55,44 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextSentence()
     {
-        if (sentences.Count < 1)
+        if (sentences.Count > 1 && gameManager.favourCompleted == false)
         {
             continueButton.SetActive(true);
             yesButton.SetActive(false);
             noButton.SetActive(false);
+            acceptButton.SetActive(false);
         }
 
-        if (sentences.Count == 1)
+        if (sentences.Count <= 1 && gameManager.favourCompleted == false)
         {
             continueButton.SetActive(false);
             yesButton.SetActive(true);
             noButton.SetActive(true);
+            acceptButton.SetActive(false);
             //EndDialogue();
             //return;
+        }
+
+        if (sentences.Count > 1 && gameManager.favourCompleted == true)
+        {
+            continueButton.SetActive(true);
+            yesButton.SetActive(false);
+            noButton.SetActive(false);
+            acceptButton.SetActive(false);
+        }
+
+        if (sentences.Count <= 1 && gameManager.favourCompleted == true)
+        {
+            acceptButton.SetActive(true);
+            continueButton.SetActive(false);
+            yesButton.SetActive(false);
+            noButton.SetActive(false);
         }
 
         string sentence = sentences.Dequeue();
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
+
     }
 
     IEnumerator TypeSentence (string sentence)
@@ -89,18 +114,27 @@ public class DialogueManager : MonoBehaviour
 
     public void DeclineFavour()
     {
-        
+        _npc.deniedFavour = true;
+        Debug.Log("decline");
         EndDialogue();
-        return;
         
     }
 
      public void AcceptFavour()
     {
+       
         _npc.EnemySpawn();
         gameManager.zombiesSpawned = true;
         EndDialogue();
-        return;
+    }
+
+    public void AcceptReward()
+    {
+        gameManager.currentFuel += 150;
+        _npc.deniedFavour = false;
+        gameManager.favourCompleted = false;
+        gameManager.zombiesSpawned = false;
+        EndDialogue();
     }
 
 

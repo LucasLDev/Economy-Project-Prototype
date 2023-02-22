@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 8808991996763655536}
   - component: {fileID: 8808991996763655538}
   - component: {fileID: 8808991996763655539}
+  - component: {fileID: 5598704754770454464}
+  - component: {fileID: 6294161225914166230}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -105,10 +107,13 @@ MonoBehaviour:
   zombie: {fileID: 1909349876497907751, guid: 3010fd3353ec5cc49b5da8196ec5c91c, type: 3}
   player: {fileID: 7866122822188526223, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
   _dialogue: {fileID: 8808991996763655536}
+  _dialogueReturn: {fileID: 5598704754770454464}
+  _dialogueEnd: {fileID: 6294161225914166230}
   gameManager: {fileID: 0}
   interact: {fileID: 8808991997565228005}
   interactor: {fileID: 8808991997095857483}
   interactOn: 0
+  deniedFavour: 0
 --- !u!114 &8808991996763655536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +184,39 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.555418, y: 0.74477434}
   m_EdgeRadius: 0
+--- !u!114 &5598704754770454464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8808991996763655550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40f57d0d7f5bf734dace58a11b53d5b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    name: Sad Red Ball
+    sentences:
+    - Have you Reconsidered?
+--- !u!114 &6294161225914166230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8808991996763655550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e44bdba926b5e554894b0d09ea0fd50b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    name: Sad Red Ball
+    sentences:
+    - Thank you so much!!
+    - Please take some of my fuel as a token of my gratitude
 --- !u!1 &8808991997565228005
 GameObject:
   m_ObjectHideFlags: 0

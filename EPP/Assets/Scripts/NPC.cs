@@ -8,6 +8,8 @@ public class NPC : MonoBehaviour
     [SerializeField] private GameObject player;
 
     public DialogueTrigger _dialogue;
+    public DialogueTriggerReturn _dialogueReturn;
+    public DialogueTriggerEnd _dialogueEnd;
     public GameManager gameManager;
     public GameObject interact;
     public GameObject interactor;
@@ -16,6 +18,7 @@ public class NPC : MonoBehaviour
     int yvalue;
 
     public bool interactOn;
+    public bool deniedFavour;
 
     void Start()
     {
@@ -28,18 +31,26 @@ public class NPC : MonoBehaviour
     {
          if (GameObject.FindWithTag("Zombie") == null)
         {
-            gameManager.zombiesSpawned = false;
             interactor.SetActive(true);
 
-        } else if (GameObject.FindWithTag("Zombie") != null) {
+        } else if (GameObject.FindWithTag("Zombie") != null) 
+        {
             gameManager.zombiesSpawned = true;
             zombie.GetComponent<Enemy>();
             interactor.SetActive(false);
         }
 
-        if (interactOn == true && Input.GetKeyDown(KeyCode.F))
+        if (interactOn == true && Input.GetKeyDown(KeyCode.F) && deniedFavour == false && gameManager.favourCompleted == false)
         {
             _dialogue.TriggerDialogue();
+            gameManager.canMove = false;
+        } else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && deniedFavour == true && gameManager.favourCompleted == false)
+        {
+            _dialogueReturn.TriggerReturnDialogue();
+            gameManager.canMove = false;
+        }   else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.favourCompleted == true)
+        {
+            _dialogueEnd.TriggerEndDialogue();
             gameManager.canMove = false;
         }
 
@@ -48,7 +59,7 @@ public class NPC : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if(gameManager.zombiesSpawned == false)
+        if(gameManager.remainingZombies <= 0)
         {
             interact.SetActive(true);
             interactOn = true;
@@ -75,6 +86,8 @@ public class NPC : MonoBehaviour
 
     public void EnemySpawn()
     {
+        gameManager.remainingZombies = gameManager.numberOfZombies;
+
         for(int i = 0; i<gameManager.numberOfZombies; i++)
         {
             gameManager.zombiesSpawned = true;

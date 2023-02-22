@@ -118,6 +118,7 @@ public class Enemy : MonoBehaviour
 
                 GetComponent<Enemy>().enabled = false;
                 gameManager.currentFuel += Random.Range(gameManager.minfuelGain, gameManager.maxfuelGain);
+                gameManager.remainingZombies --;
                 //gameObject.SetActive(false);
                 Destroy(gameObject);
             }

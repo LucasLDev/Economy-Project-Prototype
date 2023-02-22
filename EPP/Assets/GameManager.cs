@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public bool gameIsPaused = false;
     public bool storeEnabled = false;
+    public bool favourCompleted = false;
 
     [Space]
 
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
     
     [Header("Zombies")]
     public int numberOfZombies;
+    public int remainingZombies;
     public int zombieMaxHealth = 5;
     public int zombieDamage = 1;
     public int zombieSpeed = 1;
@@ -41,6 +43,7 @@ public class GameManager : MonoBehaviour
     public bool zombiePatrolling;
     public bool zombiesDead;
     public bool zombiesSpawned;
+    public TMP_Text zombieCounterText;
 
     [Space]
 
@@ -115,6 +118,13 @@ public class GameManager : MonoBehaviour
         speedCostText.SetText("" + speedCost);
         projectileCostText.SetText("" + projectileCost);
         fuelCostText.SetText("" + fuelCost);
+
+        zombieCounterText.SetText("Zombies Remaing:" + remainingZombies);
+
+        if (remainingZombies <= 0 && zombiesSpawned == true)
+        {
+            favourCompleted = true;
+        }
     }
    
 }
