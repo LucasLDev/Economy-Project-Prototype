@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public bool gameIsPaused = false;
     public bool storeEnabled = false;
     public bool favourCompleted = false;
+    public bool inDialogue = false;
 
     [Space]
 

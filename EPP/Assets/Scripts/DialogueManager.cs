@@ -109,6 +109,7 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()
     {
         animator.SetBool("IsOpen", false);
+        gameManager.inDialogue = false;
         gameManager.canMove = true;
     }
 
