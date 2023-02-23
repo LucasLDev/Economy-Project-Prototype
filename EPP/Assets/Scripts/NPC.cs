@@ -40,17 +40,20 @@ public class NPC : MonoBehaviour
             interactor.SetActive(false);
         }
 
-        if (interactOn == true && Input.GetKeyDown(KeyCode.F) && deniedFavour == false && gameManager.favourCompleted == false)
+        if (interactOn == true && Input.GetKeyDown(KeyCode.F) && deniedFavour == false && gameManager.favourCompleted == false && gameManager.remainingZombies <= 0)
         {
             _dialogue.TriggerDialogue();
+            gameManager.inDialogue = true;
             gameManager.canMove = false;
-        } else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && deniedFavour == true && gameManager.favourCompleted == false)
+        } else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && deniedFavour == true && gameManager.favourCompleted == false & gameManager.remainingZombies <= 0)
         {
             _dialogueReturn.TriggerReturnDialogue();
+            gameManager.inDialogue = true;
             gameManager.canMove = false;
-        }   else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.favourCompleted == true)
+        }   else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.favourCompleted == true & gameManager.remainingZombies <= 0)
         {
             _dialogueEnd.TriggerEndDialogue();
+            gameManager.inDialogue = true;
             gameManager.canMove = false;
         }
 
