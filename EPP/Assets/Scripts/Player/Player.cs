@@ -21,15 +21,21 @@ public class Player : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
 
+    public float chipSpeed = 2f;
+    private float lerpTimer;
+    public Image frontHealthBar;
+    public Image backHealthVar;
+
     void Start()
     {
-        
         animator = GetComponent<Animator>();
         animator.SetBool("move", false);
     }
 
     void Update()
     {
+        UpdateHealthUI();
+
         if(Input.GetButtonDown("Fire1"))
         {
             Shoot();
@@ -51,6 +57,16 @@ public class Player : MonoBehaviour
         
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamage(1);
+        }
+
+        if(Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            AddHealth(1);
+        }
     }
 
     void FixedUpdate()
@@ -72,7 +88,7 @@ public class Player : MonoBehaviour
 
         if(gameManager.playerCurrentHealth > 0)
         {
-            //hurt
+            lerpTimer = 0f;
         }
         else
         {
@@ -81,7 +97,7 @@ public class Player : MonoBehaviour
             {   
                 //death animation
                 //anim.SetTrigger("");
-
+  
                 GetComponent<Player>().enabled = false;
                 dead = true;
                 SceneManager.LoadScene(2);
@@ -102,6 +118,7 @@ public class Player : MonoBehaviour
     public void AddHealth(int _value)
     {
         gameManager.playerCurrentHealth = Mathf.Clamp(gameManager.playerCurrentHealth + _value, 0, gameManager.playerMaxHealth);
+        lerpTimer = 0f;
     }
 
     void Shoot()
@@ -110,6 +127,33 @@ public class Player : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * gameManager.projectileSpeed, ForceMode2D.Impulse);
 
+    }
+
+    void UpdateHealthUI()
+    {
+        
+        float fillF = frontHealthBar.fillAmount;
+        float fillB = backHealthVar.fillAmount;
+        float hFraction = gameManager.playerCurrentHealth / gameManager.playerMaxHealth;
+        Debug.Log(hFraction);
+        if (fillB > hFraction)
+        {
+            frontHealthBar.fillAmount = hFraction;
+            backHealthVar.color = Color.yellow;
+            lerpTimer += Time.deltaTime;
+            float percentComplete = lerpTimer / chipSpeed;
+            percentComplete = percentComplete * percentComplete;
+            backHealthVar.fillAmount = Mathf.Lerp(fillB, hFraction, percentComplete);
+        }
+        if(fillF < hFraction)
+        {
+            backHealthVar.color = Color.green;
+            backHealthVar.fillAmount = hFraction;
+            lerpTimer += Time.deltaTime;
+            float percentComplete = lerpTimer / chipSpeed;
+            percentComplete = percentComplete * percentComplete;
+            frontHealthBar.fillAmount = Mathf.Lerp(fillF, backHealthVar.fillAmount, percentComplete);
+        }
     }
 
     /*private void Update()

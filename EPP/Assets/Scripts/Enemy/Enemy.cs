@@ -19,12 +19,15 @@ public class Enemy : MonoBehaviour
 
     [Header("Zombie Health")]
 
-    public int zombieCurrentHealth;
+    public float zombieCurrentHealth;
     public Slider ZombieHealthBar;
 
     Vector2 walkPoint;
 
-    
+    public float chipSpeed = 2f;
+    private float lerpTimer;
+    public Image currentHealthBar;
+    public Image TakeDamageHealthBar;
 
     void Start()
     {
@@ -46,6 +49,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        UpdateZombieHealthUI();
         
         ZombieHealthBar.value = zombieCurrentHealth;
 
@@ -130,6 +134,32 @@ public class Enemy : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    void UpdateZombieHealthUI()
+    {
+        float fillF = currentHealthBar.fillAmount;
+        float fillB = TakeDamageHealthBar.fillAmount;
+        float hFraction = zombieCurrentHealth / gameManager.zombieMaxHealth;
+        Debug.Log(hFraction);
+        if (fillB > hFraction)
+        {
+            currentHealthBar.fillAmount = hFraction;
+            TakeDamageHealthBar.color = Color.yellow;
+            lerpTimer += Time.deltaTime;
+            float percentComplete = lerpTimer / chipSpeed;
+            percentComplete = percentComplete * percentComplete;
+            TakeDamageHealthBar.fillAmount = Mathf.Lerp(fillB, hFraction, percentComplete);
+        }
+        /*if(fillF < hFraction)
+        {
+            TakeDamageHealthBar.color = Color.green;
+            TakeDamageHealthBar.fillAmount = hFraction;
+            lerpTimer += Time.deltaTime;
+            float percentComplete = lerpTimer / chipSpeed;
+            percentComplete = percentComplete * percentComplete;
+            currentHealthBar.fillAmount = Mathf.Lerp(fillF, TakeDamageHealthBar.fillAmount, percentComplete);
+        }*/
     }
 
     /*private void OnTriggerEnter2D(Collider2D collision)

@@ -3325,6 +3325,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6874905500677984946, guid: f517131820343e348be94e02686302f3, type: 3}
   m_PrefabInstance: {fileID: 6874905501437722620}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1056942598 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 892458058761271464, guid: f517131820343e348be94e02686302f3, type: 3}
+  m_PrefabInstance: {fileID: 6874905501437722620}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1065925111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3949,6 +3960,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1356447558 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8216110978287482587, guid: f517131820343e348be94e02686302f3, type: 3}
+  m_PrefabInstance: {fileID: 6874905501437722620}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1364971700 stripped
@@ -10215,6 +10237,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 892458058761271464, guid: f517131820343e348be94e02686302f3, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1126073239504476236, guid: f517131820343e348be94e02686302f3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -10405,9 +10431,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519420031}
     - target: {fileID: 2827232584504851255, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
+      propertyPath: chipSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827232584504851255, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 2786380147399074273}
+    - target: {fileID: 2827232584504851255, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
+      propertyPath: backHealthVar
+      value: 
+      objectReference: {fileID: 1356447558}
+    - target: {fileID: 2827232584504851255, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
+      propertyPath: frontHealthBar
+      value: 
+      objectReference: {fileID: 1056942598}
     - target: {fileID: 7009763900266127133, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
       propertyPath: cam
       value: 

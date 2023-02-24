@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Player")]
     public int playerMaxHealth = 5;
-    public int playerCurrentHealth;
+    public float playerCurrentHealth;
     public Slider playerHealthBar;
     public int playerMoveSpeed = 4;
     public int playerDamage = 1;
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     [Header("Zombies")]
     public int numberOfZombies;
     public int remainingZombies;
-    public int zombieMaxHealth = 5;
+    public float zombieMaxHealth = 5f;
     public int zombieDamage = 1;
     public int zombieSpeed = 1;
     public int zombieChaseRange;
