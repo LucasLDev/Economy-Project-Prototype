@@ -11,6 +11,7 @@ public class StoreMenu : MonoBehaviour
     public GameObject storeMenuUI;
     public GameObject healthBar;
     public GameObject currencyDisplay;
+    public GameObject remainingZombiesCounter;
 
     [Space]
 
@@ -41,6 +42,7 @@ public class StoreMenu : MonoBehaviour
         
         healthBar.SetActive(false);
         currencyDisplay.SetActive(false);
+        remainingZombiesCounter.SetActive(false);
         storeMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameManager.storeEnabled = true;
@@ -50,6 +52,7 @@ public class StoreMenu : MonoBehaviour
     {
         healthBar.SetActive(true);
         currencyDisplay.SetActive(true);
+        remainingZombiesCounter.SetActive(true);
         storeMenuUI.SetActive(false);
         Time.timeScale = 1f;
         gameManager.storeEnabled = false;

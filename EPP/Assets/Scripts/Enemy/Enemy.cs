@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
 {
     [Header("Enemy Patrol")]
     public Transform[] moveSpots;
+    public Transform playerTransform;
+    public Rigidbody rb;
 
     private GameObject player;
     private GameManager gameManager;
@@ -19,6 +21,8 @@ public class Enemy : MonoBehaviour
 
     public int zombieCurrentHealth;
     public Slider ZombieHealthBar;
+
+    Vector2 walkPoint;
 
     
 
@@ -42,6 +46,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        
         ZombieHealthBar.value = zombieCurrentHealth;
 
         distance = Vector2.Distance(transform.position, player.transform.position);
@@ -74,14 +79,15 @@ public class Enemy : MonoBehaviour
             gameManager.zombieChasing = false;
             Patrol();
        }
-        
-        
+
     }
 
-
+    
     public void Patrol()
     {
         transform.position = Vector2.MoveTowards(transform.position, moveSpots[randomSpot].position, gameManager.zombieSpeed * Time.deltaTime);
+        //transform.LookAt(moveSpots[randomSpot]);
+        //transform.rotation = Quaternion(transform.position - moveSpots[randomSpot]);
 
             if(Vector2.Distance(transform.position, moveSpots[randomSpot].position) < 0.2f)
             {
@@ -98,6 +104,7 @@ public class Enemy : MonoBehaviour
     public void Chase()
     {
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, gameManager.zombieSpeed * Time.deltaTime);
+        
     }
 
     public void ZMTakeDamage(int zmAmount)
