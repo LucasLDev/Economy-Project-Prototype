@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 7866122822188526217}
   - component: {fileID: 7866122822188526216}
   - component: {fileID: 2827232584504851255}
+  - component: {fileID: 205742628194380292}
   - component: {fileID: 7866122822188526219}
   - component: {fileID: 7866122822188526196}
   - component: {fileID: 7866122822188526197}
@@ -138,6 +139,26 @@ MonoBehaviour:
   cam: {fileID: 0}
   firePoint: {fileID: 7866122821763003975}
   bulletPrefab: {fileID: 4096159615000044804, guid: c4232887aa27da447b104209e3efe6a1, type: 3}
+  chipSpeed: 2
+  frontHealthBar: {fileID: 0}
+  backHealthVar: {fileID: 0}
+--- !u!114 &205742628194380292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7866122822188526223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11ee46e666f44c84f87327a87485b792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 1
+  currentXp: 0
+  requiredXp: 130
+  frontXpBar: {fileID: 0}
+  backXpBar: {fileID: 0}
 --- !u!50 &7866122822188526219
 Rigidbody2D:
   serializedVersion: 4

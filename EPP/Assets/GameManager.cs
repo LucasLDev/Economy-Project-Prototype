@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
         projectileCostText.SetText("" + projectileCost);
         fuelCostText.SetText("" + fuelCost);
 
-        zombieCounterText.SetText("Zombies Remaing:" + remainingZombies);
+        zombieCounterText.SetText("Zombies Remaining:" + remainingZombies);
 
         if (remainingZombies <= 0 && zombiesSpawned == true)
         {

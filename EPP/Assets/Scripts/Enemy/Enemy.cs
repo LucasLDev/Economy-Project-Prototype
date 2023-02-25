@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     [Header("Enemy Patrol")]
     public Transform[] moveSpots;
     public Transform playerTransform;
-    public Rigidbody rb;
+    public Rigidbody2D rb;
 
     private GameObject player;
     private GameManager gameManager;
@@ -32,6 +32,8 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+
+        rb = this.GetComponent<Rigidbody2D>();
 
         _gameManager = GameObject.FindWithTag("GameManager");
         gameManager = _gameManager.GetComponent<GameManager>();
@@ -90,6 +92,9 @@ public class Enemy : MonoBehaviour
     public void Patrol()
     {
         transform.position = Vector2.MoveTowards(transform.position, moveSpots[randomSpot].position, gameManager.zombieSpeed * Time.deltaTime);
+        Vector3 direction = moveSpots[randomSpot].transform.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        rb.rotation = angle;
         //transform.LookAt(moveSpots[randomSpot]);
         //transform.rotation = Quaternion(transform.position - moveSpots[randomSpot]);
 
@@ -108,6 +113,9 @@ public class Enemy : MonoBehaviour
     public void Chase()
     {
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, gameManager.zombieSpeed * Time.deltaTime);
+        Vector3 direction = player.transform.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        rb.rotation = angle;
         
     }
 
