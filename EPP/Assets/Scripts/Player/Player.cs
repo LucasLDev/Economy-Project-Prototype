@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
     private float lerpTimer;
     public Image frontHealthBar;
     public Image backHealthVar;
+    public TextMeshProUGUI healthText;
 
     void Start()
     {
@@ -60,12 +62,12 @@ public class Player : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            TakeDamage(1);
+            TakeDamage(15);
         }
 
         if(Input.GetKeyDown(KeyCode.LeftAlt))
         {
-            AddHealth(1);
+            AddHealth(15);
         }
     }
 
@@ -129,7 +131,7 @@ public class Player : MonoBehaviour
 
     }
 
-    void UpdateHealthUI()
+    public void UpdateHealthUI()
     {
         
         float fillF = frontHealthBar.fillAmount;
@@ -154,6 +156,7 @@ public class Player : MonoBehaviour
             percentComplete = percentComplete * percentComplete;
             frontHealthBar.fillAmount = Mathf.Lerp(fillF, backHealthVar.fillAmount, percentComplete);
         }
+        healthText.text = Mathf.Round(gameManager.playerCurrentHealth) + "/" + Mathf.Round(gameManager.playerMaxHealth);
     }
 
     /*private void Update()

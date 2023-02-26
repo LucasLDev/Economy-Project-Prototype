@@ -40,17 +40,17 @@ public class NPC : MonoBehaviour
             interactor.SetActive(false);
         }
 
-        if (interactOn == true && Input.GetKeyDown(KeyCode.F) && deniedFavour == false && gameManager.favourCompleted == false && gameManager.remainingZombies <= 0)
+        if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.inDialogue == false && deniedFavour == false && gameManager.favourCompleted == false && gameManager.remainingZombies <= 0)
         {
             _dialogue.TriggerDialogue();
             gameManager.inDialogue = true;
             gameManager.canMove = false;
-        } else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && deniedFavour == true && gameManager.favourCompleted == false & gameManager.remainingZombies <= 0)
+        } else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.inDialogue == false && deniedFavour == true && gameManager.favourCompleted == false & gameManager.remainingZombies <= 0)
         {
             _dialogueReturn.TriggerReturnDialogue();
             gameManager.inDialogue = true;
             gameManager.canMove = false;
-        }   else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.favourCompleted == true & gameManager.remainingZombies <= 0)
+        }   else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.inDialogue == false && gameManager.favourCompleted == true & gameManager.remainingZombies <= 0)
         {
             _dialogueEnd.TriggerEndDialogue();
             gameManager.inDialogue = true;

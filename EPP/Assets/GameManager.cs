@@ -68,6 +68,14 @@ public class GameManager : MonoBehaviour
 
     [Space]
 
+    public int healthUpgradeInterval = 20;
+    public int damageUpgradeInterval = 1;
+    public int speedUpgradeInterval = 1;
+    public int bulletSpeedUpgradeInterval = 5;
+    public int FuelUpgradeInterval = 5;
+
+    [Space]
+
     public int maxUpgradedHealth = 15;
     public int maxUpgradedDamage = 5;
     public int maxUpgradedSpeed = 10;
@@ -89,6 +97,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text speedCostText;
     public TMP_Text projectileCostText;
     public TMP_Text fuelCostText;
+
 
 
     void Start()
@@ -126,6 +135,7 @@ public class GameManager : MonoBehaviour
         {
             favourCompleted = true;
         }
+        
     }
    
 }

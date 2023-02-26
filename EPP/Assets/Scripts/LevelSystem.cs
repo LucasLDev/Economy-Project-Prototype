@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LevelSystem : MonoBehaviour
 {
+    public GameManager gameManager;
     public int level;
     public float currentXp;
     public float requiredXp;
@@ -16,11 +18,23 @@ public class LevelSystem : MonoBehaviour
     [Header("UI")]
     public Image frontXpBar;
     public Image backXpBar;
-    // Start is called before the first frame update
+    public TextMeshProUGUI levelText;
+    public TextMeshProUGUI xpText;
+
+    [Header("Multipliers")]
+    [Range(1f,300f)]
+    public float additionMultiplier = 300;
+    [Range(2f,4f)]
+    public float powerMultiplier = 2;
+    [Range(7f,14f)]
+    public float divisionMultiplier = 7;
+    
     void Start()
     {
         frontXpBar.fillAmount = currentXp / requiredXp;
         backXpBar.fillAmount = currentXp / requiredXp;
+        requiredXp = CalculateRequiredXp();
+        levelText.text = "" + level;
     }
 
     // Update is called once per frame
@@ -32,6 +46,11 @@ public class LevelSystem : MonoBehaviour
         {
             FlatRateExperienceGain(20);
         }
+
+        if (currentXp > requiredXp)
+        {
+            LevelUp();
+        }
     }
 
     public void UpdateXpUI()
@@ -42,7 +61,7 @@ public class LevelSystem : MonoBehaviour
         {
             delayTimer += Time.deltaTime;
             backXpBar.fillAmount = xpFraction;
-            if(delayTimer > 3)
+            if(delayTimer > 0.25)
             {
                 lerpTimer += Time.deltaTime;
                 float percentComplete = lerpTimer / chipSpeed;
@@ -50,11 +69,50 @@ public class LevelSystem : MonoBehaviour
                 frontXpBar.fillAmount = Mathf.Lerp(FXP, backXpBar.fillAmount, percentComplete);
             }
         }
+        xpText.text = currentXp + "/" + requiredXp;
     }
 
     public void FlatRateExperienceGain(float xpGained)
     {
         currentXp += xpGained;
+        xpGained += 50;
         lerpTimer = 0f;
+    }
+
+    public void ScalableExperienceGain(float xpGained, int passedLevel)
+    {
+        if(passedLevel < level)
+        {
+            float multplier = 1 + (level - passedLevel) * 0.1f;
+            currentXp += xpGained * multplier;
+        }
+        else
+        {
+            currentXp += xpGained;
+        }
+        lerpTimer = 0f;
+        delayTimer = 0f;
+    }
+
+    public void LevelUp()
+    {
+        level++;
+        frontXpBar.fillAmount = 0;
+        backXpBar.fillAmount = 0;
+        currentXp = Mathf.RoundToInt(currentXp - requiredXp);
+        gameManager.playerCurrentHealth = gameManager.playerMaxHealth;
+        requiredXp = CalculateRequiredXp();
+        levelText.text = "" + level;
+        
+    }
+
+    private int CalculateRequiredXp()
+    {
+        int solvedForRequiredXp = 0;
+        for (int levelCycle = 1; levelCycle <= level; levelCycle++)
+        {
+            solvedForRequiredXp += (int)Mathf.Floor(levelCycle + additionMultiplier * Mathf.Pow(powerMultiplier, levelCycle / divisionMultiplier));
+        }
+        return solvedForRequiredXp / 4;
     }
 }

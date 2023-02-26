@@ -12,6 +12,7 @@ public class StoreMenu : MonoBehaviour
     public GameObject healthBar;
     public GameObject currencyDisplay;
     public GameObject remainingZombiesCounter;
+    public LevelSystem level;
 
     [Space]
 
@@ -62,16 +63,13 @@ public class StoreMenu : MonoBehaviour
     {
         if (gameManager.currentFuel >= gameManager.healthCost && gameManager.playerMaxHealth < gameManager.maxUpgradedHealth)
         {
-            gameManager.playerMaxHealth++;
-
-            gameManager.zombieMaxHealth += gameManager.playerMaxHealth/2;
-            
-            gameManager.playerHealthBar.maxValue = gameManager.playerMaxHealth;
+            gameManager.playerMaxHealth += gameManager.healthUpgradeInterval;
             
             gameManager.currentFuel -= gameManager.healthCost;
+
+            level.FlatRateExperienceGain(50);
             
             gameManager.healthCost += gameManager.healthCost * 1/2;
-            
             
             Debug.Log("Health Increased");
         }
@@ -82,7 +80,7 @@ public class StoreMenu : MonoBehaviour
     {
         if (gameManager.currentFuel >= gameManager.damageCost && gameManager.playerDamage < gameManager.maxUpgradedDamage)
         {
-            gameManager.playerDamage++;
+            gameManager.playerDamage += gameManager.damageUpgradeInterval;
             
             gameManager.currentFuel -= gameManager.damageCost;
             
@@ -97,7 +95,7 @@ public class StoreMenu : MonoBehaviour
     {
         if (gameManager.currentFuel >= gameManager.speedCost && gameManager.playerMoveSpeed < gameManager.maxUpgradedSpeed)
         {
-            gameManager.playerMoveSpeed++;
+            gameManager.playerMoveSpeed += gameManager.speedUpgradeInterval;
             
             gameManager.currentFuel -= gameManager.speedCost;
             
@@ -112,7 +110,7 @@ public class StoreMenu : MonoBehaviour
     {
         if (gameManager.currentFuel >= gameManager.fuelCost && gameManager.projectileSpeed < gameManager.maxUpgradedProjectile)
         {
-            gameManager.projectileSpeed++;
+            gameManager.projectileSpeed += gameManager.bulletSpeedUpgradeInterval;
             
             gameManager.currentFuel -= gameManager.projectileCost;
             
@@ -127,8 +125,8 @@ public class StoreMenu : MonoBehaviour
     {
         if (gameManager.currentFuel >= gameManager.fuelCost && gameManager.minfuelGain < gameManager.maxUpgradedFuel)
         {
-            gameManager.minfuelGain++;
-            gameManager.maxfuelGain++;
+            gameManager.minfuelGain += gameManager.FuelUpgradeInterval;
+            gameManager.maxfuelGain += gameManager.FuelUpgradeInterval;
             
             gameManager.currentFuel -= gameManager.fuelCost;
             
