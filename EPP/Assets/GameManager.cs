@@ -84,6 +84,22 @@ public class GameManager : MonoBehaviour
 
     [Space]
     
+    public int healthXp;
+    public int damageXp;
+    public int speadXp;
+    public int bulletXp;
+    public int FuelXp;
+
+    [Space]
+
+    public int noOfHealth;
+    public int noOfDamage;
+    public int noOfSpeed;
+    public int noOfBulletSpeed;
+    public int noOfFuel;
+
+    [Space]
+
     public TMP_Text healthStat;
     public TMP_Text dmgStat;
     public TMP_Text speedStat;
@@ -117,11 +133,11 @@ public class GameManager : MonoBehaviour
         fuelAmount.SetText("Fuel:" + currentFuel);
         fuelAmountStore.SetText("Fuel:" + currentFuel);
 
-        healthStat.SetText("" + playerMaxHealth);
-        dmgStat.SetText("" + playerDamage);
-        speedStat.SetText("" + playerMoveSpeed);
-        projectileSpeedStat.SetText("" + projectileSpeed);
-        FuelGainStat.SetText("" + minfuelGain);
+        healthStat.SetText("+" + noOfHealth);
+        dmgStat.SetText("+" + noOfDamage);
+        speedStat.SetText("+" + noOfSpeed);
+        projectileSpeedStat.SetText("+" + noOfBulletSpeed);
+        FuelGainStat.SetText("+" + noOfFuel);
 
         healthCostText.SetText("" + healthCost);
         damageCostText.SetText("" + damageCost);
