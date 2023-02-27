@@ -3102,6 +3102,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &828574445 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2491844878740939835, guid: f517131820343e348be94e02686302f3, type: 3}
+  m_PrefabInstance: {fileID: 6874905501437722620}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &848850393 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6874905500657029669, guid: f517131820343e348be94e02686302f3, type: 3}
@@ -10060,9 +10071,29 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
+      propertyPath: FuelXp
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: dmgStat
       value: 
       objectReference: {fileID: 476275828}
+    - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
+      propertyPath: speadXp
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
+      propertyPath: bulletXp
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
+      propertyPath: damageXp
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
+      propertyPath: healthXp
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: speedStat
       value: 
@@ -10416,6 +10447,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -1.3652344
       objectReference: {fileID: 0}
+    - target: {fileID: 2911398712996040470, guid: f517131820343e348be94e02686302f3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 9.050049
+      objectReference: {fileID: 0}
     - target: {fileID: 3756313114598616948, guid: f517131820343e348be94e02686302f3, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -1.0911865
@@ -10561,6 +10596,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2786380147399074273}
     - target: {fileID: 6874905499588192682, guid: f517131820343e348be94e02686302f3, type: 3}
+      propertyPath: levelNumber
+      value: 
+      objectReference: {fileID: 828574445}
+    - target: {fileID: 6874905499588192682, guid: f517131820343e348be94e02686302f3, type: 3}
       propertyPath: remainingZombiesCounter
       value: 
       objectReference: {fileID: 736424118}
@@ -10611,6 +10650,10 @@ PrefabInstance:
     - target: {fileID: 8353711439680522807, guid: f517131820343e348be94e02686302f3, type: 3}
       propertyPath: m_Name
       value: ZombieCounter
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979376962689351426, guid: f517131820343e348be94e02686302f3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.0009765625
       objectReference: {fileID: 0}
     - target: {fileID: 8986368659356464790, guid: f517131820343e348be94e02686302f3, type: 3}
       propertyPath: m_AnchorMax.x
