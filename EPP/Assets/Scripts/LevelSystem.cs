@@ -102,6 +102,9 @@ public class LevelSystem : MonoBehaviour
         currentXp = Mathf.RoundToInt(currentXp - requiredXp);
         gameManager.playerCurrentHealth = gameManager.playerMaxHealth;
         requiredXp = CalculateRequiredXp();
+        //gameManager.zombieSpeed += gameManager.zombieSpeedUpgrade;
+        gameManager.zombieMaxHealth += gameManager.zombieHealthUpgrade;
+        gameManager.zombieDamage += gameManager.zombieDamageUpgrade;
         levelText.text = "" + level;
         
     }

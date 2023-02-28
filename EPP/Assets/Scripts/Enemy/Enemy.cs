@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Enemy : MonoBehaviour
 {
@@ -9,11 +10,12 @@ public class Enemy : MonoBehaviour
     public Transform[] moveSpots;
     public Transform playerTransform;
     public Rigidbody2D rb;
+    public TextMeshProUGUI zombieLevelText;
 
     private GameObject player;
     private GameManager gameManager;
-    private GameObject _gameManager;
-
+    private GameObject _gameManager; 
+    private LevelSystem _level;
     private float distance;
     private int randomSpot;
 
@@ -32,6 +34,8 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        
+        _level = player.GetComponent<LevelSystem>();
 
         rb = this.GetComponent<Rigidbody2D>();
 
@@ -40,6 +44,8 @@ public class Enemy : MonoBehaviour
 
         zombieCurrentHealth = gameManager.zombieMaxHealth;
         ZombieHealthBar.maxValue = gameManager.zombieMaxHealth;
+        gameManager.zombieLevel = _level.level;
+        zombieLevelText.text = "" + gameManager.zombieLevel;
         
         gameManager.inSafeZone = false;
         gameManager.zombiePatrolling = true;
@@ -78,11 +84,13 @@ public class Enemy : MonoBehaviour
        if (gameManager.zombieChasing == true)
        {
             gameManager.zombiePatrolling = false;
+            gameManager.zombieSpeed = gameManager.zombieChaseSpeed;
             Chase();
 
        }    else if (gameManager.zombiePatrolling == true)   {
 
             gameManager.zombieChasing = false;
+            gameManager.zombieSpeed = gameManager.zombiePatrolSpeed;
             Patrol();
        }
 
@@ -170,12 +178,17 @@ public class Enemy : MonoBehaviour
         }*/
     }
 
-    /*private void OnTriggerEnter2D(Collider2D collision)
+    void ZombieLevelUp()
     {
-        if (collision.tag == "Player")
+        for (int i = 1; i <= gameManager.zombieLevel; i++)
         {
-            collision.GetComponent<Health>().TakeDamage(damage);
+            gameManager.zombieSpeed += gameManager.zombieSpeedUpgrade;
+            gameManager.zombieMaxHealth += gameManager.zombieHealthUpgrade;
+            gameManager.zombieDamage += gameManager.zombieDamageUpgrade;
         }
-    }*/
+
+
+    }
+
         
 }

@@ -10072,7 +10072,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: FuelXp
-      value: 50
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: dmgStat
@@ -10080,19 +10080,19 @@ PrefabInstance:
       objectReference: {fileID: 476275828}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: speadXp
-      value: 50
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: bulletXp
-      value: 50
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: damageXp
-      value: 50
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: healthXp
-      value: 50
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: speedStat
@@ -10108,11 +10108,11 @@ PrefabInstance:
       objectReference: {fileID: 1861203058}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: currentFuel
-      value: 99999999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: zombieSpeed
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: FuelGainStat
@@ -10163,6 +10163,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
+      propertyPath: zombieChaseSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: maxUpgradedDamage
       value: 5
       objectReference: {fileID: 0}
@@ -10175,9 +10179,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1769099346}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
+      propertyPath: zombiePatrolSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: projectileCostText
       value: 
       objectReference: {fileID: 1364971700}
+    - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
+      propertyPath: zombieSpeedUpgrade
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: FuelUpgradeInterval
       value: 5
@@ -10186,6 +10198,14 @@ PrefabInstance:
       propertyPath: projectileSpeedStat
       value: 
       objectReference: {fileID: 424182349}
+    - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
+      propertyPath: zombieDamageUpgrade
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
+      propertyPath: zombieHealthUpgrade
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: speedUpgradeInterval
       value: 1

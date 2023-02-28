@@ -34,16 +34,27 @@ public class GameManager : MonoBehaviour
     [Header("Zombies")]
     public int numberOfZombies;
     public int remainingZombies;
+    public int zombieLevel;
+    [Space]
     public float zombieMaxHealth = 5f;
     public int zombieDamage = 1;
     public int zombieSpeed = 1;
+    public int zombieChaseSpeed;
+    public int zombiePatrolSpeed;
+    [Space]
+    public int zombieHealthUpgrade;
+    public int zombieDamageUpgrade;
+    public int zombieSpeedUpgrade;
+    [Space]
     public int zombieChaseRange;
     public float waitTime;
     public float startWaitTime;
+    [Space]
     public bool zombieChasing;
     public bool zombiePatrolling;
     public bool zombiesDead;
     public bool zombiesSpawned;
+    [Space]
     public TMP_Text zombieCounterText;
 
     [Space]
