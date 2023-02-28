@@ -10,6 +10,7 @@ public class LevelSystem : MonoBehaviour
     public int level;
     public float currentXp;
     public float requiredXp;
+    public float testXP;
 
     private float lerpTimer;
     private float delayTimer;
@@ -44,7 +45,7 @@ public class LevelSystem : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Equals))
         {
-            FlatRateExperienceGain(20);
+            FlatRateExperienceGain(testXP);
         }
 
         if (currentXp > requiredXp)
@@ -109,7 +110,7 @@ public class LevelSystem : MonoBehaviour
         
     }
 
-    private int CalculateRequiredXp()
+    public int CalculateRequiredXp()
     {
         int solvedForRequiredXp = 0;
         for (int levelCycle = 1; levelCycle <= level; levelCycle++)

@@ -10,14 +10,38 @@ public class StoreMenu : MonoBehaviour
     [Space]
 
     public GameObject storeMenuUI;
-    public GameObject healthBar;
+    public GameObject HUD;
     public GameObject currencyDisplay;
     public GameObject remainingZombiesCounter;
     public LevelSystem level;
+    /*public Image[] healthPoints;
+    public Image[] damagePoints;
+    public Image[] speedPoints;
+    public Image[] bulletPoints;
+    public Image[] fuelPoints;
+    public Image[] medKitPoints;*/
+    public Slider healthPoint;
+    public Slider damagePoint;
+    public Slider speedPoint;
+    public Slider bulletPoint;
+    public Slider fuelPoint;
+    public Slider medPoint;
+
+    public GameObject healthMax;
+    public GameObject damageMax;
+    public GameObject speedMax;
+    public GameObject bulletMax;
+    public GameObject fuelMax;
+    public GameObject medMax;
+
+    public float chipSpeed = 2f;
+    private float delayTimer;
+    private float lerpTimer;
 
     [Space]
 
     public GameManager gameManager;
+    private GameObject _enemy;
 
     [Space]
     public TMP_Text currencyAmount;
@@ -25,14 +49,26 @@ public class StoreMenu : MonoBehaviour
     public Image backXpBar;
     public TextMeshProUGUI levelNumber;
 
+    
+
+    void Start ()
+    {
+        MaxPointSliders();
+    }
 
     void Update()
     {
-        levelNumber.text = "" + level.levelText.text;
-        frontXpBar.fillAmount = level.frontXpBar.fillAmount;
-        backXpBar.fillAmount = level.backXpBar.fillAmount;
+        _enemy = GameObject.FindWithTag("Zombie");
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        //UpdateStatProgressUI();
+        healthPoint.value = gameManager.noOfHealth;
+
+        levelNumber.text = "" + gameManager.levelText.text;
+        frontXpBar.fillAmount = gameManager.frontXpBar.fillAmount;
+        backXpBar.fillAmount = gameManager.backXpBar.fillAmount;
+
+
+        if (Input.GetKeyDown(KeyCode.Tab) && gameManager.inDialogue == false)
         {
             if(gameManager.storeEnabled)
             {
@@ -42,12 +78,92 @@ public class StoreMenu : MonoBehaviour
                 Store();
             }
         }
+
+        //PointBars();
+        PointSliders();
+        
+        
     }
+
+    public void PointSliders()
+    {
+        healthPoint.value = gameManager.noOfHealth;
+        damagePoint.value = gameManager.noOfDamage;
+        speedPoint.value = gameManager.noOfSpeed;
+        bulletPoint.value = gameManager.noOfBulletSpeed;
+        fuelPoint.value = gameManager.noOfFuel;
+        medPoint.value = gameManager.noOfMedKit;
+
+        if (healthPoint.value == healthPoint.maxValue)
+        {
+            healthMax.SetActive(true);
+        }
+        if (damagePoint.value == damagePoint.maxValue)
+        {
+            damageMax.SetActive(true);
+        }
+        if (speedPoint.value == speedPoint.maxValue)
+        {
+            speedMax.SetActive(true);
+        }
+        if (bulletPoint.value == bulletPoint.maxValue)
+        {
+            bulletMax.SetActive(true);
+        }
+        if (fuelPoint.value == fuelPoint.maxValue)
+        {
+            fuelMax.SetActive(true);
+        }
+        if (medPoint.value == medPoint.maxValue)
+        {
+            medMax.SetActive(true);
+        }
+    }
+    public void MaxPointSliders()
+    {
+        healthPoint.maxValue = gameManager.maxNoOfHealth;
+        damagePoint.maxValue = gameManager.maxNoOfDamage;
+        speedPoint.maxValue = gameManager.maxNoOfSpeed;
+        bulletPoint.maxValue = gameManager.maxNoOfBulletSpeed;
+        fuelPoint.maxValue = gameManager.maxNoOfFuel;
+        medPoint.maxValue = gameManager.maxNoOfMedkit;
+    }
+        
+
+    public void PointBars()
+    {
+        /*for (int i = 0; i <healthPoints.Length; i++)
+        {
+            healthPoints[i].enabled = !DisplayPoints(gameManager.noOfHealth, i);
+        }
+        for (int i = 0; i <damagePoints.Length; i++)
+        {
+            damagePoints[i].enabled = !DisplayPoints(gameManager.noOfDamage, i);
+        }
+        for (int i = 0; i <speedPoints.Length; i++)
+        {
+            speedPoints[i].enabled = !DisplayPoints(gameManager.noOfSpeed, i);
+        }
+        for (int i = 0; i <bulletPoints.Length; i++)
+        {
+            bulletPoints[i].enabled = !DisplayPoints(gameManager.noOfBulletSpeed, i);
+        }
+        for (int i = 0; i <fuelPoints.Length; i++)
+        {
+            fuelPoints[i].enabled = !DisplayPoints(gameManager.noOfFuel, i);
+        }
+        for (int i = 0; i <medKitPoints.Length; i++)
+        {
+            medKitPoints[i].enabled = !DisplayPoints(gameManager.noOfMedKit, i);
+        }*/
+    }
+
+  
 
     public void Store()
     {
         
-        healthBar.SetActive(false);
+        HUD.SetActive(false);
         currencyDisplay.SetActive(false);
         remainingZombiesCounter.SetActive(false);
         storeMenuUI.SetActive(true);
@@ -57,7 +173,7 @@ public class StoreMenu : MonoBehaviour
 
     public void StoreOff()
     {
-        healthBar.SetActive(true);
+        HUD.SetActive(true);
         currencyDisplay.SetActive(true);
         remainingZombiesCounter.SetActive(true);
         storeMenuUI.SetActive(false);
@@ -67,7 +183,7 @@ public class StoreMenu : MonoBehaviour
 
     public void HealthIncrease()
     {
-        if (gameManager.currentFuel >= gameManager.healthCost && gameManager.playerMaxHealth < gameManager.maxUpgradedHealth)
+        if (gameManager.currentFuel >= gameManager.healthCost && gameManager.noOfHealth < gameManager.maxNoOfHealth)
         {
             gameManager.playerMaxHealth += gameManager.healthUpgradeInterval;
 
@@ -75,7 +191,7 @@ public class StoreMenu : MonoBehaviour
             
             gameManager.currentFuel -= gameManager.healthCost;
 
-            level.FlatRateExperienceGain(gameManager.healthXp);
+            gameManager.FlatRateExperienceGain(gameManager.healthXp);
             
             gameManager.healthCost += gameManager.healthCost * 1/2;
             
@@ -84,9 +200,14 @@ public class StoreMenu : MonoBehaviour
         
     }
 
+    bool DisplayPoints(int _noOfPoints, int pointNumber)
+    {
+        return (pointNumber >= _noOfPoints);
+    }
+
     public void DamageIncrease()
     {
-        if (gameManager.currentFuel >= gameManager.damageCost && gameManager.playerDamage < gameManager.maxUpgradedDamage)
+        if (gameManager.currentFuel >= gameManager.damageCost && gameManager.noOfDamage < gameManager.maxNoOfDamage)
         {
             gameManager.playerDamage += gameManager.damageUpgradeInterval;
 
@@ -94,7 +215,7 @@ public class StoreMenu : MonoBehaviour
             
             gameManager.currentFuel -= gameManager.damageCost;
 
-            level.FlatRateExperienceGain(gameManager.damageXp);
+            gameManager.FlatRateExperienceGain(gameManager.damageXp);
             
             gameManager.damageCost += gameManager.damageCost * 1/2;
             
@@ -105,7 +226,7 @@ public class StoreMenu : MonoBehaviour
 
     public void SpeedIncrease()
     {
-        if (gameManager.currentFuel >= gameManager.speedCost && gameManager.playerMoveSpeed < gameManager.maxUpgradedSpeed)
+        if (gameManager.currentFuel >= gameManager.speedCost && gameManager.noOfSpeed < gameManager.maxNoOfSpeed)
         {
             gameManager.playerMoveSpeed += gameManager.speedUpgradeInterval;
 
@@ -113,7 +234,7 @@ public class StoreMenu : MonoBehaviour
             
             gameManager.currentFuel -= gameManager.speedCost;
 
-            level.FlatRateExperienceGain(gameManager.speadXp);
+            gameManager.FlatRateExperienceGain(gameManager.speadXp);
             
             gameManager.speedCost += gameManager.speedCost * 1/2;
             
@@ -124,7 +245,7 @@ public class StoreMenu : MonoBehaviour
 
     public void ProjectileSpeedIncrease()
     {
-        if (gameManager.currentFuel >= gameManager.fuelCost && gameManager.projectileSpeed < gameManager.maxUpgradedProjectile)
+        if (gameManager.currentFuel >= gameManager.fuelCost && gameManager.noOfBulletSpeed < gameManager.maxNoOfBulletSpeed)
         {
             gameManager.projectileSpeed += gameManager.bulletSpeedUpgradeInterval;
 
@@ -132,7 +253,7 @@ public class StoreMenu : MonoBehaviour
             
             gameManager.currentFuel -= gameManager.projectileCost;
 
-            level.FlatRateExperienceGain(gameManager.bulletXp);
+            gameManager.FlatRateExperienceGain(gameManager.bulletXp);
             
             gameManager.projectileCost += gameManager.projectileCost * 1/2;
             
@@ -143,7 +264,7 @@ public class StoreMenu : MonoBehaviour
 
     public void CurrencyGainIncrease()
     {
-        if (gameManager.currentFuel >= gameManager.fuelCost && gameManager.minfuelGain < gameManager.maxUpgradedFuel)
+        if (gameManager.currentFuel >= gameManager.fuelCost && gameManager.noOfFuel < gameManager.maxNoOfFuel)
         {
             gameManager.minfuelGain += gameManager.FuelUpgradeInterval;
             gameManager.maxfuelGain += gameManager.FuelUpgradeInterval;
@@ -152,13 +273,31 @@ public class StoreMenu : MonoBehaviour
             
             gameManager.currentFuel -= gameManager.fuelCost;
 
-            level.FlatRateExperienceGain(gameManager.FuelXp);
+            gameManager.FlatRateExperienceGain(gameManager.FuelXp);
             
             gameManager.fuelCost += gameManager.fuelCost * 1/2;
             
             Debug.Log("Currency Gain Increased");
         }
         
+    }
+
+    public void MedKitIncrease()
+    {
+        if(gameManager.currentFuel >= gameManager.medKitCost && gameManager.noOfMedKit < gameManager.maxNoOfMedkit)
+        {
+            gameManager.medkitPotency += gameManager.MedkitUpgradeInterval;
+
+            gameManager.noOfMedKit++;
+
+            gameManager.currentFuel -= gameManager.medKitCost;
+
+            gameManager.FlatRateExperienceGain(gameManager.MedKitXp);
+
+            gameManager.medKitCost += gameManager.medKitCost * 1/2;
+
+            Debug.Log("Med Kit Potency Increased");
+        }
     }
 
 

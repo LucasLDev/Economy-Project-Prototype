@@ -9,7 +9,7 @@ public class PauseMenu : MonoBehaviour
     public GameManager gameManager;
     [Space]
     public GameObject pauseMenuUI;
-    public GameObject healthBar;
+    public GameObject HUD;
     public GameObject fuelDisplay;
     public GameObject remainingZombiesCounter;
     [Space]
@@ -35,7 +35,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         remainingZombiesCounter.SetActive(true);
-        healthBar.SetActive(true);
+        HUD.SetActive(true);
         fuelDisplay.SetActive(true);
         Time.timeScale = 1f;
         gameManager.gameIsPaused = false;
@@ -44,7 +44,7 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
         pauseMenuUI.SetActive(true);
-        healthBar.SetActive(false);
+        HUD.SetActive(false);
         fuelDisplay.SetActive(false);
         remainingZombiesCounter.SetActive(false);
         Time.timeScale = 0f;

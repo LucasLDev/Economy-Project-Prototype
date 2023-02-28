@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     private GameManager gameManager;
     private GameObject _gameManager; 
-    private LevelSystem _level;
     private float distance;
     private int randomSpot;
 
@@ -34,8 +33,6 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        
-        _level = player.GetComponent<LevelSystem>();
 
         rb = this.GetComponent<Rigidbody2D>();
 
@@ -44,7 +41,7 @@ public class Enemy : MonoBehaviour
 
         zombieCurrentHealth = gameManager.zombieMaxHealth;
         ZombieHealthBar.maxValue = gameManager.zombieMaxHealth;
-        gameManager.zombieLevel = _level.level;
+        gameManager.zombieLevel = gameManager.level;
         zombieLevelText.text = "" + gameManager.zombieLevel;
         
         gameManager.inSafeZone = false;
