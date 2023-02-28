@@ -56,13 +56,8 @@ public class GameManager : MonoBehaviour
     [Header("Zombies")]
     public int numberOfZombies;
     public int remainingZombies;
-    public int zombieLevel;
-    [Space]
-    public float zombieMaxHealth = 5f;
-    public int zombieDamage = 1;
-    public float zombieSpeed = 1;
-    public float zombieChaseSpeed;
-    public float zombiePatrolSpeed;
+    
+    
     [Space]
     public int zombieHealthUpgrade;
     public int zombieDamageUpgrade;
@@ -324,10 +319,10 @@ public class GameManager : MonoBehaviour
         currentXp = Mathf.RoundToInt(currentXp - requiredXp);
         playerCurrentHealth = playerMaxHealth;
         requiredXp = CalculateRequiredXp();
-        zombieMaxHealth += zombieHealthUpgrade;
+        /*zombieMaxHealth += zombieHealthUpgrade;
         zombieDamage += zombieDamageUpgrade;
         zombieChaseSpeed += zombieSpeedUpgrade;
-        zombiePatrolSpeed += zombieSpeedUpgrade;
+        zombiePatrolSpeed += zombieSpeedUpgrade;*/
         levelText.text = "" + level;
         
     }

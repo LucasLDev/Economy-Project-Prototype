@@ -185,6 +185,12 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   rb: {fileID: 0}
   zombieLevelText: {fileID: 5018268521243776268}
+  zombieMaxHealth: 5
+  zombieDamage: 1
+  zombieSpeed: 1
+  zombieChaseSpeed: 2
+  zombiePatrolSpeed: 1
+  zombieLevel: 0
   zombieCurrentHealth: 0
   ZombieHealthBar: {fileID: 3110637401200652734}
   chipSpeed: 5

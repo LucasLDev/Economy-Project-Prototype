@@ -18,7 +18,14 @@ public class Enemy : MonoBehaviour
     private float distance;
     private int randomSpot;
 
-    [Header("Zombie Health")]
+    [Header("Zombie Stats")]
+    [Space]
+    public float zombieMaxHealth = 5f;
+    public int zombieDamage = 1;
+    public float zombieSpeed = 1;
+    public float zombieChaseSpeed;
+    public float zombiePatrolSpeed;
+    public int zombieLevel;
 
     public float zombieCurrentHealth;
     public Slider ZombieHealthBar;
@@ -39,10 +46,11 @@ public class Enemy : MonoBehaviour
         _gameManager = GameObject.FindWithTag("GameManager");
         gameManager = _gameManager.GetComponent<GameManager>();
 
-        zombieCurrentHealth = gameManager.zombieMaxHealth;
-        ZombieHealthBar.maxValue = gameManager.zombieMaxHealth;
-        gameManager.zombieLevel = gameManager.level;
-        zombieLevelText.text = "" + gameManager.zombieLevel;
+        zombieCurrentHealth = zombieMaxHealth;
+        ZombieHealthBar.maxValue = zombieMaxHealth;
+        zombieLevel = Random.Range(gameManager.level + 2, gameManager.level - 2);
+        ZombieScaling();
+        zombieLevelText.text = "" + zombieLevel;
         
         gameManager.inSafeZone = false;
         gameManager.zombiePatrolling = true;
@@ -81,22 +89,35 @@ public class Enemy : MonoBehaviour
        if (gameManager.zombieChasing == true)
        {
             gameManager.zombiePatrolling = false;
-            gameManager.zombieSpeed = gameManager.zombieChaseSpeed;
+            zombieSpeed = zombieChaseSpeed;
             Chase();
 
        }    else if (gameManager.zombiePatrolling == true)   {
 
             gameManager.zombieChasing = false;
-            gameManager.zombieSpeed = gameManager.zombiePatrolSpeed;
+            zombieSpeed = zombiePatrolSpeed;
             Patrol();
        }
 
     }
 
+    public void ZombieScaling()
+    {
+        for (int i = 1; i < zombieLevel; i++)
+        {
+            zombieMaxHealth += gameManager.zombieHealthUpgrade;
+            zombieCurrentHealth = zombieMaxHealth;
+            zombieDamage += gameManager.zombieDamageUpgrade;
+            zombieChaseSpeed += gameManager.zombieSpeedUpgrade;
+            zombiePatrolSpeed += gameManager.zombieSpeedUpgrade;
+        }
+        
+    }
+
     
     public void Patrol()
     {
-        transform.position = Vector2.MoveTowards(transform.position, moveSpots[randomSpot].position, gameManager.zombieSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, moveSpots[randomSpot].position, zombieSpeed * Time.deltaTime);
         Vector3 direction = moveSpots[randomSpot].transform.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
@@ -117,7 +138,7 @@ public class Enemy : MonoBehaviour
 
     public void Chase()
     {
-        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, gameManager.zombieSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, zombieSpeed * Time.deltaTime);
         Vector3 direction = player.transform.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
@@ -126,7 +147,7 @@ public class Enemy : MonoBehaviour
 
     public void ZMTakeDamage(int zmAmount)
     {
-        zombieCurrentHealth = Mathf.Clamp(zombieCurrentHealth - zmAmount, 0, gameManager.zombieMaxHealth);
+        zombieCurrentHealth = Mathf.Clamp(zombieCurrentHealth - zmAmount, 0, zombieMaxHealth);
 
         if(zombieCurrentHealth > 0)
         {
@@ -153,7 +174,7 @@ public class Enemy : MonoBehaviour
     {
         float fillF = currentHealthBar.fillAmount;
         float fillB = TakeDamageHealthBar.fillAmount;
-        float hFraction = zombieCurrentHealth / gameManager.zombieMaxHealth;
+        float hFraction = zombieCurrentHealth / zombieMaxHealth;
         Debug.Log(hFraction);
         if (fillB > hFraction)
         {
@@ -173,18 +194,6 @@ public class Enemy : MonoBehaviour
             percentComplete = percentComplete * percentComplete;
             currentHealthBar.fillAmount = Mathf.Lerp(fillF, TakeDamageHealthBar.fillAmount, percentComplete);
         }*/
-    }
-
-    void ZombieLevelUp()
-    {
-        for (int i = 1; i <= gameManager.zombieLevel; i++)
-        {
-            gameManager.zombieSpeed += gameManager.zombieSpeedUpgrade;
-            gameManager.zombieMaxHealth += gameManager.zombieHealthUpgrade;
-            gameManager.zombieDamage += gameManager.zombieDamageUpgrade;
-        }
-
-
     }
 
         

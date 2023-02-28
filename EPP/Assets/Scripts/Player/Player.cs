@@ -112,8 +112,9 @@ public class Player : MonoBehaviour
     {
         if (collision.tag == "Zombie")
         {
-            //collision.GetComponent<Health>().
-            TakeDamage(gameManager.zombieDamage);
+            collision.GetComponent<Player>();
+            var enemy = collision.GetComponent<Enemy>();
+            TakeDamage(enemy.zombieDamage);
         }
     }
 

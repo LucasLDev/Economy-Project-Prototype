@@ -13,7 +13,7 @@ public class StoreMenu : MonoBehaviour
     public GameObject HUD;
     public GameObject currencyDisplay;
     public GameObject remainingZombiesCounter;
-    public LevelSystem level;
+    
     /*public Image[] healthPoints;
     public Image[] damagePoints;
     public Image[] speedPoints;

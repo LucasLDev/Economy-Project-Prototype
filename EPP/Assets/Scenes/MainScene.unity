@@ -10235,7 +10235,7 @@ PrefabInstance:
       objectReference: {fileID: 1861203058}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: currentFuel
-      value: 0
+      value: 9999999
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: maxNoOfFuel
@@ -10691,6 +10691,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1100418595128161534, guid: f517131820343e348be94e02686302f3, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1126073239504476236, guid: f517131820343e348be94e02686302f3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -10899,6 +10903,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.00004196167
       objectReference: {fileID: 0}
+    - target: {fileID: 7289316746259561196, guid: f517131820343e348be94e02686302f3, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 2786380147399074273}
     - target: {fileID: 7807477464483957641, guid: f517131820343e348be94e02686302f3, type: 3}
       propertyPath: m_FillAmount
       value: 1
