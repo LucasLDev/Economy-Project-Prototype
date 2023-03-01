@@ -193,7 +193,7 @@ public class StoreMenu : MonoBehaviour
 
             gameManager.FlatRateExperienceGain(gameManager.healthXp);
             
-            gameManager.healthCost += gameManager.healthCost * 1/2;
+            gameManager.healthCost += gameManager.healthCost * 1/4;
             
             Debug.Log("Health Increased");
         }
@@ -217,7 +217,7 @@ public class StoreMenu : MonoBehaviour
 
             gameManager.FlatRateExperienceGain(gameManager.damageXp);
             
-            gameManager.damageCost += gameManager.damageCost * 1/2;
+            gameManager.damageCost += gameManager.damageCost * 45/100;
             
             Debug.Log("Damage Increased");
         }
@@ -236,7 +236,7 @@ public class StoreMenu : MonoBehaviour
 
             gameManager.FlatRateExperienceGain(gameManager.speadXp);
             
-            gameManager.speedCost += gameManager.speedCost * 1/2;
+            gameManager.speedCost += gameManager.speedCost * 10/6;
             
             Debug.Log("Speed Increased");
         }
@@ -255,7 +255,7 @@ public class StoreMenu : MonoBehaviour
 
             gameManager.FlatRateExperienceGain(gameManager.bulletXp);
             
-            gameManager.projectileCost += gameManager.projectileCost * 1/2;
+            gameManager.projectileCost += gameManager.projectileCost * 1/6;
             
             Debug.Log("Projectile Speed Increased");
         }
@@ -275,7 +275,7 @@ public class StoreMenu : MonoBehaviour
 
             gameManager.FlatRateExperienceGain(gameManager.FuelXp);
             
-            gameManager.fuelCost += gameManager.fuelCost * 1/2;
+            gameManager.fuelCost += gameManager.fuelCost * 1/6;
             
             Debug.Log("Currency Gain Increased");
         }
@@ -294,7 +294,7 @@ public class StoreMenu : MonoBehaviour
 
             gameManager.FlatRateExperienceGain(gameManager.MedKitXp);
 
-            gameManager.medKitCost += gameManager.medKitCost * 1/2;
+            gameManager.medKitCost += gameManager.medKitCost * 1/4;
 
             Debug.Log("Med Kit Potency Increased");
         }

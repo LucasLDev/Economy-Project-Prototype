@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     {
         UpdateHealthUI();
 
-        if(Input.GetButtonDown("Fire1"))
+        if(Input.GetButtonDown("Fire1") && gameManager.canShoot == true)
         {
             Shoot();
         }
@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
 
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         gameManager.playerCurrentHealth = Mathf.Clamp(gameManager.playerCurrentHealth - amount, 0, gameManager.playerMaxHealth);
 
@@ -108,15 +108,16 @@ public class Player : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /* private void OnCollisionStay2D(Collider2D collision)
     {
         if (collision.tag == "Zombie")
         {
-            collision.GetComponent<Player>();
+            if(Time.time - gameManager.)
             var enemy = collision.GetComponent<Enemy>();
+
             TakeDamage(enemy.zombieDamage);
         }
-    }
+    } */
 
     public void AddHealth(int _value)
     {

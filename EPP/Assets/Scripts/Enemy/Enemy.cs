@@ -13,15 +13,19 @@ public class Enemy : MonoBehaviour
     public TextMeshProUGUI zombieLevelText;
 
     private GameObject player;
+    public Player _player;
     private GameManager gameManager;
     private GameObject _gameManager; 
     private float distance;
     private int randomSpot;
 
+    float lastAttackTime;
+
+
     [Header("Zombie Stats")]
     [Space]
     public float zombieMaxHealth = 5f;
-    public int zombieDamage = 1;
+    public float zombieDamage = 1;
     public float zombieSpeed = 1;
     public float zombieChaseSpeed;
     public float zombiePatrolSpeed;
@@ -40,6 +44,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        _player = player.GetComponent<Player>();
 
         rb = this.GetComponent<Rigidbody2D>();
 
@@ -48,7 +53,13 @@ public class Enemy : MonoBehaviour
 
         zombieCurrentHealth = zombieMaxHealth;
         ZombieHealthBar.maxValue = zombieMaxHealth;
-        zombieLevel = Random.Range(gameManager.level + 2, gameManager.level - 2);
+        if(gameManager.level == 1)
+        {
+            zombieLevel = Random.Range(1, 3);
+        } else {
+            zombieLevel = Random.Range(gameManager.level + 2, gameManager.level - 2);
+        }
+        
         ZombieScaling();
         zombieLevelText.text = "" + zombieLevel;
         
@@ -101,6 +112,20 @@ public class Enemy : MonoBehaviour
 
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            if(Time.time - lastAttackTime < gameManager.attackCooldown) return;
+
+            _player.TakeDamage(zombieDamage);
+
+            lastAttackTime = Time.time;
+            
+        }
+        
+    }
+
     public void ZombieScaling()
     {
         for (int i = 1; i < zombieLevel; i++)
@@ -110,6 +135,9 @@ public class Enemy : MonoBehaviour
             zombieDamage += gameManager.zombieDamageUpgrade;
             zombieChaseSpeed += gameManager.zombieSpeedUpgrade;
             zombiePatrolSpeed += gameManager.zombieSpeedUpgrade;
+
+            //gameManager.zombieDamageUpgrade++;
+            
         }
         
     }
@@ -145,7 +173,7 @@ public class Enemy : MonoBehaviour
         
     }
 
-    public void ZMTakeDamage(int zmAmount)
+    public void ZMTakeDamage(float zmAmount)
     {
         zombieCurrentHealth = Mathf.Clamp(zombieCurrentHealth - zmAmount, 0, zombieMaxHealth);
 

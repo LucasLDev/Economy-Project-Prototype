@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public bool storeEnabled = false;
     public bool favourCompleted = false;
     public bool inDialogue = false;
+    public bool canShoot = true;
 
     public GameObject HUD;
     public StoreMenu store;
@@ -21,8 +22,8 @@ public class GameManager : MonoBehaviour
     [Header("Player")]
     public int playerMaxHealth = 5;
     public float playerCurrentHealth;
-    public int playerMoveSpeed = 4;
-    public int playerDamage = 1;
+    public float playerMoveSpeed = 4;
+    public float playerDamage = 1;
     public float projectileSpeed = 20f;
     public int medkitPotency;
     public bool inSafeZone;
@@ -56,10 +57,11 @@ public class GameManager : MonoBehaviour
     [Header("Zombies")]
     public int numberOfZombies;
     public int remainingZombies;
+    public float attackCooldown;
     
     
     [Space]
-    public int zombieHealthUpgrade;
+    public float zombieHealthUpgrade;
     public int zombieDamageUpgrade;
     public float zombieSpeedUpgrade;
     [Space]
@@ -98,8 +100,8 @@ public class GameManager : MonoBehaviour
     [Space]
 
     public int healthUpgradeInterval = 20;
-    public int damageUpgradeInterval = 1;
-    public int speedUpgradeInterval = 1;
+    public float damageUpgradeInterval = 1;
+    public float speedUpgradeInterval = 1;
     public int bulletSpeedUpgradeInterval = 5;
     public int FuelUpgradeInterval = 5;
     public int MedkitUpgradeInterval = 10;
@@ -182,6 +184,13 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateXpUI();
+
+        if (inDialogue == true || storeEnabled == true || gameIsPaused == true)
+        {
+            canShoot = false;
+        } else {
+            canShoot = true;
+        }
 
         if(Input.GetKeyDown(KeyCode.Equals))
         {

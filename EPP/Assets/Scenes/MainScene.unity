@@ -9965,7 +9965,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095910160}
-  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0.0000028461216}
+  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0.000002846189}
   m_LocalPosition: {x: 9.53, y: 0.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10156,7 +10156,7 @@ PrefabInstance:
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: _level
       value: 
-      objectReference: {fileID: 895576577629126899}
+      objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: testXP
       value: 100
@@ -10171,19 +10171,19 @@ PrefabInstance:
       objectReference: {fileID: 476275828}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: speadXp
-      value: 80
+      value: 115
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: MedKitXp
-      value: 60
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: bulletXp
-      value: 30
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: damageXp
-      value: 65
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: fuelCost
@@ -10191,7 +10191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: healthXp
-      value: 25
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: backXpBar
@@ -10215,7 +10215,7 @@ PrefabInstance:
       objectReference: {fileID: 568627284}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: damageCost
-      value: 200
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: frontXpBar
@@ -10262,6 +10262,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
+      propertyPath: playerDamage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: zombieDamage
       value: 20
       objectReference: {fileID: 0}
@@ -10297,6 +10301,10 @@ PrefabInstance:
       propertyPath: MedKitCostText
       value: 
       objectReference: {fileID: 512144538}
+    - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
+      propertyPath: attackCooldown
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: damageCostText
       value: 
@@ -10431,7 +10439,7 @@ PrefabInstance:
       objectReference: {fileID: 1364971700}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: zombieSpeedUpgrade
-      value: 0.25
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: FuelUpgradeInterval
@@ -10463,19 +10471,19 @@ PrefabInstance:
       objectReference: {fileID: 424182349}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: zombieDamageUpgrade
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: zombieHealthUpgrade
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: speedUpgradeInterval
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: damageUpgradeInterval
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
       propertyPath: healthUpgradeInterval
@@ -10496,17 +10504,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7866122822188526217, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
   m_PrefabInstance: {fileID: 7866122822186606580}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &895576577629126899 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 205742628194380292, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
-  m_PrefabInstance: {fileID: 7866122822186606580}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11ee46e666f44c84f87327a87485b792, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2786380147399074273 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
@@ -10866,7 +10863,7 @@ PrefabInstance:
     - target: {fileID: 6874905499588192682, guid: f517131820343e348be94e02686302f3, type: 3}
       propertyPath: level
       value: 
-      objectReference: {fileID: 895576577629126899}
+      objectReference: {fileID: 0}
     - target: {fileID: 6874905499588192682, guid: f517131820343e348be94e02686302f3, type: 3}
       propertyPath: gameManager
       value: 
@@ -10988,6 +10985,14 @@ PrefabInstance:
       propertyPath: frontHealthBar
       value: 
       objectReference: {fileID: 1056942598}
+    - target: {fileID: 4057252470313720587, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4057252470313720587, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 7009763900266127133, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
       propertyPath: cam
       value: 
@@ -11004,6 +11009,10 @@ PrefabInstance:
       propertyPath: zombieDamage
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7866122821763003974, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 7866122822188526216, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
       propertyPath: m_SortingOrder
       value: 3
@@ -11026,7 +11035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7866122822188526217, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.0000028461216
+      value: 0.000002846189
       objectReference: {fileID: 0}
     - target: {fileID: 7866122822188526217, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
       propertyPath: m_LocalRotation.x
@@ -11056,11 +11065,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8237887742300868736, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8809897736752866812, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 439028486}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 59738c33d3aacb14ca85178532a15336, type: 3}
 --- !u!1001 &8808991996932802170
 PrefabInstance:
