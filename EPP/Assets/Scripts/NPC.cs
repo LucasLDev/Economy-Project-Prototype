@@ -40,17 +40,17 @@ public class NPC : MonoBehaviour
             interactor.SetActive(false);
         }
 
-        if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.inDialogue == false && deniedFavour == false && gameManager.favourCompleted == false && gameManager.remainingZombies <= 0)
+        if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.inDialogue == false && deniedFavour == false && gameManager.favourCompleted == false && gameManager.objectsWithTag.Length <= 0)
         {
             _dialogue.TriggerDialogue();
             gameManager.inDialogue = true;
             gameManager.canMove = false;
-        } else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.inDialogue == false && deniedFavour == true && gameManager.favourCompleted == false & gameManager.remainingZombies <= 0)
+        } else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.inDialogue == false && deniedFavour == true && gameManager.favourCompleted == false & gameManager.objectsWithTag.Length <= 0)
         {
             _dialogueReturn.TriggerReturnDialogue();
             gameManager.inDialogue = true;
             gameManager.canMove = false;
-        }   else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.inDialogue == false && gameManager.favourCompleted == true & gameManager.remainingZombies <= 0)
+        }   else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.inDialogue == false && gameManager.favourCompleted == true & gameManager.objectsWithTag.Length <= 0)
         {
             _dialogueEnd.TriggerEndDialogue();
             gameManager.inDialogue = true;
@@ -62,23 +62,11 @@ public class NPC : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if(gameManager.remainingZombies <= 0)
+        if(gameManager.objectsWithTag.Length <= 0)
         {
             interact.SetActive(true);
             interactOn = true;
         }
-        
-
-        /*if (collision.tag == "Player" && Input.GetKeyDown(KeyCode.F) && gameManager.zombiesSpawned == false)
-        {
-            _dialogue.TriggerDialogue();
-            
-            
-            //Talk to NPC
-            //Choose if accept or decline
-            //gameManager.zombiesSpawned = true;
-            //EnemySpawn();
-        } */
     }
 
     void OnTriggerExit2D(Collider2D collision)

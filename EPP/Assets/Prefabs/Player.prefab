@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7866122821763003975}
   - component: {fileID: 4057252470313720587}
+  - component: {fileID: 3786569511131416307}
   m_Layer: 0
   m_Name: FirePoint
-  m_TagString: Untagged
+  m_TagString: BulletController
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,6 +45,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1388f3d9c2a81ad409084ab5585f3977, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3786569511131416307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7866122821763003974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92123fd3ed482e94a8d2afe57ee91f84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 7866122821763003975}
+  handgunBulletPrefab: {fileID: 4096159615000044804, guid: c4232887aa27da447b104209e3efe6a1, type: 3}
+  shotgunBulletPrefab: {fileID: 4096159615000044804, guid: 8f84508d356409f4b8f2d7a7855fe879, type: 3}
+  gameManager: {fileID: 0}
+  spreadAngle: 45
+  fireRate: 0.5
+  player: {fileID: 0}
+  direction: {x: 0, y: 0}
 --- !u!1 &7866122822188526223
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +143,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: db0265cf68658c54b85e8ea7cb867352, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -150,11 +171,13 @@ MonoBehaviour:
   rb: {fileID: 7866122822188526219}
   cam: {fileID: 0}
   firePoint: {fileID: 7866122821763003975}
-  bulletPrefab: {fileID: 4096159615000044804, guid: c4232887aa27da447b104209e3efe6a1, type: 3}
-  chipSpeed: 2
+  handgunBulletPrefab: {fileID: 4096159615000044804, guid: c4232887aa27da447b104209e3efe6a1, type: 3}
+  shotgunBulletPrefab: {fileID: 4096159615000044804, guid: 8f84508d356409f4b8f2d7a7855fe879, type: 3}
+  chipSpeed: 5
   frontHealthBar: {fileID: 0}
   backHealthVar: {fileID: 0}
   healthText: {fileID: 0}
+  offset: -90
 --- !u!50 &7866122822188526219
 Rigidbody2D:
   serializedVersion: 4

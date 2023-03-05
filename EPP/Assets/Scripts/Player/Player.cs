@@ -20,13 +20,16 @@ public class Player : MonoBehaviour
     Vector2 mousePos;
 
     public Transform firePoint;
-    public GameObject bulletPrefab;
+    public GameObject handgunBulletPrefab;
+    public GameObject shotgunBulletPrefab;
 
     public float chipSpeed = 2f;
     private float lerpTimer;
     public Image frontHealthBar;
     public Image backHealthVar;
     public TextMeshProUGUI healthText;
+
+    public float offset;
 
     void Start()
     {
@@ -38,28 +41,18 @@ public class Player : MonoBehaviour
     {
         UpdateHealthUI();
 
-        if(Input.GetButtonDown("Fire1") && gameManager.canShoot == true)
-        {
-            Shoot();
-        }
+        /* Shoot(); */
         
-        //input
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
-        {
-            animator.SetBool("move", true);
-        } else {
-            animator.SetBool("move", false);
-        }
+        Movement();
 
-        if(gameManager.canMove != false)
-        {
-            movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
-        }
+        TestKeys();
         
-
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        //mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+    }
 
+    public void TestKeys()
+    {
         if(Input.GetKeyDown(KeyCode.Space))
         {
             TakeDamage(15);
@@ -68,6 +61,61 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftAlt))
         {
             AddHealth(15);
+        }
+    }
+
+    public void Movement()
+    {
+      if (gameManager.handgun == true)
+      {
+        animator.SetBool("handgun", true);
+        animator.SetBool("shotgun", false);
+        animator.SetBool("assaultRifle", false);
+
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            animator.SetBool("move", true);
+
+        } else {
+            animator.SetBool("move", false);
+        }
+      }
+
+      if (gameManager.shotgun == true)
+      {
+        animator.SetBool("handgun", false);
+        animator.SetBool("shotgun", true);
+        animator.SetBool("assaultRifle", false);
+        
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            animator.SetBool("move", true);
+
+        } else {
+            animator.SetBool("move", false);
+        }
+      }
+
+      if (gameManager.AssaultRifle == true)
+      {
+        animator.SetBool("handgun", false);
+        animator.SetBool("shotgun", false);
+        animator.SetBool("assaultRifle", true);
+
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            animator.SetBool("move", true);
+
+        } else {
+            animator.SetBool("move", false);
+        }
+      }
+        
+
+        if(gameManager.canMove != false)
+        {
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
         }
     }
 
@@ -125,13 +173,53 @@ public class Player : MonoBehaviour
         lerpTimer = 0f;
     }
 
-    void Shoot()
+    /*void Shoot()
     {
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint.up * gameManager.projectileSpeed, ForceMode2D.Impulse);
+        if(Input.GetButtonDown("Fire1") && gameManager.canShoot == true)
+        {
+            if (gameManager.handgun == true)
+            {
+                GameObject handgunBullet = Instantiate(handgunBulletPrefab, firePoint.position, firePoint.rotation);
+                Rigidbody2D rb = handgunBullet.GetComponent<Rigidbody2D>();
+                rb.AddForce(firePoint.up * gameManager.projectileSpeed, ForceMode2D.Impulse);
+            }
 
-    }
+            if (gameManager.shotgun == true)
+            {
+                Quaternion newRot = firePoint.rotation;
+
+                gameManager.handgun = false;
+                gameManager.machinePistol = false;
+                gameManager.subMachineGun = false;
+                gameManager.AssaultRifle = false;
+
+                for (int i = 0; i < gameManager.shotgunAmmo; i++)
+                {
+                    GameObject s = Instantiate(shotgunBulletPrefab, firePoint.position, firePoint.rotation);
+                    Rigidbody2D rb = s.GetComponent<Rigidbody2D>();
+                    Vector2 dir = transform.rotation * Vector2.up;
+                    Vector2 pdir = Vector2.Perpendicular(dir) * Random.Range(-gameManager.spread, gameManager.spread);
+                    rb.velocity = (dir * pdir) * gameManager.projectileSpeed;
+                }
+
+                 for (int i = 0; i < gameManager.shotgunAmmo; i++)
+                {
+                    float addedOffset =  i - (gameManager.shotgunAmmo / 2) *  gameManager.spread;
+
+                    GameObject shotgunBullet = Instantiate(shotgunBulletPrefab, firePoint.position, newRot);
+
+                    newRot = Quaternion.Euler(firePoint.transform.eulerAngles.x, firePoint.transform.eulerAngles.y, firePoint.transform.eulerAngles.z + addedOffset);
+
+                    
+                    Rigidbody2D rb = shotgunBullet.GetComponent<Rigidbody2D>();
+                    rb.AddForce(firePoint.up * gameManager.projectileSpeed,ForceMode2D.Impulse);
+                } 
+
+            }
+            
+        }
+        
+    } */
 
     public void UpdateHealthUI()
     {
@@ -139,7 +227,7 @@ public class Player : MonoBehaviour
         float fillF = frontHealthBar.fillAmount;
         float fillB = backHealthVar.fillAmount;
         float hFraction = gameManager.playerCurrentHealth / gameManager.playerMaxHealth;
-        Debug.Log(hFraction);
+        
         if (fillB > hFraction)
         {
             frontHealthBar.fillAmount = hFraction;

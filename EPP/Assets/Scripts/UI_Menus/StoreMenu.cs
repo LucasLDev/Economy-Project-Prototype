@@ -13,6 +13,16 @@ public class StoreMenu : MonoBehaviour
     public GameObject HUD;
     public GameObject currencyDisplay;
     public GameObject remainingZombiesCounter;
+    public GameObject equipHandgun;
+    public GameObject equipShotgun;
+    public GameObject buyShotgun;
+    public GameObject buyAR;
+    public GameObject equipAR;
+
+    public Shop shopNPC;
+
+    public bool shotgunBought = false;
+    public bool assaultBought = false;
     
     /*public Image[] healthPoints;
     public Image[] damagePoints;
@@ -26,6 +36,7 @@ public class StoreMenu : MonoBehaviour
     public Slider bulletPoint;
     public Slider fuelPoint;
     public Slider medPoint;
+    public Slider fireRatePoint;
 
     public GameObject healthMax;
     public GameObject damageMax;
@@ -33,6 +44,7 @@ public class StoreMenu : MonoBehaviour
     public GameObject bulletMax;
     public GameObject fuelMax;
     public GameObject medMax;
+    public GameObject fireMax;
 
     public float chipSpeed = 2f;
     private float delayTimer;
@@ -48,16 +60,24 @@ public class StoreMenu : MonoBehaviour
     public Image frontXpBar;
     public Image backXpBar;
     public TextMeshProUGUI levelNumber;
+    public GameObject maxBar;
+    public GameObject shopMaxBar;
 
     
 
     void Start ()
     {
         MaxPointSliders();
+        maxBar.SetActive(false);
+        shopMaxBar.SetActive(false);
+        equipHandgun.SetActive(false);
+        equipShotgun.SetActive(false);
+        equipAR.SetActive(false);
     }
 
     void Update()
     {
+
         _enemy = GameObject.FindWithTag("Zombie");
 
         //UpdateStatProgressUI();
@@ -67,15 +87,19 @@ public class StoreMenu : MonoBehaviour
         frontXpBar.fillAmount = gameManager.frontXpBar.fillAmount;
         backXpBar.fillAmount = gameManager.backXpBar.fillAmount;
 
+        MaxCheck();
+        StoreCheck();
+        
 
-        if (Input.GetKeyDown(KeyCode.Tab) && gameManager.inDialogue == false)
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if(gameManager.storeEnabled)
             {
                 StoreOff();
             } else if (gameManager.gameIsPaused == false)
             {
-                Store();
+                return;
             }
         }
 
@@ -83,6 +107,70 @@ public class StoreMenu : MonoBehaviour
         PointSliders();
         
         
+    }
+
+    public void StoreCheck()
+    {
+        //Shotgun
+        if (gameManager.shotgunStore == true && shotgunBought == false)
+        {
+            buyShotgun.SetActive(true);
+            buyAR.SetActive(false);
+            equipAR.SetActive(false);
+            equipHandgun.SetActive(false);
+            equipShotgun.SetActive(false);
+        } else if (gameManager.shotgunStore == true && shotgunBought == true && gameManager.shotgun == true)
+        {
+            buyShotgun.SetActive(false);
+            buyAR.SetActive(false);
+            equipHandgun.SetActive(true);
+            equipShotgun.SetActive(false);
+            equipAR.SetActive(false);
+        } else if (gameManager.shotgunStore == true && shotgunBought == true && gameManager.shotgun == false)
+        {
+            equipHandgun.SetActive(false);
+            equipShotgun.SetActive(true);
+            equipAR.SetActive(false);
+            
+        }
+
+        //Assault Rifle
+        if (gameManager.assaultRifleStore == true && assaultBought == false)
+        {
+            buyShotgun.SetActive(false);
+            buyAR.SetActive(true);
+            equipAR.SetActive(false);
+            equipHandgun.SetActive(false);
+            equipShotgun.SetActive(false);
+        } else if (gameManager.assaultRifleStore == true && assaultBought == true && gameManager.AssaultRifle == true)
+        {
+            buyAR.SetActive(false);
+            buyShotgun.SetActive(false);
+            equipHandgun.SetActive(true);
+            equipShotgun.SetActive(false);
+            equipAR.SetActive(false);
+        } else if (gameManager.assaultRifleStore == true && assaultBought == true && gameManager.AssaultRifle == false)
+        {
+            equipHandgun.SetActive(false);
+            equipShotgun.SetActive(false);
+            equipAR.SetActive(true);
+        }
+    }
+
+
+    public void MaxCheck()
+    {
+        if(gameManager.noOfHealth != gameManager.maxNoOfHealth) return;
+        if(gameManager.noOfDamage != gameManager.maxNoOfDamage) return;
+        if(gameManager.noOfSpeed != gameManager.maxNoOfSpeed) return;
+        if(gameManager.noOfBulletSpeed != gameManager.maxNoOfBulletSpeed) return;
+        if(gameManager.noOfFuel != gameManager.maxNoOfFuel) return;
+        if(gameManager.noOfMedKit != gameManager.maxNoOfMedkit) return;
+        if(gameManager.noOfFireRate != gameManager.maxNoOfFireRate) return;
+
+        maxBar.SetActive(true);
+        shopMaxBar.SetActive(true);
+        gameManager.maxStats = true;
     }
 
     public void PointSliders()
@@ -93,6 +181,7 @@ public class StoreMenu : MonoBehaviour
         bulletPoint.value = gameManager.noOfBulletSpeed;
         fuelPoint.value = gameManager.noOfFuel;
         medPoint.value = gameManager.noOfMedKit;
+        fireRatePoint.value = gameManager.noOfFireRate;
 
         if (healthPoint.value == healthPoint.maxValue)
         {
@@ -118,6 +207,10 @@ public class StoreMenu : MonoBehaviour
         {
             medMax.SetActive(true);
         }
+        if (fireRatePoint.value == fireRatePoint.maxValue)
+        {
+            fireMax.SetActive(true);
+        }
     }
     public void MaxPointSliders()
     {
@@ -127,6 +220,7 @@ public class StoreMenu : MonoBehaviour
         bulletPoint.maxValue = gameManager.maxNoOfBulletSpeed;
         fuelPoint.maxValue = gameManager.maxNoOfFuel;
         medPoint.maxValue = gameManager.maxNoOfMedkit;
+        fireRatePoint.maxValue = gameManager.maxNoOfFireRate;
     }
         
 
@@ -167,7 +261,7 @@ public class StoreMenu : MonoBehaviour
         currencyDisplay.SetActive(false);
         remainingZombiesCounter.SetActive(false);
         storeMenuUI.SetActive(true);
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
         gameManager.storeEnabled = true;
     }
 
@@ -178,7 +272,76 @@ public class StoreMenu : MonoBehaviour
         remainingZombiesCounter.SetActive(true);
         storeMenuUI.SetActive(false);
         Time.timeScale = 1f;
+        gameManager.shotgunStore = false;
+        gameManager.assaultRifleStore = false;
+        gameManager.machinePistolStore = false;
+        gameManager.subMachineGunStore = false;
         gameManager.storeEnabled = false;
+    }
+
+    public void BuyShotgun()
+    {
+        if(gameManager.currentFuel >= gameManager.ShotgunCost && gameManager.shotgun == false)
+        {
+            gameManager.shotgun = true;
+            gameManager.handgun = false;
+            gameManager.machinePistol = false;
+            gameManager.AssaultRifle = false;
+            gameManager.subMachineGun = false;
+
+            gameManager.currentFuel -= gameManager.ShotgunCost;
+            
+            gameManager.FlatRateExperienceGain(gameManager.shotgunXp);
+
+            shotgunBought = true;
+
+        }
+    }
+
+    public void BuyAR()
+    {
+        if(gameManager.currentFuel >= gameManager.ShotgunCost && gameManager.shotgun == false)
+        {
+            gameManager.shotgun = false;
+            gameManager.handgun = false;
+            gameManager.machinePistol = false;
+            gameManager.AssaultRifle = true;
+            gameManager.subMachineGun = false;
+
+            gameManager.currentFuel -= gameManager.assaultCost;
+            
+            gameManager.FlatRateExperienceGain(gameManager.assaultXp);
+
+            assaultBought = true;
+
+        }
+    }
+
+    public void EquipHandgun()
+    {
+        gameManager.handgun = true;
+        gameManager.shotgun = false;
+        gameManager.machinePistol = false;
+        gameManager.subMachineGun = false;
+        gameManager.AssaultRifle = false;
+    }
+
+    public void EquipShotgun()
+    {
+        gameManager.handgun = false;
+        gameManager.shotgun = true;
+        gameManager.machinePistol = false;
+        gameManager.subMachineGun = false;
+        gameManager.AssaultRifle = false;
+    }
+
+    public void EquipAR()
+    {
+        gameManager.handgun = false;
+        gameManager.shotgun = false;
+        gameManager.machinePistol = false;
+        gameManager.subMachineGun = false;
+        gameManager.AssaultRifle = true;
     }
 
     public void HealthIncrease()
@@ -209,7 +372,11 @@ public class StoreMenu : MonoBehaviour
     {
         if (gameManager.currentFuel >= gameManager.damageCost && gameManager.noOfDamage < gameManager.maxNoOfDamage)
         {
-            gameManager.playerDamage += gameManager.damageUpgradeInterval;
+            gameManager.handgunDamage += gameManager.damageUpgradeInterval;
+            gameManager.subMachineGunDamage += gameManager.damageUpgradeInterval;
+            gameManager.AssaultRifleDamage += gameManager.damageUpgradeInterval;
+            gameManager.machinePistolDamage += gameManager.damageUpgradeInterval;
+            gameManager.shotgunDamage += gameManager.damageUpgradeInterval;
 
             gameManager.noOfDamage++;
             
@@ -247,7 +414,11 @@ public class StoreMenu : MonoBehaviour
     {
         if (gameManager.currentFuel >= gameManager.fuelCost && gameManager.noOfBulletSpeed < gameManager.maxNoOfBulletSpeed)
         {
-            gameManager.projectileSpeed += gameManager.bulletSpeedUpgradeInterval;
+            gameManager.handgunBulletSpeed += gameManager.handgunBulletSpeedInterval;
+            gameManager.machineBulletSpeed += gameManager.machineBulletSpeedInterval;
+            gameManager.subBulletSpeed += gameManager.subBulletSpeedInterval;
+            gameManager.assaultBulletSpeed += gameManager.assaultBulletSpeedInterval;
+            gameManager.shotgunBulletSpeed += gameManager.shotgunBulletSpeedInterval;
 
             gameManager.noOfBulletSpeed++;
             
@@ -297,6 +468,25 @@ public class StoreMenu : MonoBehaviour
             gameManager.medKitCost += gameManager.medKitCost * 1/4;
 
             Debug.Log("Med Kit Potency Increased");
+        }
+    }
+
+    public void FireRateIncrease()
+    {
+        if (gameManager.currentFuel >= gameManager.fireRateCost && gameManager.noOfFireRate < gameManager.maxNoOfFireRate)
+        {
+            gameManager.handgunFireRate -= gameManager.handgunFireRateInterval;
+            gameManager.machinePistolFireRate -= gameManager.machineFireRateInterval;
+            gameManager.subMachineGunFireRate -= gameManager.subFireRateInterval;
+            gameManager.AssaultRifleFireRate -= gameManager.assaultFireRateInterval;
+            gameManager.shotgunFireRate -= gameManager.shotgunFireRateInterval;
+
+            gameManager.noOfFireRate++;
+
+            gameManager.currentFuel -= gameManager.fireRateCost;
+
+            gameManager.FlatRateExperienceGain(gameManager.FireRateXp);
+            gameManager.fireRateCost += gameManager.fireRateCost * 1/5;
         }
     }
 

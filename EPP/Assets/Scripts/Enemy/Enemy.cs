@@ -77,6 +77,26 @@ public class Enemy : MonoBehaviour
         
         ZombieHealthBar.value = zombieCurrentHealth;
 
+        ZombieMovement();
+
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            if(Time.time - lastAttackTime < gameManager.attackCooldown) return;
+
+            _player.TakeDamage(zombieDamage);
+
+            lastAttackTime = Time.time;
+            
+        }
+        
+    }
+
+    public void ZombieMovement()
+    {
         distance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
@@ -109,21 +129,6 @@ public class Enemy : MonoBehaviour
             zombieSpeed = zombiePatrolSpeed;
             Patrol();
        }
-
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.tag == "Player")
-        {
-            if(Time.time - lastAttackTime < gameManager.attackCooldown) return;
-
-            _player.TakeDamage(zombieDamage);
-
-            lastAttackTime = Time.time;
-            
-        }
-        
     }
 
     public void ZombieScaling()
@@ -191,7 +196,6 @@ public class Enemy : MonoBehaviour
 
                 GetComponent<Enemy>().enabled = false;
                 gameManager.currentFuel += Random.Range(gameManager.minfuelGain, gameManager.maxfuelGain);
-                gameManager.remainingZombies --;
                 //gameObject.SetActive(false);
                 Destroy(gameObject);
             }
@@ -203,7 +207,7 @@ public class Enemy : MonoBehaviour
         float fillF = currentHealthBar.fillAmount;
         float fillB = TakeDamageHealthBar.fillAmount;
         float hFraction = zombieCurrentHealth / zombieMaxHealth;
-        Debug.Log(hFraction);
+
         if (fillB > hFraction)
         {
             currentHealthBar.fillAmount = hFraction;

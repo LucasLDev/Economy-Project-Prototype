@@ -13,6 +13,13 @@ public class GameManager : MonoBehaviour
     public bool favourCompleted = false;
     public bool inDialogue = false;
     public bool canShoot = true;
+    public bool maxStats = false;
+    [Space]
+    public bool machinePistolStore;
+    public bool subMachineGunStore;
+    public bool assaultRifleStore;
+    public bool shotgunStore;
+    [Space]
 
     public GameObject HUD;
     public StoreMenu store;
@@ -23,9 +30,43 @@ public class GameManager : MonoBehaviour
     public int playerMaxHealth = 5;
     public float playerCurrentHealth;
     public float playerMoveSpeed = 4;
-    public float playerDamage = 1;
+    //public float playerDamage = 1;
     public float projectileSpeed = 20f;
     public int medkitPotency;
+    [Space]
+    [Header("Handgun")]
+    public bool handgun;
+    int handgunAmmo;
+    public float handgunFireRate = 0.45f;
+    public float handgunDamage = 2f;
+    public float handgunBulletSpeed = 15f;
+    [Space]
+    [Header("Machine Pistol")]
+    public bool machinePistol;
+    public float machinePistolFireRate = 0.5f;
+    public float machinePistolDamage = 2f;
+    public float machineBulletSpeed = 20f;
+    [Space]
+    [Header("Sub Machine Gun")]
+    public bool subMachineGun;
+    public float subMachineGunFireRate = 0.5f;
+    public float subMachineGunDamage = 2f;
+    public float subBulletSpeed = 25f;
+    [Space]
+    [Header("Assault Rifle")]
+    public bool AssaultRifle;
+    public float AssaultRifleFireRate = 0.5f;
+    public float AssaultRifleDamage = 2f;
+    public float assaultBulletSpeed = 12.5f;
+    [Space]
+    [Header("Shotgun")]
+    public bool shotgun;
+    public int shotgunAmmo;
+    public float shotgunFireRate = 1.5f;
+    public float shotgunDamage = 4f;
+    public float spread;
+    public float shotgunBulletSpeed = 8.5f;
+    [Space]
     public bool inSafeZone;
     public bool canMove;
 
@@ -96,15 +137,31 @@ public class GameManager : MonoBehaviour
     public int projectileCost = 75;
     public int fuelCost = 85;
     public int medKitCost = 80;
+    public int fireRateCost = 100;
+    public int ShotgunCost = 1500;
+    public int assaultCost = 750;
 
     [Space]
 
     public int healthUpgradeInterval = 20;
     public float damageUpgradeInterval = 1;
     public float speedUpgradeInterval = 1;
-    public int bulletSpeedUpgradeInterval = 5;
     public int FuelUpgradeInterval = 5;
-    public int MedkitUpgradeInterval = 10;
+    public int MedkitUpgradeInterval = 10;  
+    //public int bulletSpeedUpgradeInterval = 5;
+    [Space]
+    public float handgunBulletSpeedInterval = 0.5f;
+    public float machineBulletSpeedInterval = 0.5f;
+    public float subBulletSpeedInterval = 0.5f;
+    public float assaultBulletSpeedInterval = 0.5f;
+    public float shotgunBulletSpeedInterval = 0.5f;
+    [Space]
+    
+    public float handgunFireRateInterval = 0.05f;
+    public float machineFireRateInterval = 0.05f;
+    public float subFireRateInterval = 0.05f;
+    public float assaultFireRateInterval = 0.05f;
+    public float shotgunFireRateInterval = 0.05f;
 
     [Space]
 
@@ -114,6 +171,7 @@ public class GameManager : MonoBehaviour
     public int maxNoOfBulletSpeed;
     public int maxNoOfFuel;
     public int maxNoOfMedkit;
+    public int maxNoOfFireRate;
 
     [Space]
     
@@ -123,6 +181,10 @@ public class GameManager : MonoBehaviour
     public int bulletXp;
     public int FuelXp;
     public int MedKitXp;
+    public int FireRateXp;
+    public int shotgunXp;
+    public int assaultXp;
+    
 
     [Space]
 
@@ -132,6 +194,7 @@ public class GameManager : MonoBehaviour
     public int noOfBulletSpeed;
     public int noOfFuel;
     public int noOfMedKit;
+    public int noOfFireRate;
 
     [Space]
 
@@ -141,6 +204,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text projectileSpeedStat;
     public TMP_Text FuelGainStat;
     public TMP_Text MedKitStat;
+    public TMP_Text FireRateStat;
 
     [Space]
 
@@ -150,6 +214,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text projectileCostText;
     public TMP_Text fuelCostText;
     public TMP_Text MedKitCostText;
+    public TMP_Text FireRateCostText;
+    public TMP_Text shotgunCostText;
+    public TMP_Text assaultCostText;
 
     [Space]
     public GameObject maxHealthImage;
@@ -158,6 +225,8 @@ public class GameManager : MonoBehaviour
     public GameObject maxBulletImage;
     public GameObject maxFuelImage;
     public GameObject maxMedkitImage;
+    public GameObject maxFireRateImage;
+    public GameObject shotgunBought;
 
     [Space]
     public GameObject maxHealthButton;
@@ -166,10 +235,20 @@ public class GameManager : MonoBehaviour
     public GameObject maxBulletButton;
     public GameObject maxFuelButton;
     public GameObject maxMedKitButton;
+    public GameObject maxFireRateButton;
+    public GameObject shotgunBoughtButton;
+
+    [Space]
+    public GameObject[] objectsWithTag;
 
     void Start()
     {
         playerCurrentHealth = playerMaxHealth;
+        handgun = true;
+        machinePistol = false;
+        subMachineGun = false;
+        AssaultRifle = false;
+        shotgun = false;
 
         canMove = true;
 
@@ -185,23 +264,50 @@ public class GameManager : MonoBehaviour
     {
         UpdateXpUI();
 
-        if (inDialogue == true || storeEnabled == true || gameIsPaused == true)
-        {
-            canShoot = false;
-        } else {
-            canShoot = true;
-        }
+        ShootCheck();
+        
+        LevelUp();
+        
+        TextUpdate();
 
         if(Input.GetKeyDown(KeyCode.Equals))
         {
             FlatRateExperienceGain(testXP);
         }
 
-        if (currentXp >= requiredXp)
+        objectsWithTag = GameObject.FindGameObjectsWithTag("Zombie");
+        int numberOfObjectsWithTag = objectsWithTag.Length;
+        zombieCounterText.SetText("Zombies Remaining:" + numberOfObjectsWithTag);
+
+        if (objectsWithTag.Length <= 0 && zombiesSpawned == true)
         {
-            LevelUp();
+            favourCompleted = true;
         }
 
+        if (inDialogue == true)
+        {
+            HUD.SetActive(false);
+        } else if (inDialogue == false && gameIsPaused == false && storeEnabled == false)
+        {
+            HUD.SetActive(true);
+        }
+
+        
+        
+    }
+
+    public void ShootCheck()
+    {
+        if (inDialogue == true || storeEnabled == true || gameIsPaused == true)
+        {
+            canShoot = false;
+        } else {
+            canShoot = true;
+        }
+    }
+
+    public void TextUpdate()
+    {
         fuelAmount.SetText("Fuel:" + currentFuel);
         fuelAmountStore.SetText("Fuel:" + currentFuel);
 
@@ -211,6 +317,10 @@ public class GameManager : MonoBehaviour
         projectileSpeedStat.SetText("+" + noOfBulletSpeed);
         FuelGainStat.SetText("+" + noOfFuel);
         MedKitStat.SetText("+" + noOfMedKit);
+        FireRateStat.SetText("+" + noOfFireRate);
+
+        shotgunCostText.SetText("" + ShotgunCost);
+        assaultCostText.SetText("" + assaultCost);
 
         if(noOfHealth < maxNoOfHealth)
         {
@@ -261,22 +371,14 @@ public class GameManager : MonoBehaviour
             maxMedkitImage.SetActive(true);
             maxMedKitButton.SetActive(true);
         }
-
-        zombieCounterText.SetText("Zombies Remaining:" + remainingZombies);
-
-        if (remainingZombies <= 0 && zombiesSpawned == true)
+        if(noOfFireRate < maxNoOfFireRate)
         {
-            favourCompleted = true;
+            FireRateCostText.SetText("" + fireRateCost);
+        } else {
+            FireRateCostText.SetText("Maxed");
+            maxFireRateImage.SetActive(true);
+            maxFireRateButton.SetActive(true);
         }
-
-        if (inDialogue == true)
-        {
-            HUD.SetActive(false);
-        } else if (inDialogue == false && gameIsPaused == false && storeEnabled == false)
-        {
-            HUD.SetActive(true);
-        }
-        
     }
 
     public void UpdateXpUI()
@@ -295,7 +397,13 @@ public class GameManager : MonoBehaviour
                 frontXpBar.fillAmount = Mathf.Lerp(FXP, backXpBar.fillAmount, percentComplete);
             }
         }
-        xpText.text = currentXp + "/" + requiredXp;
+        if(maxStats != true)
+        {
+            xpText.text = currentXp + "/" + requiredXp;
+        } else {
+            xpText.text = "Max";
+        }
+        
     }
 
     public void FlatRateExperienceGain(float xpGained)
@@ -322,17 +430,16 @@ public class GameManager : MonoBehaviour
 
     public void LevelUp()
     {
-        level++;
+        if (currentXp >= requiredXp)
+        {
+            level++;
         frontXpBar.fillAmount = 0;
         backXpBar.fillAmount = 0;
         currentXp = Mathf.RoundToInt(currentXp - requiredXp);
         playerCurrentHealth = playerMaxHealth;
         requiredXp = CalculateRequiredXp();
-        /*zombieMaxHealth += zombieHealthUpgrade;
-        zombieDamage += zombieDamageUpgrade;
-        zombieChaseSpeed += zombieSpeedUpgrade;
-        zombiePatrolSpeed += zombieSpeedUpgrade;*/
         levelText.text = "" + level;
+        }
         
     }
 

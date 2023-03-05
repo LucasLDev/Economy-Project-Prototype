@@ -8,6 +8,8 @@ TagManager:
   - Trigger
   - GameManager
   - Collider
+  - Bullet
+  - BulletController
   layers:
   - Default
   - TransparentFX
