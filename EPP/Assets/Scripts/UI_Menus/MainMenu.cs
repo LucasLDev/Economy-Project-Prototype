@@ -8,7 +8,6 @@ public class MainMenu : MonoBehaviour
     //public bool hasSave = false;
     public GameObject information;
     public GameObject controlsScreen;
-    public GameObject informationScreen;
    public void Play()
    {
         //hasSave = true;
@@ -48,22 +47,16 @@ public class MainMenu : MonoBehaviour
      controlsScreen.SetActive(true);
    }
 
-   public void Info()
-   {
-     informationScreen.SetActive(true);
-   }
 
    public void BackToMenu()
    {
      information.SetActive(false);
-     informationScreen.SetActive(false);
      controlsScreen.SetActive(false);
    }
 
    public void BackToInformation()
    {
       information.SetActive(true);
-      informationScreen.SetActive(false);
       controlsScreen.SetActive(false);
    }
 

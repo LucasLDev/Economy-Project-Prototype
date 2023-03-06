@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BulletController : MonoBehaviour
 {
@@ -16,11 +17,21 @@ public class BulletController : MonoBehaviour
     public Transform player;
     public Vector2 direction;
     public Vector2 offset;
+    public Slider reloadVisual;
+    public GameObject reloadIdicator;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        reloadIdicator.SetActive(false);
+
+        gameManager.handgunCurrentAmmo = gameManager.handgunMaxAmmo;
+        gameManager.machineCurrentAmmo = gameManager.machineMaxAmmo;
+        gameManager.subCurrentAmmo = gameManager.subMaxAmmo;
+        gameManager.assaultCurrentAmmo = gameManager.assaultMaxAmmo;
+        gameManager.shotgunCurrentAmmo = gameManager.shotgunMaxAmmo;
+
+        gameManager.isReloading = false;
     }
 
     // Update is called once per frame
@@ -29,34 +40,44 @@ public class BulletController : MonoBehaviour
         timeSinceLastShot += Time.deltaTime;
 
         TriggerShoot();
+        
 
+        if(Input.GetKeyDown(KeyCode.R) && gameManager.isReloading == false)
+        {
+            ReloadWeapon();
+        }
+
+        ReloadIndicator();
     }
 
     void TriggerShoot()
     {
-        if (gameManager.handgun == true)
+        if (gameManager.handgun == true && gameManager.handgunCurrentAmmo > 0 && !gameManager.isReloading)
         {
             if (Input.GetButtonDown("Fire1") && gameManager.canShoot == true && timeSinceLastShot >= gameManager.handgunFireRate)
             {
+                gameManager.handgunCurrentAmmo--;
                 timeSinceLastShot = 0.0f;
                 Shoot();
                 
             }
         }
 
-        if(gameManager.shotgun == true)
+        if(gameManager.shotgun == true && gameManager.shotgunCurrentAmmo > 0 && !gameManager.isReloading)
         {
             if (Input.GetButtonDown("Fire1") && gameManager.canShoot == true && timeSinceLastShot >= gameManager.shotgunFireRate)
             {
+                gameManager.shotgunCurrentAmmo -= gameManager.shotgunAmmo;
                 timeSinceLastShot = 0.0f;
                 Shoot();
             }
         }
 
-        if(gameManager.AssaultRifle == true)
+        if(gameManager.AssaultRifle == true && gameManager.assaultCurrentAmmo > 0 && !gameManager.isReloading)
         {
             if (Input.GetButton("Fire1") && gameManager.canShoot == true && timeSinceLastShot >= gameManager.AssaultRifleFireRate)
             {
+                gameManager.assaultCurrentAmmo--;
                 timeSinceLastShot = 0.0f;
                 Shoot();
             }
@@ -123,8 +144,95 @@ public class BulletController : MonoBehaviour
         
             
     }
-    
+
+    public void ReloadWeapon()
+    {
+        if(!gameManager.isReloading)
+        {
+            gameManager.isReloading = true;
+            StartCoroutine(ReloadCoroutine());
+            reloadVisual.value = 0;
+            
+        }
+    }
+
+    private IEnumerator ReloadCoroutine()
+    {
+        float timeElapsed = 0;
+        if(gameManager.handgun == true)
+        {
+            reloadVisual.maxValue = gameManager.handgunReloadTime;
+            while (timeElapsed < gameManager.handgunReloadTime)
+            {
+                timeElapsed += Time.deltaTime;
+                reloadVisual.value = timeElapsed;
+                yield return null;
+            }
+            //yield return new WaitForSeconds(gameManager.handgunReloadTime);
+            gameManager.handgunCurrentAmmo = gameManager.handgunMaxAmmo;
+            gameManager.isReloading = false;
+            reloadVisual.value = 0;
+        }
+        if(gameManager.AssaultRifle == true)
+        {
+            reloadVisual.maxValue = gameManager.assaultReloadTime;
+            while (timeElapsed < gameManager.assaultReloadTime)
+            {
+                timeElapsed += Time.deltaTime;
+                reloadVisual.value = timeElapsed;
+                yield return null;
+            }
+            //yield return new WaitForSeconds(gameManager.assaultReloadTime);
+            gameManager.assaultCurrentAmmo = gameManager.assaultMaxAmmo;
+            gameManager.isReloading = false;
+            reloadVisual.value = 0;
+        }
+        if(gameManager.shotgun == true)
+        {
+            reloadVisual.maxValue = gameManager.shotgunReloadTime;
+            while (timeElapsed < gameManager.shotgunReloadTime)
+            {
+                timeElapsed += Time.deltaTime;
+                reloadVisual.value = timeElapsed;
+                yield return null;
+            }
+            //yield return new WaitForSeconds(gameManager.shotgunReloadTime);
+            gameManager.shotgunCurrentAmmo = gameManager.shotgunMaxAmmo;
+            gameManager.isReloading = false;
+            reloadVisual.value = 0;
+        }
         
+    }
+    
+    public void ReloadIndicator()
+    {
+        if (gameManager.handgun == true && gameManager.handgunCurrentAmmo == 0)
+        {
+            reloadIdicator.SetActive(true);
+
+        } else if (gameManager.handgun == true && gameManager.handgunCurrentAmmo > 0)
+        {
+            reloadIdicator.SetActive(false);
+        }
+
+        if (gameManager.shotgun == true && gameManager.shotgunCurrentAmmo == 0)
+        {
+            reloadIdicator.SetActive(true);
+
+        } else if (gameManager.shotgun == true && gameManager.shotgunCurrentAmmo > 0)
+        {
+            reloadIdicator.SetActive(false);
+        }
+
+        if (gameManager.AssaultRifle == true && gameManager.assaultCurrentAmmo == 0)
+        {
+            reloadIdicator.SetActive(true);
+
+        } else if(gameManager.AssaultRifle == true && gameManager.assaultCurrentAmmo > 0)
+        {
+            reloadIdicator.SetActive(false);
+        }
+    }
             
         
         

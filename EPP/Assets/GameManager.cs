@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public bool inDialogue = false;
     public bool canShoot = true;
     public bool maxStats = false;
+    public bool isReloading;
     [Space]
     public bool machinePistolStore;
     public bool subMachineGunStore;
@@ -40,24 +41,36 @@ public class GameManager : MonoBehaviour
     public float handgunFireRate = 0.45f;
     public float handgunDamage = 2f;
     public float handgunBulletSpeed = 15f;
+    public int handgunMaxAmmo;
+    public int handgunCurrentAmmo;
+    public float handgunReloadTime;
     [Space]
     [Header("Machine Pistol")]
     public bool machinePistol;
     public float machinePistolFireRate = 0.5f;
     public float machinePistolDamage = 2f;
     public float machineBulletSpeed = 20f;
+    public int machineMaxAmmo;
+    public int machineCurrentAmmo;
+    public float machineReloadTime;
     [Space]
     [Header("Sub Machine Gun")]
     public bool subMachineGun;
     public float subMachineGunFireRate = 0.5f;
     public float subMachineGunDamage = 2f;
     public float subBulletSpeed = 25f;
+    public int subMaxAmmo;
+    public int subCurrentAmmo;
+    public float subReloadTime;
     [Space]
     [Header("Assault Rifle")]
     public bool AssaultRifle;
     public float AssaultRifleFireRate = 0.5f;
     public float AssaultRifleDamage = 2f;
     public float assaultBulletSpeed = 12.5f;
+    public int assaultMaxAmmo;
+    public int assaultCurrentAmmo;
+    public float assaultReloadTime;
     [Space]
     [Header("Shotgun")]
     public bool shotgun;
@@ -66,6 +79,9 @@ public class GameManager : MonoBehaviour
     public float shotgunDamage = 4f;
     public float spread;
     public float shotgunBulletSpeed = 8.5f;
+    public int shotgunMaxAmmo;
+    public int shotgunCurrentAmmo;
+    public float shotgunReloadTime;
     [Space]
     public bool inSafeZone;
     public bool canMove;
@@ -138,6 +154,7 @@ public class GameManager : MonoBehaviour
     public int fuelCost = 85;
     public int medKitCost = 80;
     public int fireRateCost = 100;
+    public int maxAmmoCost = 215;
     public int ShotgunCost = 1500;
     public int assaultCost = 750;
 
@@ -147,7 +164,7 @@ public class GameManager : MonoBehaviour
     public float damageUpgradeInterval = 1;
     public float speedUpgradeInterval = 1;
     public int FuelUpgradeInterval = 5;
-    public int MedkitUpgradeInterval = 10;  
+    public int MedkitUpgradeInterval = 10; 
     //public int bulletSpeedUpgradeInterval = 5;
     [Space]
     public float handgunBulletSpeedInterval = 0.5f;
@@ -162,7 +179,12 @@ public class GameManager : MonoBehaviour
     public float subFireRateInterval = 0.05f;
     public float assaultFireRateInterval = 0.05f;
     public float shotgunFireRateInterval = 0.05f;
-
+    [Space]
+    public int handgunAmmointerval = 2;
+    public int machineAmmoInterval = 2;
+    public int subAmmoInterval = 3;
+    public int assaultAmmoInterval = 5;
+    public int shotgunAmmoInterval = 5;
     [Space]
 
     public int maxNoOfHealth;
@@ -172,6 +194,7 @@ public class GameManager : MonoBehaviour
     public int maxNoOfFuel;
     public int maxNoOfMedkit;
     public int maxNoOfFireRate;
+    public int maxNoOfMaxAmmo;
 
     [Space]
     
@@ -182,6 +205,7 @@ public class GameManager : MonoBehaviour
     public int FuelXp;
     public int MedKitXp;
     public int FireRateXp;
+    public int maxAmmoXp;
     public int shotgunXp;
     public int assaultXp;
     
@@ -195,6 +219,7 @@ public class GameManager : MonoBehaviour
     public int noOfFuel;
     public int noOfMedKit;
     public int noOfFireRate;
+    public int noOfMaxAmmo;
 
     [Space]
 
@@ -205,6 +230,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text FuelGainStat;
     public TMP_Text MedKitStat;
     public TMP_Text FireRateStat;
+    public TMP_Text maxAmmoStat;
 
     [Space]
 
@@ -215,6 +241,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text fuelCostText;
     public TMP_Text MedKitCostText;
     public TMP_Text FireRateCostText;
+    public TMP_Text maxAmmoCostText;
     public TMP_Text shotgunCostText;
     public TMP_Text assaultCostText;
 
@@ -226,6 +253,7 @@ public class GameManager : MonoBehaviour
     public GameObject maxFuelImage;
     public GameObject maxMedkitImage;
     public GameObject maxFireRateImage;
+    public GameObject maxAmmoImage;
     public GameObject shotgunBought;
 
     [Space]
@@ -236,10 +264,15 @@ public class GameManager : MonoBehaviour
     public GameObject maxFuelButton;
     public GameObject maxMedKitButton;
     public GameObject maxFireRateButton;
+    public GameObject maxAmmoButton;
     public GameObject shotgunBoughtButton;
 
     [Space]
     public GameObject[] objectsWithTag;
+    [Space]
+    public TMP_Text weaponText;
+    public TMP_Text ammoText;
+    
 
     void Start()
     {
@@ -269,6 +302,8 @@ public class GameManager : MonoBehaviour
         LevelUp();
         
         TextUpdate();
+
+        CurrentAmmoCounter();
 
         if(Input.GetKeyDown(KeyCode.Equals))
         {
@@ -318,6 +353,7 @@ public class GameManager : MonoBehaviour
         FuelGainStat.SetText("+" + noOfFuel);
         MedKitStat.SetText("+" + noOfMedKit);
         FireRateStat.SetText("+" + noOfFireRate);
+        maxAmmoStat.SetText("+" + noOfMaxAmmo);
 
         shotgunCostText.SetText("" + ShotgunCost);
         assaultCostText.SetText("" + assaultCost);
@@ -378,6 +414,14 @@ public class GameManager : MonoBehaviour
             FireRateCostText.SetText("Maxed");
             maxFireRateImage.SetActive(true);
             maxFireRateButton.SetActive(true);
+        }
+        if(noOfMaxAmmo < maxNoOfMaxAmmo)
+        {
+            maxAmmoCostText.SetText("" + maxAmmoCost);
+        } else {
+            maxAmmoCostText.SetText("Maxed");
+            maxAmmoImage.SetActive(true);
+            maxAmmoButton.SetActive(true);
         }
     }
 
@@ -451,6 +495,25 @@ public class GameManager : MonoBehaviour
             solvedForRequiredXp += (int)Mathf.Floor(levelCycle + additionMultiplier * Mathf.Pow(powerMultiplier, levelCycle / divisionMultiplier));
         }
         return solvedForRequiredXp / 4;
+    }
+
+    public void CurrentAmmoCounter()
+    {
+        if(handgun == true)
+        {
+            weaponText.SetText("Handgun");
+            ammoText.SetText(handgunCurrentAmmo + "/" + handgunMaxAmmo);
+        }
+        if(shotgun == true)
+        {
+            weaponText.SetText("Shotgun");
+            ammoText.SetText(shotgunCurrentAmmo + "/" + shotgunMaxAmmo);
+        }
+        if(AssaultRifle == true)
+        {
+            weaponText.SetText("Assault Rifle");
+            ammoText.SetText(assaultCurrentAmmo + "/" + assaultMaxAmmo);
+        }
     }
 
    

@@ -37,6 +37,7 @@ public class StoreMenu : MonoBehaviour
     public Slider fuelPoint;
     public Slider medPoint;
     public Slider fireRatePoint;
+    public Slider ammoPoint;
 
     public GameObject healthMax;
     public GameObject damageMax;
@@ -45,6 +46,7 @@ public class StoreMenu : MonoBehaviour
     public GameObject fuelMax;
     public GameObject medMax;
     public GameObject fireMax;
+    public GameObject ammoMax;
 
     public float chipSpeed = 2f;
     private float delayTimer;
@@ -167,6 +169,7 @@ public class StoreMenu : MonoBehaviour
         if(gameManager.noOfFuel != gameManager.maxNoOfFuel) return;
         if(gameManager.noOfMedKit != gameManager.maxNoOfMedkit) return;
         if(gameManager.noOfFireRate != gameManager.maxNoOfFireRate) return;
+        if(gameManager.noOfMaxAmmo != gameManager.maxNoOfMaxAmmo) return;
 
         maxBar.SetActive(true);
         shopMaxBar.SetActive(true);
@@ -182,6 +185,7 @@ public class StoreMenu : MonoBehaviour
         fuelPoint.value = gameManager.noOfFuel;
         medPoint.value = gameManager.noOfMedKit;
         fireRatePoint.value = gameManager.noOfFireRate;
+        ammoPoint.value = gameManager.noOfMaxAmmo;
 
         if (healthPoint.value == healthPoint.maxValue)
         {
@@ -211,6 +215,10 @@ public class StoreMenu : MonoBehaviour
         {
             fireMax.SetActive(true);
         }
+        if (ammoPoint.value == ammoPoint.maxValue)
+        {
+            ammoMax.SetActive(true);
+        }
     }
     public void MaxPointSliders()
     {
@@ -221,6 +229,7 @@ public class StoreMenu : MonoBehaviour
         fuelPoint.maxValue = gameManager.maxNoOfFuel;
         medPoint.maxValue = gameManager.maxNoOfMedkit;
         fireRatePoint.maxValue = gameManager.maxNoOfFireRate;
+        ammoPoint.maxValue = gameManager.maxNoOfMaxAmmo;
     }
         
 
@@ -300,7 +309,7 @@ public class StoreMenu : MonoBehaviour
 
     public void BuyAR()
     {
-        if(gameManager.currentFuel >= gameManager.ShotgunCost && gameManager.shotgun == false)
+        if(gameManager.currentFuel >= gameManager.ShotgunCost && gameManager.AssaultRifle == false)
         {
             gameManager.shotgun = false;
             gameManager.handgun = false;
@@ -487,6 +496,31 @@ public class StoreMenu : MonoBehaviour
 
             gameManager.FlatRateExperienceGain(gameManager.FireRateXp);
             gameManager.fireRateCost += gameManager.fireRateCost * 1/5;
+        }
+    }
+
+    public void AmmoIncrease()
+    {
+        if(gameManager.currentFuel >= gameManager.maxAmmoCost && gameManager.noOfMaxAmmo < gameManager.maxNoOfMaxAmmo)
+        {
+            gameManager.handgunMaxAmmo += gameManager.handgunAmmointerval;
+            gameManager.machineMaxAmmo += gameManager.machineAmmoInterval;
+            gameManager.subMaxAmmo += gameManager.subAmmoInterval;
+            gameManager.assaultMaxAmmo += gameManager.assaultAmmoInterval;
+            gameManager.shotgunMaxAmmo += gameManager.shotgunAmmoInterval;
+
+            gameManager.noOfMaxAmmo++;
+
+            gameManager.handgunCurrentAmmo = gameManager.handgunMaxAmmo;
+            gameManager.machineCurrentAmmo = gameManager.machineMaxAmmo;
+            gameManager.subCurrentAmmo = gameManager.subMaxAmmo;
+            gameManager.assaultCurrentAmmo = gameManager.assaultMaxAmmo;
+            gameManager.shotgunCurrentAmmo = gameManager.shotgunMaxAmmo;
+
+            gameManager.currentFuel -= gameManager.maxAmmoCost;
+
+            gameManager.FlatRateExperienceGain(gameManager.maxAmmoXp);
+            gameManager.maxAmmoCost += gameManager.maxAmmoCost * 45/100;
         }
     }
 
