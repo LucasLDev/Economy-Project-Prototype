@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9173660966710318042}
   m_Layer: 0
   m_Name: Shop
-  m_TagString: Untagged
+  m_TagString: ShopUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,11 +102,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   store: {fileID: 0}
-  gameManager: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}
+  gameManager: {fileID: 0}
   interact: {fileID: 9173660967519358284}
   interactor: {fileID: 9173660967183160290}
   shopUI: {fileID: 0}
-  weapon: shotgun
+  weapon: assault rifle
   interactOn: 0
 --- !u!61 &9173660966710318043
 BoxCollider2D:

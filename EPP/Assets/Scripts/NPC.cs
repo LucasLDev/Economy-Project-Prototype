@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class NPC : MonoBehaviour
 {
+
+    public Favour[] favour;
+    public GameObject favourWindow;
+    public TMP_Text titleText;
+    public TMP_Text descriptionText;
+    public TMP_Text fuelText;
+    
     [SerializeField] private GameObject zombie;
     [SerializeField] private GameObject player;
 
     public DialogueTrigger _dialogue;
     public DialogueTriggerReturn _dialogueReturn;
     public DialogueTriggerEnd _dialogueEnd;
-    public GameManager gameManager;
     public GameObject interact;
     public GameObject interactor;
+    public Animator favourAnimator;
+    private GameManager gameManager;
+    
 
     int xvalue;
     int yvalue;
@@ -22,6 +32,8 @@ public class NPC : MonoBehaviour
 
     void Start()
     {
+        gameManager = GameObject.FindObjectOfType<GameManager>().GetComponent<GameManager>();
+        player = GameObject.FindGameObjectWithTag("Player");
         gameManager.zombiesSpawned = false;
         interactor.SetActive(true);
         interactOn = false;
@@ -60,9 +72,9 @@ public class NPC : MonoBehaviour
     }
 
 
-    void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D other)
     {
-        if(gameManager.objectsWithTag.Length <= 0)
+        if(gameManager.objectsWithTag.Length <= 0 &&  other.CompareTag("Player"))
         {
             interact.SetActive(true);
             interactOn = true;
@@ -93,6 +105,20 @@ public class NPC : MonoBehaviour
         }
         
         
+    }
+
+    public void OpenFavourWindow()
+    {
+        favourAnimator.SetBool("open", true);
+
+        titleText.SetText("" + favour[0].title);
+        descriptionText.SetText("" + favour[0].description);
+        fuelText.SetText("" + favour[0].fuelReward);
+    }
+
+    public void CloseFavourWindow()
+    {
+        favourAnimator.SetBool("open", false);
     }
 
    

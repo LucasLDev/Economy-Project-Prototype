@@ -10,6 +10,10 @@ TagManager:
   - Collider
   - Bullet
   - BulletController
+  - MoveSpots
+  - ShopUI
+  - MainAreaSpawns
+  - Spawn
   layers:
   - Default
   - TransparentFX

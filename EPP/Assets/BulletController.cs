@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BulletController : MonoBehaviour
 {
+    public bool canReload;
     public Transform firePoint;
     public GameObject handgunBulletPrefab;
     public GameObject assaultBulletprefab;
@@ -19,6 +20,9 @@ public class BulletController : MonoBehaviour
     public Vector2 offset;
     public Slider reloadVisual;
     public GameObject reloadIdicator;
+    public GameObject hgIcon;
+    public GameObject arIcon;
+    public GameObject sgIcon;
     
     // Start is called before the first frame update
     void Start()
@@ -41,13 +45,18 @@ public class BulletController : MonoBehaviour
 
         TriggerShoot();
         
+        ReloadIndicator();
+        
+        IconCheck();
 
-        if(Input.GetKeyDown(KeyCode.R) && gameManager.isReloading == false)
+        ReloadCheck();
+        
+
+        if(Input.GetKeyDown(KeyCode.R) && gameManager.isReloading == false && canReload == true)
         {
             ReloadWeapon();
         }
 
-        ReloadIndicator();
     }
 
     void TriggerShoot()
@@ -233,8 +242,58 @@ public class BulletController : MonoBehaviour
             reloadIdicator.SetActive(false);
         }
     }
+
+    public void IconCheck()
+    {
+        if (gameManager.handgun == true)
+        {
+            hgIcon.SetActive(true);
+            arIcon.SetActive(false);
+            sgIcon.SetActive(false);
+        }
+        if (gameManager.AssaultRifle == true)
+        {
+            hgIcon.SetActive(false);
+            arIcon.SetActive(true);
+            sgIcon.SetActive(false);
+        }
+        if (gameManager.shotgun == true)
+        {
+            hgIcon.SetActive(false);
+            arIcon.SetActive(false);
+            sgIcon.SetActive(true);
+        }
+    }
+
+    public void ReloadCheck()
+    {
+        //handgun reload check
+        if (gameManager.handgun == true && gameManager.handgunCurrentAmmo != gameManager.handgunMaxAmmo)
+        {
+            canReload = true;
+        } else if (gameManager.handgun == true && gameManager.handgunCurrentAmmo == gameManager.handgunMaxAmmo)
+        {
+            canReload = false;
+        }
+
+        //AR reload check
+        if (gameManager.AssaultRifle == true && gameManager.assaultCurrentAmmo != gameManager.assaultMaxAmmo)
+        {
+            canReload = true;
+        } else if (gameManager.AssaultRifle == true && gameManager.assaultCurrentAmmo == gameManager.assaultMaxAmmo)
+        {
+            canReload = false;
+        }
+
+        //shotgun reload check
+        if (gameManager.shotgun == true && gameManager.shotgunCurrentAmmo != gameManager.shotgunMaxAmmo)
+        {
+            canReload = true;
+        } else if (gameManager.shotgun == true && gameManager.shotgunCurrentAmmo == gameManager.shotgunMaxAmmo)
+        {
+            canReload = false;
+        }
+    }
             
         
-        
-    
 }

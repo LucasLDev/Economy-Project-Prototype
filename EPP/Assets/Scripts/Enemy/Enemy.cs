@@ -7,7 +7,7 @@ using TMPro;
 public class Enemy : MonoBehaviour
 {
     [Header("Enemy Patrol")]
-    public Transform[] moveSpots;
+    public GameObject[] moveSpots;
     public Transform playerTransform;
     public Rigidbody2D rb;
     public TextMeshProUGUI zombieLevelText;
@@ -73,6 +73,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        moveSpots = GameObject.FindGameObjectsWithTag("MoveSpots");
         UpdateZombieHealthUI();
         
         ZombieHealthBar.value = zombieCurrentHealth;
@@ -150,14 +151,14 @@ public class Enemy : MonoBehaviour
     
     public void Patrol()
     {
-        transform.position = Vector2.MoveTowards(transform.position, moveSpots[randomSpot].position, zombieSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, moveSpots[randomSpot].transform.position, zombieSpeed * Time.deltaTime);
         Vector3 direction = moveSpots[randomSpot].transform.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
         //transform.LookAt(moveSpots[randomSpot]);
         //transform.rotation = Quaternion(transform.position - moveSpots[randomSpot]);
 
-            if(Vector2.Distance(transform.position, moveSpots[randomSpot].position) < 0.2f)
+            if(Vector2.Distance(transform.position, moveSpots[randomSpot].transform.position) < 0.2f)
             {
                 if(gameManager.waitTime <= 0)
                 {

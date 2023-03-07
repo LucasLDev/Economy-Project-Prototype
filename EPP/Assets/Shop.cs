@@ -27,6 +27,7 @@ public class Shop : MonoBehaviour
 
     void Update()
     {
+        shopUI = GameObject.FindGameObjectWithTag("ShopUI");
         if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.storeEnabled == false && weapon == "shotgun")
         {
             store.Store();
@@ -49,10 +50,14 @@ public class Shop : MonoBehaviour
         }
     }
 
-    void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerStay2D(Collider2D other)
     {
-        interact.SetActive(true);
-        interactOn = true;
+        if(other.CompareTag("Player"))
+        {
+            interact.SetActive(true);
+            interactOn = true;
+        }
+        
     }
 
     void OnTriggerExit2D(Collider2D collision)

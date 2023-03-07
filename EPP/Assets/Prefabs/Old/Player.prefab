@@ -14,7 +14,7 @@ GameObject:
   m_Layer: 0
   m_Name: FirePoint
   m_TagString: BulletController
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -57,14 +57,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92123fd3ed482e94a8d2afe57ee91f84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canReload: 0
   firePoint: {fileID: 7866122821763003975}
   handgunBulletPrefab: {fileID: 4096159615000044804, guid: c4232887aa27da447b104209e3efe6a1, type: 3}
+  assaultBulletprefab: {fileID: 4096159615000044804, guid: b691f305a51012940bd6a91ee47f06a8, type: 3}
   shotgunBulletPrefab: {fileID: 4096159615000044804, guid: 8f84508d356409f4b8f2d7a7855fe879, type: 3}
   gameManager: {fileID: 0}
   spreadAngle: 45
-  fireRate: 0.5
-  player: {fileID: 0}
+  player: {fileID: 7866122822188526217}
   direction: {x: 0, y: 0}
+  offset: {x: 0, y: 0}
+  reloadVisual: {fileID: 0}
+  reloadIdicator: {fileID: 0}
+  hgIcon: {fileID: 0}
+  arIcon: {fileID: 0}
+  sgIcon: {fileID: 0}
 --- !u!1 &7866122822188526223
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +180,7 @@ MonoBehaviour:
   firePoint: {fileID: 7866122821763003975}
   handgunBulletPrefab: {fileID: 4096159615000044804, guid: c4232887aa27da447b104209e3efe6a1, type: 3}
   shotgunBulletPrefab: {fileID: 4096159615000044804, guid: 8f84508d356409f4b8f2d7a7855fe879, type: 3}
+  areaOneSpawn: {fileID: 0}
   chipSpeed: 5
   frontHealthBar: {fileID: 0}
   backHealthVar: {fileID: 0}

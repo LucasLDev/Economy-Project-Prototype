@@ -48,9 +48,9 @@ MonoBehaviour:
   dialogueText: {fileID: 0}
   animator: {fileID: 0}
   dialogueBox: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
+  favourScreen: {fileID: 0}
   continueButton: {fileID: 0}
   acceptButton: {fileID: 0}
-  _npc: {fileID: 0}
-  gameManager: {fileID: 0}
+  favourButton: {fileID: 0}
+  _npc: {fileID: 8808991996763655549, guid: f04bc0cea693f9d44adf88cc2654a864, type: 3}
+  gameManager: {fileID: 2837102825861077903, guid: 4b8c661fd72d1154d9bd46f6bc226cf7, type: 3}

@@ -6,6 +6,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager gameManager;
     [Space]
 
     public bool gameIsPaused = false;

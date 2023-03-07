@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     public Transform firePoint;
     public GameObject handgunBulletPrefab;
     public GameObject shotgunBulletPrefab;
+    private GameObject areaOneSpawn;
 
     public float chipSpeed = 2f;
     private float lerpTimer;
@@ -32,7 +33,16 @@ public class Player : MonoBehaviour
     public float offset;
 
     void Start()
-    {
+    {   
+        if(SpawnManager.lastScene == "MainScene")
+        {
+            transform.position = SpawnManager.spawnPoints[0].transform.position;
+        }
+        if(SceneManager.GetActiveScene().name == "MainScene")
+        {
+            areaOneSpawn = GameObject.FindGameObjectWithTag("Spawn");
+            transform.position = areaOneSpawn.transform.position;
+        }
         animator = GetComponent<Animator>();
         animator.SetBool("move", false);
     }

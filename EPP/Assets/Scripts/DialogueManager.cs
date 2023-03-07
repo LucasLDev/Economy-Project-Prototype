@@ -17,10 +17,12 @@ public class DialogueManager : MonoBehaviour
     public Animator animator;
     [Space]
     public GameObject dialogueBox;
-    public GameObject yesButton;
-    public GameObject noButton;
+    public GameObject favourScreen;
+    //public GameObject yesButton;
+    //public GameObject noButton;
     public GameObject continueButton;
     public GameObject acceptButton;
+    public GameObject favourButton;
     [Space]
     public NPC _npc;
     [Space]
@@ -36,9 +38,10 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)
     {
         animator.SetBool("IsOpen",true);
-        yesButton.SetActive(false);
-        noButton.SetActive(false);
-        acceptButton.SetActive(false);
+        //yesButton.SetActive(false);
+        //noButton.SetActive(false);
+        //acceptButton.SetActive(false);
+        favourButton.SetActive(false);
         continueButton.SetActive(true);
 
         nameText.text = dialogue.name;
@@ -58,17 +61,18 @@ public class DialogueManager : MonoBehaviour
         if (sentences.Count > 1 && gameManager.favourCompleted == false)
         {
             continueButton.SetActive(true);
-            yesButton.SetActive(false);
-            noButton.SetActive(false);
-            acceptButton.SetActive(false);
+            //yesButton.SetActive(false);
+            //noButton.SetActive(false);
+            //acceptButton.SetActive(false);
         }
 
         if (sentences.Count <= 1 && gameManager.favourCompleted == false)
         {
             continueButton.SetActive(false);
-            yesButton.SetActive(true);
-            noButton.SetActive(true);
-            acceptButton.SetActive(false);
+            favourButton.SetActive(true);
+            //yesButton.SetActive(true);
+            //noButton.SetActive(true);
+            //acceptButton.SetActive(false);
             //EndDialogue();
             //return;
         }
@@ -76,8 +80,8 @@ public class DialogueManager : MonoBehaviour
         if (sentences.Count > 1 && gameManager.favourCompleted == true)
         {
             continueButton.SetActive(true);
-            yesButton.SetActive(false);
-            noButton.SetActive(false);
+            //yesButton.SetActive(false);
+            //noButton.SetActive(false);
             acceptButton.SetActive(false);
         }
 
@@ -85,8 +89,8 @@ public class DialogueManager : MonoBehaviour
         {
             acceptButton.SetActive(true);
             continueButton.SetActive(false);
-            yesButton.SetActive(false);
-            noButton.SetActive(false);
+            //yesButton.SetActive(false);
+            //noButton.SetActive(false);
         }
 
         string sentence = sentences.Dequeue();
@@ -115,18 +119,23 @@ public class DialogueManager : MonoBehaviour
 
     public void DeclineFavour()
     {
+        _npc.CloseFavourWindow();
         _npc.deniedFavour = true;
-        Debug.Log("decline");
         EndDialogue();
-        
     }
 
      public void AcceptFavour()
     {
-       
+        _npc.CloseFavourWindow();
         _npc.EnemySpawn();
         gameManager.zombiesSpawned = true;
         EndDialogue();
+        
+    }
+
+    public void Favour()
+    {
+        _npc.OpenFavourWindow();
     }
 
     public void AcceptReward()
