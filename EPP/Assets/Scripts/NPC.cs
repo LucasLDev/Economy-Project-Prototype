@@ -21,7 +21,6 @@ public class NPC : MonoBehaviour
     public GameObject interact;
     public GameObject interactor;
     public Animator favourAnimator;
-    private GameManager gameManager;
     
 
     int xvalue;
@@ -32,9 +31,8 @@ public class NPC : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameObject.FindObjectOfType<GameManager>().GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player");
-        gameManager.zombiesSpawned = false;
+        GameManager.gameManager.zombiesSpawned = false;
         interactor.SetActive(true);
         interactOn = false;
     }
@@ -47,26 +45,26 @@ public class NPC : MonoBehaviour
 
         } else if (GameObject.FindWithTag("Zombie") != null) 
         {
-            gameManager.zombiesSpawned = true;
+            GameManager.gameManager.zombiesSpawned = true;
             zombie.GetComponent<Enemy>();
             interactor.SetActive(false);
         }
 
-        if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.inDialogue == false && deniedFavour == false && gameManager.favourCompleted == false && gameManager.objectsWithTag.Length <= 0)
+        if (interactOn == true && Input.GetKeyDown(KeyCode.F) && GameManager.gameManager.inDialogue == false && deniedFavour == false && GameManager.gameManager.favourCompleted == false && GameManager.gameManager.objectsWithTag.Length <= 0)
         {
             _dialogue.TriggerDialogue();
-            gameManager.inDialogue = true;
-            gameManager.canMove = false;
-        } else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.inDialogue == false && deniedFavour == true && gameManager.favourCompleted == false & gameManager.objectsWithTag.Length <= 0)
+            GameManager.gameManager.inDialogue = true;
+            GameManager.gameManager.canMove = false;
+        } else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && GameManager.gameManager.inDialogue == false && deniedFavour == true && GameManager.gameManager.favourCompleted == false & GameManager.gameManager.objectsWithTag.Length <= 0)
         {
             _dialogueReturn.TriggerReturnDialogue();
-            gameManager.inDialogue = true;
-            gameManager.canMove = false;
-        }   else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && gameManager.inDialogue == false && gameManager.favourCompleted == true & gameManager.objectsWithTag.Length <= 0)
+            GameManager.gameManager.inDialogue = true;
+            GameManager.gameManager.canMove = false;
+        }   else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && GameManager.gameManager.inDialogue == false && GameManager.gameManager.favourCompleted == true & GameManager.gameManager.objectsWithTag.Length <= 0)
         {
             _dialogueEnd.TriggerEndDialogue();
-            gameManager.inDialogue = true;
-            gameManager.canMove = false;
+            GameManager.gameManager.inDialogue = true;
+            GameManager.gameManager.canMove = false;
         }
 
     }
@@ -74,7 +72,7 @@ public class NPC : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if(gameManager.objectsWithTag.Length <= 0 &&  other.CompareTag("Player"))
+        if(GameManager.gameManager.objectsWithTag.Length <= 0 &&  other.CompareTag("Player"))
         {
             interact.SetActive(true);
             interactOn = true;
@@ -89,12 +87,12 @@ public class NPC : MonoBehaviour
 
     public void EnemySpawn()
     {
-        gameManager.remainingZombies = gameManager.numberOfZombies;
+        GameManager.gameManager.remainingZombies = GameManager.gameManager.numberOfZombies;
 
-        for(int i = 0; i<gameManager.numberOfZombies; i++)
+        for(int i = 0; i<GameManager.gameManager.numberOfZombies; i++)
         {
-            gameManager.zombiesSpawned = true;
-            gameManager.zombiesDead = false;
+            GameManager.gameManager.zombiesSpawned = true;
+            GameManager.gameManager.zombiesDead = false;
 
             xvalue = Random.Range(-13, 4);
             yvalue = Random.Range(-5, 6);

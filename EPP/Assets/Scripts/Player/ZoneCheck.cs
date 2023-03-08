@@ -8,15 +8,13 @@ public class ZoneCheck : MonoBehaviour
     private GameObject _gameManager;
     void Start()
     {
-        _gameManager = GameObject.FindWithTag("GameManager");
-        gameManager = _gameManager.GetComponent<GameManager>();
     }
 
     public void OnTriggerStay2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
-             gameManager.inSafeZone = true;
+             GameManager.gameManager.inSafeZone = true;
         } 
         
 
@@ -27,7 +25,7 @@ public class ZoneCheck : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            gameManager.inSafeZone = false;
+            GameManager.gameManager.inSafeZone = false;
         }
         
     }

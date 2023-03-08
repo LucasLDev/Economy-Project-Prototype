@@ -10,7 +10,6 @@ public class BulletController : MonoBehaviour
     public GameObject handgunBulletPrefab;
     public GameObject assaultBulletprefab;
     public GameObject shotgunBulletPrefab;
-    public GameManager gameManager;
 
     public float spreadAngle = 45.0f;
 
@@ -19,7 +18,6 @@ public class BulletController : MonoBehaviour
     public Vector2 direction;
     public Vector2 offset;
     public Slider reloadVisual;
-    public GameObject reloadIdicator;
     public GameObject hgIcon;
     public GameObject arIcon;
     public GameObject sgIcon;
@@ -27,15 +25,15 @@ public class BulletController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        reloadIdicator.SetActive(false);
+        MainUI.mainUI.reloadIdicator.SetActive(false);
 
-        gameManager.handgunCurrentAmmo = gameManager.handgunMaxAmmo;
-        gameManager.machineCurrentAmmo = gameManager.machineMaxAmmo;
-        gameManager.subCurrentAmmo = gameManager.subMaxAmmo;
-        gameManager.assaultCurrentAmmo = gameManager.assaultMaxAmmo;
-        gameManager.shotgunCurrentAmmo = gameManager.shotgunMaxAmmo;
+        GameManager.gameManager.handgunCurrentAmmo = GameManager.gameManager.handgunMaxAmmo;
+        GameManager.gameManager.machineCurrentAmmo = GameManager.gameManager.machineMaxAmmo;
+        GameManager.gameManager.subCurrentAmmo = GameManager.gameManager.subMaxAmmo;
+        GameManager.gameManager.assaultCurrentAmmo = GameManager.gameManager.assaultMaxAmmo;
+        GameManager.gameManager.shotgunCurrentAmmo = GameManager.gameManager.shotgunMaxAmmo;
 
-        gameManager.isReloading = false;
+        GameManager.gameManager.isReloading = false;
     }
 
     // Update is called once per frame
@@ -44,15 +42,11 @@ public class BulletController : MonoBehaviour
         timeSinceLastShot += Time.deltaTime;
 
         TriggerShoot();
-        
-        ReloadIndicator();
-        
-        IconCheck();
 
         ReloadCheck();
         
 
-        if(Input.GetKeyDown(KeyCode.R) && gameManager.isReloading == false && canReload == true)
+        if(Input.GetKeyDown(KeyCode.R) && GameManager.gameManager.isReloading == false && canReload == true)
         {
             ReloadWeapon();
         }
@@ -61,32 +55,32 @@ public class BulletController : MonoBehaviour
 
     void TriggerShoot()
     {
-        if (gameManager.handgun == true && gameManager.handgunCurrentAmmo > 0 && !gameManager.isReloading)
+        if (GameManager.gameManager.handgun == true && GameManager.gameManager.handgunCurrentAmmo > 0 && !GameManager.gameManager.isReloading)
         {
-            if (Input.GetButtonDown("Fire1") && gameManager.canShoot == true && timeSinceLastShot >= gameManager.handgunFireRate)
+            if (Input.GetButtonDown("Fire1") && GameManager.gameManager.canShoot == true && timeSinceLastShot >= GameManager.gameManager.handgunFireRate)
             {
-                gameManager.handgunCurrentAmmo--;
+                GameManager.gameManager.handgunCurrentAmmo--;
                 timeSinceLastShot = 0.0f;
                 Shoot();
                 
             }
         }
 
-        if(gameManager.shotgun == true && gameManager.shotgunCurrentAmmo > 0 && !gameManager.isReloading)
+        if(GameManager.gameManager.shotgun == true && GameManager.gameManager.shotgunCurrentAmmo > 0 && !GameManager.gameManager.isReloading)
         {
-            if (Input.GetButtonDown("Fire1") && gameManager.canShoot == true && timeSinceLastShot >= gameManager.shotgunFireRate)
+            if (Input.GetButtonDown("Fire1") && GameManager.gameManager.canShoot == true && timeSinceLastShot >= GameManager.gameManager.shotgunFireRate)
             {
-                gameManager.shotgunCurrentAmmo -= gameManager.shotgunAmmo;
+                GameManager.gameManager.shotgunCurrentAmmo -= GameManager.gameManager.shotgunAmmo;
                 timeSinceLastShot = 0.0f;
                 Shoot();
             }
         }
 
-        if(gameManager.AssaultRifle == true && gameManager.assaultCurrentAmmo > 0 && !gameManager.isReloading)
+        if(GameManager.gameManager.AssaultRifle == true && GameManager.gameManager.assaultCurrentAmmo > 0 && !GameManager.gameManager.isReloading)
         {
-            if (Input.GetButton("Fire1") && gameManager.canShoot == true && timeSinceLastShot >= gameManager.AssaultRifleFireRate)
+            if (Input.GetButton("Fire1") && GameManager.gameManager.canShoot == true && timeSinceLastShot >= GameManager.gameManager.AssaultRifleFireRate)
             {
-                gameManager.assaultCurrentAmmo--;
+                GameManager.gameManager.assaultCurrentAmmo--;
                 timeSinceLastShot = 0.0f;
                 Shoot();
             }
@@ -97,41 +91,41 @@ public class BulletController : MonoBehaviour
     {
         
         
-        if (gameManager.handgun == true)
+        if (GameManager.gameManager.handgun == true)
         {
-            gameManager.shotgun = false;
-            gameManager.machinePistol = false;
-            gameManager.subMachineGun = false;
-            gameManager.AssaultRifle = false;
+            GameManager.gameManager.shotgun = false;
+            GameManager.gameManager.machinePistol = false;
+            GameManager.gameManager.subMachineGun = false;
+            GameManager.gameManager.AssaultRifle = false;
             
             GameObject handgunBullet = Instantiate(handgunBulletPrefab, firePoint.position, firePoint.rotation);
             Rigidbody2D rb = handgunBullet.GetComponent<Rigidbody2D>();
-            rb.AddForce(firePoint.up * gameManager.handgunBulletSpeed, ForceMode2D.Impulse);
+            rb.AddForce(firePoint.up * GameManager.gameManager.handgunBulletSpeed, ForceMode2D.Impulse);
         }
 
-        if (gameManager.AssaultRifle == true)
+        if (GameManager.gameManager.AssaultRifle == true)
         {
-            gameManager.shotgun = false;
-            gameManager.machinePistol = false;
-            gameManager.subMachineGun = false;
-            gameManager.handgun = false;
+            GameManager.gameManager.shotgun = false;
+            GameManager.gameManager.machinePistol = false;
+            GameManager.gameManager.subMachineGun = false;
+            GameManager.gameManager.handgun = false;
             
             GameObject assaultBullet = Instantiate(assaultBulletprefab, firePoint.position, firePoint.rotation);
             Rigidbody2D rb = assaultBullet.GetComponent<Rigidbody2D>();
-            rb.AddForce(firePoint.up * gameManager.handgunBulletSpeed, ForceMode2D.Impulse);
+            rb.AddForce(firePoint.up * GameManager.gameManager.handgunBulletSpeed, ForceMode2D.Impulse);
         }
 
-        if (gameManager.shotgun == true)
+        if (GameManager.gameManager.shotgun == true)
         {
-            gameManager.handgun = false;
-            gameManager.machinePistol = false;
-            gameManager.subMachineGun = false;
-            gameManager.AssaultRifle = false;
+            GameManager.gameManager.handgun = false;
+            GameManager.gameManager.machinePistol = false;
+            GameManager.gameManager.subMachineGun = false;
+            GameManager.gameManager.AssaultRifle = false;
 
-            float angleStep = spreadAngle / (float)(gameManager.shotgunAmmo - 1);
+            float angleStep = spreadAngle / (float)(GameManager.gameManager.shotgunAmmo - 1);
             float currentAngle = -spreadAngle / 2.0f;
 
-            for (int i = 0; i < gameManager.shotgunAmmo; i++)
+            for (int i = 0; i < GameManager.gameManager.shotgunAmmo; i++)
             {
                 direction = Quaternion.Euler(0.0f, 0.0f, currentAngle) * transform.up;
 
@@ -139,7 +133,7 @@ public class BulletController : MonoBehaviour
 
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 
-                bullet.GetComponent<Rigidbody2D>().velocity = direction * gameManager.shotgunBulletSpeed;
+                bullet.GetComponent<Rigidbody2D>().velocity = direction * GameManager.gameManager.shotgunBulletSpeed;
 
                 Quaternion rotation = Quaternion.FromToRotation(Vector2.up, -direction);
                 
@@ -156,9 +150,9 @@ public class BulletController : MonoBehaviour
 
     public void ReloadWeapon()
     {
-        if(!gameManager.isReloading)
+        if(!GameManager.gameManager.isReloading)
         {
-            gameManager.isReloading = true;
+            GameManager.gameManager.isReloading = true;
             StartCoroutine(ReloadCoroutine());
             reloadVisual.value = 0;
             
@@ -168,128 +162,77 @@ public class BulletController : MonoBehaviour
     private IEnumerator ReloadCoroutine()
     {
         float timeElapsed = 0;
-        if(gameManager.handgun == true)
+        if(GameManager.gameManager.handgun == true)
         {
-            reloadVisual.maxValue = gameManager.handgunReloadTime;
-            while (timeElapsed < gameManager.handgunReloadTime)
+            reloadVisual.maxValue = GameManager.gameManager.handgunReloadTime;
+            while (timeElapsed < GameManager.gameManager.handgunReloadTime)
             {
                 timeElapsed += Time.deltaTime;
                 reloadVisual.value = timeElapsed;
                 yield return null;
             }
-            //yield return new WaitForSeconds(gameManager.handgunReloadTime);
-            gameManager.handgunCurrentAmmo = gameManager.handgunMaxAmmo;
-            gameManager.isReloading = false;
+            //yield return new WaitForSeconds(GameManager.gameManager.handgunReloadTime);
+            GameManager.gameManager.handgunCurrentAmmo = GameManager.gameManager.handgunMaxAmmo;
+            GameManager.gameManager.isReloading = false;
             reloadVisual.value = 0;
         }
-        if(gameManager.AssaultRifle == true)
+        if(GameManager.gameManager.AssaultRifle == true)
         {
-            reloadVisual.maxValue = gameManager.assaultReloadTime;
-            while (timeElapsed < gameManager.assaultReloadTime)
+            reloadVisual.maxValue = GameManager.gameManager.assaultReloadTime;
+            while (timeElapsed < GameManager.gameManager.assaultReloadTime)
             {
                 timeElapsed += Time.deltaTime;
                 reloadVisual.value = timeElapsed;
                 yield return null;
             }
-            //yield return new WaitForSeconds(gameManager.assaultReloadTime);
-            gameManager.assaultCurrentAmmo = gameManager.assaultMaxAmmo;
-            gameManager.isReloading = false;
+            //yield return new WaitForSeconds(GameManager.gameManager.assaultReloadTime);
+            GameManager.gameManager.assaultCurrentAmmo = GameManager.gameManager.assaultMaxAmmo;
+            GameManager.gameManager.isReloading = false;
             reloadVisual.value = 0;
         }
-        if(gameManager.shotgun == true)
+        if(GameManager.gameManager.shotgun == true)
         {
-            reloadVisual.maxValue = gameManager.shotgunReloadTime;
-            while (timeElapsed < gameManager.shotgunReloadTime)
+            reloadVisual.maxValue = GameManager.gameManager.shotgunReloadTime;
+            while (timeElapsed < GameManager.gameManager.shotgunReloadTime)
             {
                 timeElapsed += Time.deltaTime;
                 reloadVisual.value = timeElapsed;
                 yield return null;
             }
-            //yield return new WaitForSeconds(gameManager.shotgunReloadTime);
-            gameManager.shotgunCurrentAmmo = gameManager.shotgunMaxAmmo;
-            gameManager.isReloading = false;
+            //yield return new WaitForSeconds(GameManager.gameManager.shotgunReloadTime);
+            GameManager.gameManager.shotgunCurrentAmmo = GameManager.gameManager.shotgunMaxAmmo;
+            GameManager.gameManager.isReloading = false;
             reloadVisual.value = 0;
         }
         
     }
-    
-    public void ReloadIndicator()
-    {
-        if (gameManager.handgun == true && gameManager.handgunCurrentAmmo == 0)
-        {
-            reloadIdicator.SetActive(true);
 
-        } else if (gameManager.handgun == true && gameManager.handgunCurrentAmmo > 0)
-        {
-            reloadIdicator.SetActive(false);
-        }
-
-        if (gameManager.shotgun == true && gameManager.shotgunCurrentAmmo == 0)
-        {
-            reloadIdicator.SetActive(true);
-
-        } else if (gameManager.shotgun == true && gameManager.shotgunCurrentAmmo > 0)
-        {
-            reloadIdicator.SetActive(false);
-        }
-
-        if (gameManager.AssaultRifle == true && gameManager.assaultCurrentAmmo == 0)
-        {
-            reloadIdicator.SetActive(true);
-
-        } else if(gameManager.AssaultRifle == true && gameManager.assaultCurrentAmmo > 0)
-        {
-            reloadIdicator.SetActive(false);
-        }
-    }
-
-    public void IconCheck()
-    {
-        if (gameManager.handgun == true)
-        {
-            hgIcon.SetActive(true);
-            arIcon.SetActive(false);
-            sgIcon.SetActive(false);
-        }
-        if (gameManager.AssaultRifle == true)
-        {
-            hgIcon.SetActive(false);
-            arIcon.SetActive(true);
-            sgIcon.SetActive(false);
-        }
-        if (gameManager.shotgun == true)
-        {
-            hgIcon.SetActive(false);
-            arIcon.SetActive(false);
-            sgIcon.SetActive(true);
-        }
-    }
 
     public void ReloadCheck()
     {
         //handgun reload check
-        if (gameManager.handgun == true && gameManager.handgunCurrentAmmo != gameManager.handgunMaxAmmo)
+        if (GameManager.gameManager.handgun == true && GameManager.gameManager.handgunCurrentAmmo != GameManager.gameManager.handgunMaxAmmo)
         {
             canReload = true;
-        } else if (gameManager.handgun == true && gameManager.handgunCurrentAmmo == gameManager.handgunMaxAmmo)
+        } else if (GameManager.gameManager.handgun == true && GameManager.gameManager.handgunCurrentAmmo == GameManager.gameManager.handgunMaxAmmo)
         {
             canReload = false;
         }
 
         //AR reload check
-        if (gameManager.AssaultRifle == true && gameManager.assaultCurrentAmmo != gameManager.assaultMaxAmmo)
+        if (GameManager.gameManager.AssaultRifle == true && GameManager.gameManager.assaultCurrentAmmo != GameManager.gameManager.assaultMaxAmmo)
         {
             canReload = true;
-        } else if (gameManager.AssaultRifle == true && gameManager.assaultCurrentAmmo == gameManager.assaultMaxAmmo)
+        } else if (GameManager.gameManager.AssaultRifle == true && GameManager.gameManager.assaultCurrentAmmo == GameManager.gameManager.assaultMaxAmmo)
         {
             canReload = false;
         }
 
         //shotgun reload check
-        if (gameManager.shotgun == true && gameManager.shotgunCurrentAmmo != gameManager.shotgunMaxAmmo)
+        if (GameManager.gameManager.shotgun == true && GameManager.gameManager.shotgunCurrentAmmo != GameManager.gameManager.shotgunMaxAmmo)
         {
             canReload = true;
-        } else if (gameManager.shotgun == true && gameManager.shotgunCurrentAmmo == gameManager.shotgunMaxAmmo)
+        } else if (GameManager.gameManager.shotgun == true && GameManager.gameManager.shotgunCurrentAmmo == GameManager.gameManager.shotgunMaxAmmo)
         {
             canReload = false;
         }

@@ -25,8 +25,6 @@ public class DialogueManager : MonoBehaviour
     public GameObject favourButton;
     [Space]
     public NPC _npc;
-    [Space]
-    public GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +56,7 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextSentence()
     {
-        if (sentences.Count > 1 && gameManager.favourCompleted == false)
+        if (sentences.Count > 1 && GameManager.gameManager.favourCompleted == false)
         {
             continueButton.SetActive(true);
             //yesButton.SetActive(false);
@@ -66,7 +64,7 @@ public class DialogueManager : MonoBehaviour
             //acceptButton.SetActive(false);
         }
 
-        if (sentences.Count <= 1 && gameManager.favourCompleted == false)
+        if (sentences.Count <= 1 && GameManager.gameManager.favourCompleted == false)
         {
             continueButton.SetActive(false);
             favourButton.SetActive(true);
@@ -77,7 +75,7 @@ public class DialogueManager : MonoBehaviour
             //return;
         }
 
-        if (sentences.Count > 1 && gameManager.favourCompleted == true)
+        if (sentences.Count > 1 && GameManager.gameManager.favourCompleted == true)
         {
             continueButton.SetActive(true);
             //yesButton.SetActive(false);
@@ -85,7 +83,7 @@ public class DialogueManager : MonoBehaviour
             acceptButton.SetActive(false);
         }
 
-        if (sentences.Count <= 1 && gameManager.favourCompleted == true)
+        if (sentences.Count <= 1 && GameManager.gameManager.favourCompleted == true)
         {
             acceptButton.SetActive(true);
             continueButton.SetActive(false);
@@ -113,8 +111,8 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()
     {
         animator.SetBool("IsOpen", false);
-        gameManager.inDialogue = false;
-        gameManager.canMove = true;
+        GameManager.gameManager.inDialogue = false;
+        GameManager.gameManager.canMove = true;
     }
 
     public void DeclineFavour()
@@ -128,7 +126,7 @@ public class DialogueManager : MonoBehaviour
     {
         _npc.CloseFavourWindow();
         _npc.EnemySpawn();
-        gameManager.zombiesSpawned = true;
+        GameManager.gameManager.zombiesSpawned = true;
         EndDialogue();
         
     }
@@ -140,10 +138,10 @@ public class DialogueManager : MonoBehaviour
 
     public void AcceptReward()
     {
-        gameManager.currentFuel += 150;
+        GameManager.gameManager.currentFuel += 150;
         _npc.deniedFavour = false;
-        gameManager.favourCompleted = false;
-        gameManager.zombiesSpawned = false;
+        GameManager.gameManager.favourCompleted = false;
+        GameManager.gameManager.zombiesSpawned = false;
         EndDialogue();
     }
 

@@ -9,8 +9,6 @@ public class Player : MonoBehaviour
 {
     private bool dead;
 
-    public GameManager gameManager;
-
     public Rigidbody2D rb;
     public Camera cam;
 
@@ -23,12 +21,6 @@ public class Player : MonoBehaviour
     public GameObject handgunBulletPrefab;
     public GameObject shotgunBulletPrefab;
     private GameObject areaOneSpawn;
-
-    public float chipSpeed = 2f;
-    private float lerpTimer;
-    public Image frontHealthBar;
-    public Image backHealthVar;
-    public TextMeshProUGUI healthText;
 
     public float offset;
 
@@ -49,7 +41,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        UpdateHealthUI();
 
         /* Shoot(); */
         
@@ -76,7 +67,7 @@ public class Player : MonoBehaviour
 
     public void Movement()
     {
-      if (gameManager.handgun == true)
+      if (GameManager.gameManager.handgun == true)
       {
         animator.SetBool("handgun", true);
         animator.SetBool("shotgun", false);
@@ -91,7 +82,7 @@ public class Player : MonoBehaviour
         }
       }
 
-      if (gameManager.shotgun == true)
+      if (GameManager.gameManager.shotgun == true)
       {
         animator.SetBool("handgun", false);
         animator.SetBool("shotgun", true);
@@ -106,7 +97,7 @@ public class Player : MonoBehaviour
         }
       }
 
-      if (gameManager.AssaultRifle == true)
+      if (GameManager.gameManager.AssaultRifle == true)
       {
         animator.SetBool("handgun", false);
         animator.SetBool("shotgun", false);
@@ -122,7 +113,7 @@ public class Player : MonoBehaviour
       }
         
 
-        if(gameManager.canMove != false)
+        if(GameManager.gameManager.canMove != false)
         {
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
@@ -132,7 +123,7 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         //movement
-        rb.MovePosition(rb.position + movement * gameManager.playerMoveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * GameManager.gameManager.playerMoveSpeed * Time.fixedDeltaTime);
 
         Vector2 lookDir = mousePos - rb.position;
 
@@ -144,11 +135,11 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        gameManager.playerCurrentHealth = Mathf.Clamp(gameManager.playerCurrentHealth - amount, 0, gameManager.playerMaxHealth);
+        GameManager.gameManager.playerCurrentHealth = Mathf.Clamp(GameManager.gameManager.playerCurrentHealth - amount, 0, GameManager.gameManager.playerMaxHealth);
 
-        if(gameManager.playerCurrentHealth > 0)
+        if(GameManager.gameManager.playerCurrentHealth > 0)
         {
-            lerpTimer = 0f;
+            MainUI.mainUI.hLerpTimer = 0f;
         }
         else
         {
@@ -160,7 +151,7 @@ public class Player : MonoBehaviour
   
                 GetComponent<Player>().enabled = false;
                 dead = true;
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene("Death");
             }
         }
 
@@ -170,7 +161,7 @@ public class Player : MonoBehaviour
     {
         if (collision.tag == "Zombie")
         {
-            if(Time.time - gameManager.)
+            if(Time.time - GameManager.gameManager.)
             var enemy = collision.GetComponent<Enemy>();
 
             TakeDamage(enemy.zombieDamage);
@@ -179,42 +170,42 @@ public class Player : MonoBehaviour
 
     public void AddHealth(int _value)
     {
-        gameManager.playerCurrentHealth = Mathf.Clamp(gameManager.playerCurrentHealth + _value, 0, gameManager.playerMaxHealth);
-        lerpTimer = 0f;
+        GameManager.gameManager.playerCurrentHealth = Mathf.Clamp(GameManager.gameManager.playerCurrentHealth + _value, 0, GameManager.gameManager.playerMaxHealth);
+        MainUI.mainUI.hLerpTimer = 0f;
     }
 
     /*void Shoot()
     {
-        if(Input.GetButtonDown("Fire1") && gameManager.canShoot == true)
+        if(Input.GetButtonDown("Fire1") && GameManager.gameManager.canShoot == true)
         {
-            if (gameManager.handgun == true)
+            if (GameManager.gameManager.handgun == true)
             {
                 GameObject handgunBullet = Instantiate(handgunBulletPrefab, firePoint.position, firePoint.rotation);
                 Rigidbody2D rb = handgunBullet.GetComponent<Rigidbody2D>();
-                rb.AddForce(firePoint.up * gameManager.projectileSpeed, ForceMode2D.Impulse);
+                rb.AddForce(firePoint.up * GameManager.gameManager.projectileSpeed, ForceMode2D.Impulse);
             }
 
-            if (gameManager.shotgun == true)
+            if (GameManager.gameManager.shotgun == true)
             {
                 Quaternion newRot = firePoint.rotation;
 
-                gameManager.handgun = false;
-                gameManager.machinePistol = false;
-                gameManager.subMachineGun = false;
-                gameManager.AssaultRifle = false;
+                GameManager.gameManager.handgun = false;
+                GameManager.gameManager.machinePistol = false;
+                GameManager.gameManager.subMachineGun = false;
+                GameManager.gameManager.AssaultRifle = false;
 
-                for (int i = 0; i < gameManager.shotgunAmmo; i++)
+                for (int i = 0; i < GameManager.gameManager.shotgunAmmo; i++)
                 {
                     GameObject s = Instantiate(shotgunBulletPrefab, firePoint.position, firePoint.rotation);
                     Rigidbody2D rb = s.GetComponent<Rigidbody2D>();
                     Vector2 dir = transform.rotation * Vector2.up;
-                    Vector2 pdir = Vector2.Perpendicular(dir) * Random.Range(-gameManager.spread, gameManager.spread);
-                    rb.velocity = (dir * pdir) * gameManager.projectileSpeed;
+                    Vector2 pdir = Vector2.Perpendicular(dir) * Random.Range(-GameManager.gameManager.spread, GameManager.gameManager.spread);
+                    rb.velocity = (dir * pdir) * GameManager.gameManager.projectileSpeed;
                 }
 
-                 for (int i = 0; i < gameManager.shotgunAmmo; i++)
+                 for (int i = 0; i < GameManager.gameManager.shotgunAmmo; i++)
                 {
-                    float addedOffset =  i - (gameManager.shotgunAmmo / 2) *  gameManager.spread;
+                    float addedOffset =  i - (GameManager.gameManager.shotgunAmmo / 2) *  GameManager.gameManager.spread;
 
                     GameObject shotgunBullet = Instantiate(shotgunBulletPrefab, firePoint.position, newRot);
 
@@ -222,7 +213,7 @@ public class Player : MonoBehaviour
 
                     
                     Rigidbody2D rb = shotgunBullet.GetComponent<Rigidbody2D>();
-                    rb.AddForce(firePoint.up * gameManager.projectileSpeed,ForceMode2D.Impulse);
+                    rb.AddForce(firePoint.up * GameManager.gameManager.projectileSpeed,ForceMode2D.Impulse);
                 } 
 
             }
@@ -231,33 +222,6 @@ public class Player : MonoBehaviour
         
     } */
 
-    public void UpdateHealthUI()
-    {
-        
-        float fillF = frontHealthBar.fillAmount;
-        float fillB = backHealthVar.fillAmount;
-        float hFraction = gameManager.playerCurrentHealth / gameManager.playerMaxHealth;
-        
-        if (fillB > hFraction)
-        {
-            frontHealthBar.fillAmount = hFraction;
-            backHealthVar.color = Color.yellow;
-            lerpTimer += Time.deltaTime;
-            float percentComplete = lerpTimer / chipSpeed;
-            percentComplete = percentComplete * percentComplete;
-            backHealthVar.fillAmount = Mathf.Lerp(fillB, hFraction, percentComplete);
-        }
-        if(fillF < hFraction)
-        {
-            backHealthVar.color = Color.green;
-            backHealthVar.fillAmount = hFraction;
-            lerpTimer += Time.deltaTime;
-            float percentComplete = lerpTimer / chipSpeed;
-            percentComplete = percentComplete * percentComplete;
-            frontHealthBar.fillAmount = Mathf.Lerp(fillF, backHealthVar.fillAmount, percentComplete);
-        }
-        healthText.text = Mathf.Round(gameManager.playerCurrentHealth) + "/" + Mathf.Round(gameManager.playerMaxHealth);
-    }
 
     /*private void Update()
     {

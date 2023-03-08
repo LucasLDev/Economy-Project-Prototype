@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class HealthCollectible : MonoBehaviour
 {
-   public GameManager gameManager;
 
    private void OnTriggerEnter2D(Collider2D collision)
    {
-        if (collision.tag == "Player" && gameManager.playerCurrentHealth != gameManager.playerMaxHealth)
+        if (collision.tag == "Player" && GameManager.gameManager.playerCurrentHealth != GameManager.gameManager.playerMaxHealth)
         {
-            collision.GetComponent<Player>().AddHealth(gameManager.medkitPotency);
+            collision.GetComponent<Player>().AddHealth(GameManager.gameManager.medkitPotency);
             gameObject.SetActive(false);
         }
    }

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-
-    private GameManager gameManager;
-    private GameObject _gameManager;
     public GameObject hitEffect;
     private BulletController bulletController;
     private GameObject _bulletController;
@@ -15,8 +12,6 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        _gameManager = GameObject.FindWithTag("GameManager");
-        gameManager = _gameManager.GetComponent<GameManager>();
 
         _bulletController = GameObject.FindWithTag("BulletController");
         bulletController = _bulletController.GetComponent<BulletController>();
@@ -45,31 +40,31 @@ public class Bullet : MonoBehaviour
         if (collision.tag == "Zombie")
         {
             Debug.Log("handgun collision");
-            if(gameManager.handgun == true)
+            if(GameManager.gameManager.handgun == true)
             {
                 Debug.Log("handgun damage");
-                collision.GetComponent<Enemy>().ZMTakeDamage(gameManager.handgunDamage);
+                collision.GetComponent<Enemy>().ZMTakeDamage(GameManager.gameManager.handgunDamage);
                 Debug.Log(" _handgun damage");
             }
 
-            if(gameManager.machinePistol == true)
+            if(GameManager.gameManager.machinePistol == true)
             {
-                collision.GetComponent<Enemy>().ZMTakeDamage(gameManager.machinePistolDamage);
+                collision.GetComponent<Enemy>().ZMTakeDamage(GameManager.gameManager.machinePistolDamage);
             }
 
-            if(gameManager.subMachineGun == true)
+            if(GameManager.gameManager.subMachineGun == true)
             {
-                collision.GetComponent<Enemy>().ZMTakeDamage(gameManager.subMachineGunDamage);
+                collision.GetComponent<Enemy>().ZMTakeDamage(GameManager.gameManager.subMachineGunDamage);
             }
 
-            if(gameManager.AssaultRifle == true)
+            if(GameManager.gameManager.AssaultRifle == true)
             {
-                collision.GetComponent<Enemy>().ZMTakeDamage(gameManager.AssaultRifleDamage);
+                collision.GetComponent<Enemy>().ZMTakeDamage(GameManager.gameManager.AssaultRifleDamage);
             }
 
-            if(gameManager.shotgun == true)
+            if(GameManager.gameManager.shotgun == true)
             {
-                collision.GetComponent<Enemy>().ZMTakeDamage(gameManager.shotgunDamage);
+                collision.GetComponent<Enemy>().ZMTakeDamage(GameManager.gameManager.shotgunDamage);
             }
             
         }

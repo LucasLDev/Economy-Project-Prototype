@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [Space]
-    public GameManager gameManager;
-    [Space]
     public GameObject pauseMenuUI;
     public GameObject HUD;
     public GameObject fuelDisplay;
@@ -18,12 +15,12 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && gameManager.inDialogue != true)
+        if (Input.GetKeyDown(KeyCode.Escape) && GameManager.gameManager.inDialogue != true)
         {
-            if (gameManager.gameIsPaused)
+            if (GameManager.gameManager.gameIsPaused)
             {
                 Resume();
-            } else if(gameManager.storeEnabled == false && gameManager.inDialogue == false)   
+            } else if(GameManager.gameManager.storeEnabled == false && GameManager.gameManager.inDialogue == false)   
             {
 
                 Pause();
@@ -38,7 +35,7 @@ public class PauseMenu : MonoBehaviour
         HUD.SetActive(true);
         fuelDisplay.SetActive(true);
         Time.timeScale = 1f;
-        gameManager.gameIsPaused = false;
+        GameManager.gameManager.gameIsPaused = false;
     }
 
     void Pause()
@@ -48,7 +45,7 @@ public class PauseMenu : MonoBehaviour
         fuelDisplay.SetActive(false);
         remainingZombiesCounter.SetActive(false);
         Time.timeScale = 0f;
-        gameManager.gameIsPaused = true;
+        GameManager.gameManager.gameIsPaused = true;
     }
 
     public void LoadMenu()
@@ -58,7 +55,7 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
         Debug.Log("Loading menu...");
         Time.timeScale = 1f;
-        gameManager.gameIsPaused = false;
+        GameManager.gameManager.gameIsPaused = false;
         //SceneManager.LoadScene("Menu");
     }
 

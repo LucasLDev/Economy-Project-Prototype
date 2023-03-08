@@ -1,0 +1,229 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7987506529499850960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7987506529499850974}
+  - component: {fileID: 5220348327575899863}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: GameManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &7987506529499850974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987506529499850960}
+  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
+  m_LocalPosition: {x: 1.0584936, y: -1.4799117, z: 0.2243149}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
+--- !u!114 &5220348327575899863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987506529499850960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39af01e71c58f7c4da27f1628bd481d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameIsPaused: 0
+  storeEnabled: 0
+  favourCompleted: 0
+  inDialogue: 0
+  canShoot: 1
+  maxStats: 0
+  isReloading: 0
+  machinePistolStore: 0
+  subMachineGunStore: 0
+  assaultRifleStore: 0
+  shotgunStore: 0
+  HUD: {fileID: 0}
+  store: {fileID: 0}
+  playerMaxHealth: 100
+  playerCurrentHealth: 0
+  playerMoveSpeed: 4
+  projectileSpeed: 20
+  medkitPotency: 20
+  handgun: 0
+  handgunFireRate: 0.45
+  handgunDamage: 2
+  handgunBulletSpeed: 17.5
+  handgunMaxAmmo: 15
+  handgunCurrentAmmo: 0
+  handgunReloadTime: 1
+  machinePistol: 0
+  machinePistolFireRate: 0.5
+  machinePistolDamage: 2
+  machineBulletSpeed: 20
+  machineMaxAmmo: 17
+  machineCurrentAmmo: 0
+  machineReloadTime: 1
+  subMachineGun: 0
+  subMachineGunFireRate: 0.5
+  subMachineGunDamage: 2
+  subBulletSpeed: 25
+  subMaxAmmo: 25
+  subCurrentAmmo: 0
+  subReloadTime: 1.3
+  AssaultRifle: 0
+  AssaultRifleFireRate: 0.55
+  AssaultRifleDamage: 5
+  assaultBulletSpeed: 15
+  assaultMaxAmmo: 31
+  assaultCurrentAmmo: 0
+  assaultReloadTime: 1.6
+  shotgun: 0
+  shotgunAmmo: 5
+  shotgunFireRate: 0.5
+  shotgunDamage: 3
+  spread: 10
+  shotgunBulletSpeed: 8.5
+  shotgunMaxAmmo: 15
+  shotgunCurrentAmmo: 0
+  shotgunReloadTime: 2.5
+  inSafeZone: 0
+  canMove: 0
+  level: 0
+  currentXp: 0
+  requiredXp: 0
+  testXP: 100
+  chipSpeed: 4
+  frontXpBar: {fileID: 0}
+  backXpBar: {fileID: 0}
+  levelText: {fileID: 0}
+  xpText: {fileID: 0}
+  additionMultiplier: 300
+  powerMultiplier: 2
+  divisionMultiplier: 7
+  numberOfZombies: 10
+  remainingZombies: 0
+  attackCooldown: 2
+  zombieHealthUpgrade: 4
+  zombieDamageUpgrade: 2
+  zombieSpeedUpgrade: 0.15
+  zombieChaseRange: 4
+  waitTime: 0
+  startWaitTime: 1
+  zombieChasing: 0
+  zombiePatrolling: 1
+  zombiesDead: 1
+  zombiesSpawned: 0
+  zombieCounterText: {fileID: 0}
+  currentFuel: 9999999
+  minfuelGain: 5
+  maxfuelGain: 15
+  fuelAmount: {fileID: 0}
+  fuelAmountStore: {fileID: 0}
+  healthCost: 150
+  damageCost: 250
+  speedCost: 500
+  projectileCost: 75
+  fuelCost: 85
+  medKitCost: 80
+  fireRateCost: 100
+  maxAmmoCost: 215
+  ShotgunCost: 1500
+  assaultCost: 750
+  healthUpgradeInterval: 20
+  damageUpgradeInterval: 1.5
+  speedUpgradeInterval: 0.5
+  FuelUpgradeInterval: 5
+  MedkitUpgradeInterval: 10
+  handgunBulletSpeedInterval: 0.6
+  machineBulletSpeedInterval: 0.5
+  subBulletSpeedInterval: 0.5
+  assaultBulletSpeedInterval: 0.5
+  shotgunBulletSpeedInterval: 0.75
+  handgunFireRateInterval: 0.065
+  machineFireRateInterval: 0.05
+  subFireRateInterval: 0.05
+  assaultFireRateInterval: 0.075
+  shotgunFireRateInterval: 0.03
+  handgunAmmointerval: 2
+  machineAmmoInterval: 2
+  subAmmoInterval: 3
+  assaultAmmoInterval: 5
+  shotgunAmmoInterval: 5
+  maxNoOfHealth: 15
+  maxNoOfDamage: 5
+  maxNoOfSpeed: 2
+  maxNoOfBulletSpeed: 5
+  maxNoOfFuel: 20
+  maxNoOfMedkit: 8
+  maxNoOfFireRate: 5
+  maxNoOfMaxAmmo: 5
+  healthXp: 70
+  damageXp: 500
+  speadXp: 115
+  bulletXp: 35
+  FuelXp: 75
+  MedKitXp: 50
+  FireRateXp: 90
+  maxAmmoXp: 120
+  shotgunXp: 5000
+  assaultXp: 2500
+  noOfHealth: 0
+  noOfDamage: 0
+  noOfSpeed: 0
+  noOfBulletSpeed: 0
+  noOfFuel: 0
+  noOfMedKit: 0
+  noOfFireRate: 0
+  noOfMaxAmmo: 0
+  healthStat: {fileID: 0}
+  dmgStat: {fileID: 0}
+  speedStat: {fileID: 0}
+  projectileSpeedStat: {fileID: 0}
+  FuelGainStat: {fileID: 0}
+  MedKitStat: {fileID: 0}
+  FireRateStat: {fileID: 0}
+  maxAmmoStat: {fileID: 0}
+  healthCostText: {fileID: 0}
+  damageCostText: {fileID: 0}
+  speedCostText: {fileID: 0}
+  projectileCostText: {fileID: 0}
+  fuelCostText: {fileID: 0}
+  MedKitCostText: {fileID: 0}
+  FireRateCostText: {fileID: 0}
+  maxAmmoCostText: {fileID: 0}
+  shotgunCostText: {fileID: 0}
+  assaultCostText: {fileID: 0}
+  maxHealthImage: {fileID: 0}
+  maxDamageImage: {fileID: 0}
+  maxSpeedImage: {fileID: 0}
+  maxBulletImage: {fileID: 0}
+  maxFuelImage: {fileID: 0}
+  maxMedkitImage: {fileID: 0}
+  maxFireRateImage: {fileID: 0}
+  maxAmmoImage: {fileID: 0}
+  shotgunBought: {fileID: 0}
+  maxHealthButton: {fileID: 0}
+  maxDamageButton: {fileID: 0}
+  maxSpeedButton: {fileID: 0}
+  maxBulletButton: {fileID: 0}
+  maxFuelButton: {fileID: 0}
+  maxMedKitButton: {fileID: 0}
+  maxFireRateButton: {fileID: 0}
+  maxAmmoButton: {fileID: 0}
+  shotgunBoughtButton: {fileID: 0}
+  objectsWithTag: []
+  weaponText: {fileID: 0}
+  ammoText: {fileID: 0}
