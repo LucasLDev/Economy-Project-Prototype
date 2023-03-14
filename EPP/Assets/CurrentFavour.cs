@@ -27,7 +27,10 @@ public class CurrentFavour : MonoBehaviour
 
     void Update()
     {
-        
+        if(favour.isActive == true)
+        {
+            GameManager.gameManager.favourActive = true;
+        }
         ui.trackerDesc.SetText("" + favour.title);
     }
 }

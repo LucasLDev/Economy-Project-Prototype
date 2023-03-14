@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public  bool gameIsPaused = false;
     public  bool storeEnabled = false;
     public  bool favourCompleted = false;
+    public bool favourActive = false;
     public  bool inDialogue = false;
     public  bool canShoot = true;
     public  bool maxStats = false;
@@ -253,6 +254,7 @@ public class GameManager : MonoBehaviour
         
         LevelUp();
         UpdateXpUI();
+        /* UpdateStoreXpUI(); */
         
 
         if(Input.GetKeyDown(KeyCode.Equals))
@@ -311,7 +313,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public  void UpdateXpUI()
+    public void UpdateXpUI()
     {
         float xpFraction = currentXp / requiredXp;
         float FXP = ui.mainFrontXpBar.fillAmount;
@@ -319,12 +321,14 @@ public class GameManager : MonoBehaviour
         {
             delayTimer += Time.deltaTime;
             ui.mainBackXpBar.fillAmount = xpFraction;
+            ui.backXpBar.fillAmount = xpFraction;
             if(delayTimer > 0.25)
             {
                 lerpTimer += Time.deltaTime;
                 float percentComplete = lerpTimer / chipSpeed;
                 percentComplete = percentComplete * percentComplete;
                 ui.mainFrontXpBar.fillAmount = Mathf.Lerp(FXP, ui.mainBackXpBar.fillAmount, percentComplete);
+                ui.frontXpBar.fillAmount = Mathf.Lerp(FXP, ui.backXpBar.fillAmount, percentComplete);
             }
         }
         if(maxStats != true)
@@ -337,6 +341,24 @@ public class GameManager : MonoBehaviour
         }
         
     }
+
+    /* public void UpdateStoreXpUI()
+    {
+        float xpFraction = currentXp / requiredXp;
+        float FXP = ui.frontXpBar.fillAmount;
+        if(FXP < xpFraction)
+        {
+            delayTimer += Time.deltaTime;
+            ui.backXpBar.fillAmount = xpFraction;
+            if(delayTimer > 0.25)
+            {
+                lerpTimer += Time.deltaTime;
+                float percentComplete = lerpTimer / chipSpeed;
+                percentComplete = percentComplete * percentComplete;
+                ui.frontXpBar.fillAmount = Mathf.Lerp(FXP, ui.backXpBar.fillAmount, percentComplete);
+            }
+        }
+    } */
 
     public  int CalculateRequiredXp()
     {

@@ -34,23 +34,33 @@ public class NPC : MonoBehaviour
         currentFavour = GameObject.FindGameObjectWithTag("FavourHolder").GetComponent<CurrentFavour>();
         player = GameObject.FindGameObjectWithTag("Player");
         GameManager.gameManager.zombiesSpawned = false;
-        interactor.SetActive(true);
         interactOn = false;
     }
 
     void Update()
     {
-         if (GameObject.FindWithTag("Zombie") == null)
+        if (GameManager.gameManager.favourActive == false)
         {
             interactor.SetActive(true);
 
-        } else if (GameObject.FindWithTag("Zombie") != null) 
+        } else if (GameManager.gameManager.favourActive == true) 
         {
             GameManager.gameManager.zombiesSpawned = true;
             zombie.GetComponent<Enemy>();
             interactor.SetActive(false);
         }
 
+
+
+        if(GameManager.gameManager.favourActive != true)
+        {
+            DialogueCheck();
+        }
+
+    }
+
+    public void DialogueCheck()
+    {
         if (interactOn == true && Input.GetKeyDown(KeyCode.F) && GameManager.gameManager.inDialogue == false && GameManager.gameManager.favourCompleted == false && GameManager.gameManager.objectsWithTag.Length <= 0)
         {
             _dialogue.TriggerDialogue();
@@ -67,13 +77,12 @@ public class NPC : MonoBehaviour
             GameManager.gameManager.inDialogue = true;
             GameManager.gameManager.canMove = false;
         }
-
     }
 
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if(GameManager.gameManager.objectsWithTag.Length <= 0 &&  other.CompareTag("Player"))
+        if(GameManager.gameManager.favourActive == false &&  other.CompareTag("Player"))
         {
             interact.SetActive(true);
             interactOn = true;

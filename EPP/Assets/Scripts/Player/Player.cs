@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public GameObject handgunBulletPrefab;
     public GameObject shotgunBulletPrefab;
     private GameObject areaOneSpawn;
+    private MainUI ui;
 
     public float offset;
 
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {   
+        ui = GameObject.FindGameObjectWithTag("MainUI").GetComponent<MainUI>();
         /* if(SpawnManager.lastScene == "MainScene")
         {
             transform.position = SpawnManager.spawnPoints[0].transform.position;
@@ -149,7 +151,7 @@ public class Player : MonoBehaviour
 
         if(GameManager.gameManager.playerCurrentHealth > 0)
         {
-            MainUI.mainUI.hLerpTimer = 0f;
+            ui.hLerpTimer = 0f;
         }
         else
         {
@@ -181,7 +183,7 @@ public class Player : MonoBehaviour
     public void AddHealth(int _value)
     {
         GameManager.gameManager.playerCurrentHealth = Mathf.Clamp(GameManager.gameManager.playerCurrentHealth + _value, 0, GameManager.gameManager.playerMaxHealth);
-        MainUI.mainUI.hLerpTimer = 0f;
+        ui.hLerpTimer = 0f;
     }
 
     

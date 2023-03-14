@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour
         if (collision.tag == "Player")
         {
             if(Time.time - lastAttackTime < GameManager.gameManager.attackCooldown) return;
-
+            if(GameManager.gameManager.canMove == false) return;
             _player.TakeDamage(zombieDamage);
 
             lastAttackTime = Time.time;
@@ -169,6 +169,7 @@ public class Enemy : MonoBehaviour
 
     public void Chase()
     {
+        if(GameManager.gameManager.canMove == false) return;
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, zombieSpeed * Time.deltaTime);
         Vector3 direction = player.transform.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

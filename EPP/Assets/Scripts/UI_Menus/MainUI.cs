@@ -162,6 +162,9 @@ public class MainUI : MonoBehaviour
 
         mainFrontXpBar.fillAmount = GameManager.gameManager.currentXp / GameManager.gameManager.requiredXp;
         mainBackXpBar.fillAmount = GameManager.gameManager.currentXp / GameManager.gameManager.requiredXp;
+        frontXpBar.fillAmount = GameManager.gameManager.currentXp / GameManager.gameManager.requiredXp;
+        backXpBar.fillAmount = GameManager.gameManager.currentXp / GameManager.gameManager.requiredXp;
+
         levelText.text = "" +  GameManager.gameManager.level;
     }
 
@@ -172,8 +175,6 @@ public class MainUI : MonoBehaviour
         
 
         levelNumber.text = "" + GameManager.gameManager.level;
-        frontXpBar.fillAmount = frontXpBar.fillAmount;
-        backXpBar.fillAmount = backXpBar.fillAmount;
 
         TextUpdate();
         MaxCheck();
@@ -375,6 +376,7 @@ public class MainUI : MonoBehaviour
         animator.SetBool("isOpen", true);
         Time.timeScale = 1f;
         GameManager.gameManager.storeEnabled = true;
+        GameManager.gameManager.canMove = false;
     }
 
     public void StoreOff()
@@ -389,6 +391,7 @@ public class MainUI : MonoBehaviour
         GameManager.gameManager.machinePistolStore = false;
         GameManager.gameManager.subMachineGunStore = false;
         GameManager.gameManager.storeEnabled = false;
+        GameManager.gameManager.canMove = true;
     }
 
     public void BuyShotgun()

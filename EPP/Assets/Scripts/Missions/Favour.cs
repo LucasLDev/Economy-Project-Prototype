@@ -21,4 +21,5 @@ public class Favour
         isActive = false;
         GameManager.gameManager.currentFuel += fuelReward;
     }
+    
 }

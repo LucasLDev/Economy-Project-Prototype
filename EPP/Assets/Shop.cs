@@ -6,6 +6,7 @@ public class Shop : MonoBehaviour
 {
     public GameObject interact;
     public GameObject interactor;
+    private MainUI ui;
 
     public string weapon;
     
@@ -14,6 +15,7 @@ public class Shop : MonoBehaviour
 
     void Start()
     {
+        ui = GameObject.FindGameObjectWithTag("MainUI").GetComponent<MainUI>();
         interactor.SetActive(true);
         interactOn = false;
         GameManager.gameManager.machinePistolStore = false;
@@ -26,22 +28,22 @@ public class Shop : MonoBehaviour
     {
         if (interactOn == true && Input.GetKeyDown(KeyCode.F) && GameManager.gameManager.storeEnabled == false && weapon == "shotgun")
         {
-            MainUI.mainUI.Store();
+            ui.Store();
             GameManager.gameManager.shotgunStore = true;
         }
         if (interactOn == true && Input.GetKeyDown(KeyCode.F) && GameManager.gameManager.storeEnabled == false && weapon == "machine pistol")
         {
-            MainUI.mainUI.Store();
+            ui.Store();
             GameManager.gameManager.machinePistolStore = true;
         }
         if (interactOn == true && Input.GetKeyDown(KeyCode.F) && GameManager.gameManager.storeEnabled == false && weapon == "sub machine gun")
         {
-            MainUI.mainUI.Store();
+            ui.Store();
             GameManager.gameManager.subMachineGunStore = true;
         }
         if (interactOn == true && Input.GetKeyDown(KeyCode.F) && GameManager.gameManager.storeEnabled == false && weapon == "assault rifle")
         {
-            MainUI.mainUI.Store();
+            ui.Store();
             GameManager.gameManager.assaultRifleStore = true;
         }
     }
