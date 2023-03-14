@@ -18,14 +18,14 @@ public class BulletController : MonoBehaviour
     public Vector2 direction;
     public Vector2 offset;
     public Slider reloadVisual;
-    public GameObject hgIcon;
-    public GameObject arIcon;
-    public GameObject sgIcon;
+
+    private MainUI ui;
     
     // Start is called before the first frame update
     void Start()
     {
-        MainUI.mainUI.reloadIdicator.SetActive(false);
+        ui = GameObject.FindGameObjectWithTag("MainUI").GetComponent<MainUI>();
+        ui.reloadIdicator.SetActive(false);
 
         GameManager.gameManager.handgunCurrentAmmo = GameManager.gameManager.handgunMaxAmmo;
         GameManager.gameManager.machineCurrentAmmo = GameManager.gameManager.machineMaxAmmo;

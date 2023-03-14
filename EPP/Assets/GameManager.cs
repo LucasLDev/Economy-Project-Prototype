@@ -208,6 +208,8 @@ public class GameManager : MonoBehaviour
     public  int noOfMaxAmmo;
 
     [Space]
+    private MainUI ui;
+    [Space]
 
     public float chipSpeed = 2f;
     [HideInInspector]
@@ -230,6 +232,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        ui = GameObject.FindGameObjectWithTag("MainUI").GetComponent<MainUI>();
         LevelUp();
         playerCurrentHealth = playerMaxHealth;
         handgun = true;
@@ -298,12 +301,12 @@ public class GameManager : MonoBehaviour
         if (currentXp >= requiredXp)
         {
             level++;
-            MainUI.mainUI.mainFrontXpBar.fillAmount = 0;
-            MainUI.mainUI.mainBackXpBar.fillAmount = 0;
+            ui.mainFrontXpBar.fillAmount = 0;
+            ui.mainBackXpBar.fillAmount = 0;
             currentXp = Mathf.RoundToInt(currentXp - requiredXp);
             playerCurrentHealth = playerMaxHealth;
             requiredXp = CalculateRequiredXp();
-            //MainUI.mainUI.levelText.text = "" + level;
+            //ui.levelText.text = "" + level;
         }
         
     }
@@ -311,26 +314,26 @@ public class GameManager : MonoBehaviour
     public  void UpdateXpUI()
     {
         float xpFraction = currentXp / requiredXp;
-        float FXP = MainUI.mainUI.mainFrontXpBar.fillAmount;
+        float FXP = ui.mainFrontXpBar.fillAmount;
         if(FXP < xpFraction)
         {
             delayTimer += Time.deltaTime;
-            MainUI.mainUI.mainBackXpBar.fillAmount = xpFraction;
+            ui.mainBackXpBar.fillAmount = xpFraction;
             if(delayTimer > 0.25)
             {
                 lerpTimer += Time.deltaTime;
                 float percentComplete = lerpTimer / chipSpeed;
                 percentComplete = percentComplete * percentComplete;
-                MainUI.mainUI.mainFrontXpBar.fillAmount = Mathf.Lerp(FXP, MainUI.mainUI.mainBackXpBar.fillAmount, percentComplete);
+                ui.mainFrontXpBar.fillAmount = Mathf.Lerp(FXP, ui.mainBackXpBar.fillAmount, percentComplete);
             }
         }
         if(maxStats != true)
         {
-            MainUI.mainUI.xpText.text = currentXp + "/" + requiredXp;
-            MainUI.mainUI.levelText.text = "" + level;
+            ui.xpText.text = currentXp + "/" + requiredXp;
+            ui.levelText.text = "" + level;
         } else {
-            MainUI.mainUI.xpText.text = "Max";
-            MainUI.mainUI.levelText.text = "" + level;
+            ui.xpText.text = "Max";
+            ui.levelText.text = "" + level;
         }
         
     }

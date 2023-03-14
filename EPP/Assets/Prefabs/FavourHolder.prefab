@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7423695531146542083
+--- !u!1 &1592774665662178
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7423695531146542085}
-  - component: {fileID: 7423695531146542082}
+  - component: {fileID: 1592774665662204}
+  - component: {fileID: 1592774665662179}
   m_Layer: 0
-  m_Name: DialogueManager
-  m_TagString: Untagged
+  m_Name: FavourHolder
+  m_TagString: FavourHolder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7423695531146542085
+--- !u!4 &1592774665662204
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7423695531146542083}
+  m_GameObject: {fileID: 1592774665662178}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.8370018, y: -0.24826275, z: 0.18081574}
+  m_LocalPosition: {x: 527.7628, y: 441.81503, z: 60.095657}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7423695531146542082
+--- !u!114 &1592774665662179
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7423695531146542083}
+  m_GameObject: {fileID: 1592774665662178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 111bcefb111e0b441bd583cd0b97a081, type: 3}
+  m_Script: {fileID: 11500000, guid: cc3a1ad0a80cf2f45bd810b7fc2a7e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: {fileID: 0}
-  dialogueText: {fileID: 0}
-  animator: {fileID: 0}
-  favourAnimator: {fileID: 0}
-  dialogueBox: {fileID: 0}
-  favourScreen: {fileID: 0}
-  continueButton: {fileID: 0}
-  acceptButton: {fileID: 0}
-  favourButton: {fileID: 0}
+  favour:
+    isActive: 1
+    location: 
+    title: 
+    description: 
+    fuelReward: 0
+    goal:
+      goalType: 0
+      requiredAmount: 0
+      currentAmount: 0
+  ui: {fileID: 7318143753868624827, guid: d3e5370e25677dd429457be67e494bd0, type: 3}

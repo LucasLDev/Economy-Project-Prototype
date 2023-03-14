@@ -62,16 +62,11 @@ MonoBehaviour:
   handgunBulletPrefab: {fileID: 4096159615000044804, guid: c4232887aa27da447b104209e3efe6a1, type: 3}
   assaultBulletprefab: {fileID: 4096159615000044804, guid: b691f305a51012940bd6a91ee47f06a8, type: 3}
   shotgunBulletPrefab: {fileID: 4096159615000044804, guid: 8f84508d356409f4b8f2d7a7855fe879, type: 3}
-  gameManager: {fileID: 0}
   spreadAngle: 45
   player: {fileID: 7866122822188526217}
   direction: {x: 0, y: 0}
   offset: {x: 0, y: 0}
-  reloadVisual: {fileID: 0}
-  reloadIdicator: {fileID: 0}
-  hgIcon: {fileID: 0}
-  arIcon: {fileID: 0}
-  sgIcon: {fileID: 0}
+  reloadVisual: {fileID: 8633911024268769824, guid: ace08a71ce9c30f429da4dde209a186a, type: 3}
 --- !u!1 &7866122822188526223
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,17 +169,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f65dad73abce8489c542d9f20614a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
   rb: {fileID: 7866122822188526219}
   cam: {fileID: 0}
+  animator: {fileID: 7866122822188526196}
   firePoint: {fileID: 7866122821763003975}
   handgunBulletPrefab: {fileID: 4096159615000044804, guid: c4232887aa27da447b104209e3efe6a1, type: 3}
   shotgunBulletPrefab: {fileID: 4096159615000044804, guid: 8f84508d356409f4b8f2d7a7855fe879, type: 3}
-  areaOneSpawn: {fileID: 0}
-  chipSpeed: 5
-  frontHealthBar: {fileID: 0}
-  backHealthVar: {fileID: 0}
-  healthText: {fileID: 0}
   offset: -90
 --- !u!50 &7866122822188526219
 Rigidbody2D:

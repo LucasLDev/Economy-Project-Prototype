@@ -14,12 +14,12 @@ public class Enemy : MonoBehaviour
 
     private GameObject player;
     public Player _player;
-    private GameManager GameManager;
-    private GameObject _GameManager; 
     private float distance;
     private int randomSpot;
 
     float lastAttackTime;
+
+    private Favour favour;
 
 
     [Header("Zombie Stats")]
@@ -50,21 +50,21 @@ public class Enemy : MonoBehaviour
 
         zombieCurrentHealth = zombieMaxHealth;
         ZombieHealthBar.maxValue = zombieMaxHealth;
-        if(GameManager.level == 1)
+        if(GameManager.gameManager.level == 1)
         {
             zombieLevel = Random.Range(1, 3);
         } else {
-            zombieLevel = Random.Range(GameManager.level + 2, GameManager.level - 2);
+            zombieLevel = Random.Range(GameManager.gameManager.level + 2, GameManager.gameManager.level - 2);
         }
         
         ZombieScaling();
         zombieLevelText.text = "" + zombieLevel;
         
-        GameManager.inSafeZone = false;
-        GameManager.zombiePatrolling = true;
-        GameManager.zombieChasing = false;
+        GameManager.gameManager.inSafeZone = false;
+        GameManager.gameManager.zombiePatrolling = true;
+        GameManager.gameManager.zombieChasing = false;
         
-        GameManager.waitTime = GameManager.startWaitTime;
+        GameManager.gameManager.waitTime = GameManager.gameManager.startWaitTime;
         randomSpot = Random.Range(0, moveSpots.Length);
     }
 
@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            if(Time.time - lastAttackTime < GameManager.attackCooldown) return;
+            if(Time.time - lastAttackTime < GameManager.gameManager.attackCooldown) return;
 
             _player.TakeDamage(zombieDamage);
 
@@ -99,31 +99,31 @@ public class Enemy : MonoBehaviour
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
 
-         if(distance < GameManager.zombieChaseRange && GameManager.inSafeZone == false)
+         if(distance < GameManager.gameManager.zombieChaseRange && GameManager.gameManager.inSafeZone == false)
        {
-            GameManager.zombieChasing = true;
+            GameManager.gameManager.zombieChasing = true;
 
        }    else   {
 
-            GameManager.zombiePatrolling = true;
-            GameManager.zombieChasing = false;
+            GameManager.gameManager.zombiePatrolling = true;
+            GameManager.gameManager.zombieChasing = false;
        }
 
-       if(GameManager.inSafeZone == true)
+       if(GameManager.gameManager.inSafeZone == true)
        {
-            GameManager.zombiePatrolling = true;
-            GameManager.zombieChasing = false;
+            GameManager.gameManager.zombiePatrolling = true;
+            GameManager.gameManager.zombieChasing = false;
        }
 
-       if (GameManager.zombieChasing == true)
+       if (GameManager.gameManager.zombieChasing == true)
        {
-            GameManager.zombiePatrolling = false;
+            GameManager.gameManager.zombiePatrolling = false;
             zombieSpeed = zombieChaseSpeed;
             Chase();
 
-       }    else if (GameManager.zombiePatrolling == true)   {
+       }    else if (GameManager.gameManager.zombiePatrolling == true)   {
 
-            GameManager.zombieChasing = false;
+            GameManager.gameManager.zombieChasing = false;
             zombieSpeed = zombiePatrolSpeed;
             Patrol();
        }
@@ -133,13 +133,13 @@ public class Enemy : MonoBehaviour
     {
         for (int i = 1; i < zombieLevel; i++)
         {
-            zombieMaxHealth += GameManager.zombieHealthUpgrade;
+            zombieMaxHealth += GameManager.gameManager.zombieHealthUpgrade;
             zombieCurrentHealth = zombieMaxHealth;
-            zombieDamage += GameManager.zombieDamageUpgrade;
-            zombieChaseSpeed += GameManager.zombieSpeedUpgrade;
-            zombiePatrolSpeed += GameManager.zombieSpeedUpgrade;
+            zombieDamage += GameManager.gameManager.zombieDamageUpgrade;
+            zombieChaseSpeed += GameManager.gameManager.zombieSpeedUpgrade;
+            zombiePatrolSpeed += GameManager.gameManager.zombieSpeedUpgrade;
 
-            //GameManager.zombieDamageUpgrade++;
+            //GameManager.gameManager.zombieDamageUpgrade++;
             
         }
         
@@ -157,12 +157,12 @@ public class Enemy : MonoBehaviour
 
             if(Vector2.Distance(transform.position, moveSpots[randomSpot].transform.position) < 0.2f)
             {
-                if(GameManager.waitTime <= 0)
+                if(GameManager.gameManager.waitTime <= 0)
                 {
                     randomSpot = Random.Range(0, moveSpots.Length);
-                    GameManager.waitTime = GameManager.startWaitTime;
+                    GameManager.gameManager.waitTime = GameManager.gameManager.startWaitTime;
                 } else{
-                    GameManager.waitTime -= Time.deltaTime;
+                    GameManager.gameManager.waitTime -= Time.deltaTime;
                 }
             }
     }
@@ -187,13 +187,14 @@ public class Enemy : MonoBehaviour
         else
         {
             //dead
-            if(!GameManager.zombiesDead)
+            if(!GameManager.gameManager.zombiesDead)
             {
                 //death animation
                 //anim.SetTrigger("");
 
                 GetComponent<Enemy>().enabled = false;
-                GameManager.currentFuel += Random.Range(GameManager.minfuelGain, GameManager.maxfuelGain);
+                GameManager.gameManager.currentFuel += Random.Range(GameManager.gameManager.minfuelGain, GameManager.gameManager.maxfuelGain);
+                FavourGoal.favourGoal.EnemyKilled();
                 //gameObject.SetActive(false);
                 Destroy(gameObject);
             }

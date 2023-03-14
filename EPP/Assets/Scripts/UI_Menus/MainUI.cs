@@ -6,8 +6,15 @@ public class MainUI : MonoBehaviour
 {
     public static MainUI mainUI;
     [Space]
+    public TMP_Text titleText;
+    public TMP_Text descriptionText;
+    public TMP_Text fuelText;
+    [Space]
+    public TMP_Text trackerTitle;
+    public TMP_Text trackerDesc;
+    public TMP_Text trackerProgress;
 
-    public  GameObject storeMenuUI;
+    //public  GameObject storeMenuUI;
     public  GameObject HUD;
     public  GameObject currencyDisplay;
     public  GameObject remainingZombiesCounter;
@@ -17,6 +24,7 @@ public class MainUI : MonoBehaviour
     public  GameObject buyAR;
     public  GameObject equipAR;
     public GameObject reloadIdicator;
+    public Animator animator;
 
     public Shop shopNPC;
 
@@ -129,7 +137,7 @@ public class MainUI : MonoBehaviour
     public  GameObject[] Zombies;
     public TMP_Text zombieCounterText;
 
-    private void Awake()
+    /* void Awake()
     {
         if(mainUI == null)
         {
@@ -139,7 +147,7 @@ public class MainUI : MonoBehaviour
         } else {
             Destroy(gameObject);
         }
-    }
+    } */
 
     
 
@@ -173,6 +181,7 @@ public class MainUI : MonoBehaviour
         UpdateHealthUI();
         PointSliders();
         AmmoIcon();
+        CurrentAmmoCounter();
         
         Zombies = GameObject.FindGameObjectsWithTag("Zombie");
         int numberOfZombies = Zombies.Length;
@@ -363,17 +372,17 @@ public class MainUI : MonoBehaviour
         HUD.SetActive(false);
         currencyDisplay.SetActive(false);
         remainingZombiesCounter.SetActive(false);
-        storeMenuUI.SetActive(true);
+        animator.SetBool("isOpen", true);
         Time.timeScale = 1f;
         GameManager.gameManager.storeEnabled = true;
     }
 
     public void StoreOff()
     {
+        animator.SetBool("isOpen", false);
         HUD.SetActive(true);
         currencyDisplay.SetActive(true);
         remainingZombiesCounter.SetActive(true);
-        storeMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameManager.gameManager.shotgunStore = false;
         GameManager.gameManager.assaultRifleStore = false;

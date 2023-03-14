@@ -6,6 +6,7 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static DialogueManager _dialogue;
     private Queue<string> sentences;
     [Space]
 
@@ -15,6 +16,7 @@ public class DialogueManager : MonoBehaviour
     public TMP_Text dialogueText;
     [Space]
     public Animator animator;
+    public Animator favourAnimator;
     [Space]
     public GameObject dialogueBox;
     public GameObject favourScreen;
@@ -23,13 +25,26 @@ public class DialogueManager : MonoBehaviour
     public GameObject continueButton;
     public GameObject acceptButton;
     public GameObject favourButton;
-    [Space]
-    public NPC _npc;
+    private GameObject _npc;
+    private NPC npc;
+
+   /*  private void Awake()
+    {
+        if(_dialogue == null)
+        {
+            _dialogue = this;
+            DontDestroyOnLoad(gameObject);
+
+        } else {
+            Destroy(gameObject);
+        }
+    } */
 
     // Start is called before the first frame update
     void Start()
     {
-        _npc.deniedFavour = false;
+        _npc = GameObject.FindGameObjectWithTag("NPC");
+        npc = _npc.GetComponent<NPC>();
         sentences = new Queue<string>();
     }
 
@@ -117,32 +132,32 @@ public class DialogueManager : MonoBehaviour
 
     public void DeclineFavour()
     {
-        _npc.CloseFavourWindow();
-        _npc.deniedFavour = true;
+        CloseFavourWindow();
         EndDialogue();
     }
 
-     public void AcceptFavour()
+    /* public void AcceptFavour()
     {
-        _npc.CloseFavourWindow();
-        _npc.EnemySpawn();
+        CloseFavourWindow();
+        npc.EnemySpawn();
         GameManager.gameManager.zombiesSpawned = true;
         EndDialogue();
         
-    }
-
-    public void Favour()
-    {
-        _npc.OpenFavourWindow();
-    }
+    } */
 
     public void AcceptReward()
     {
         GameManager.gameManager.currentFuel += 150;
-        _npc.deniedFavour = false;
         GameManager.gameManager.favourCompleted = false;
         GameManager.gameManager.zombiesSpawned = false;
         EndDialogue();
+    }
+
+  
+
+    public void CloseFavourWindow()
+    {
+        favourAnimator.SetBool("open", false);
     }
 
 

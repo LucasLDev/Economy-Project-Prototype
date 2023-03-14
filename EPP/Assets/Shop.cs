@@ -6,7 +6,6 @@ public class Shop : MonoBehaviour
 {
     public GameObject interact;
     public GameObject interactor;
-    public GameObject shopUI;
 
     public string weapon;
     
@@ -25,7 +24,6 @@ public class Shop : MonoBehaviour
 
     void Update()
     {
-        shopUI = GameObject.FindGameObjectWithTag("ShopUI");
         if (interactOn == true && Input.GetKeyDown(KeyCode.F) && GameManager.gameManager.storeEnabled == false && weapon == "shotgun")
         {
             MainUI.mainUI.Store();

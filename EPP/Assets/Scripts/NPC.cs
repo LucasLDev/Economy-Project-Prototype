@@ -5,12 +5,11 @@ using TMPro;
 
 public class NPC : MonoBehaviour
 {
-
-    public Favour[] favour;
-    public GameObject favourWindow;
-    public TMP_Text titleText;
-    public TMP_Text descriptionText;
-    public TMP_Text fuelText;
+    public static NPC _npc;
+    //public GameObject favourWindow;
+    public Favour favour;
+    private CurrentFavour currentFavour;
+    private DialogueManager dialogueManager;
     
     [SerializeField] private GameObject zombie;
     [SerializeField] private GameObject player;
@@ -20,17 +19,19 @@ public class NPC : MonoBehaviour
     public DialogueTriggerEnd _dialogueEnd;
     public GameObject interact;
     public GameObject interactor;
-    public Animator favourAnimator;
+    public MainUI ui;
+    //public Animator favourAnimator;
     
 
     int xvalue;
     int yvalue;
 
     public bool interactOn;
-    public bool deniedFavour;
 
     void Start()
     {
+        dialogueManager = GameObject.FindGameObjectWithTag("DialogueManager").GetComponent<DialogueManager>();
+        currentFavour = GameObject.FindGameObjectWithTag("FavourHolder").GetComponent<CurrentFavour>();
         player = GameObject.FindGameObjectWithTag("Player");
         GameManager.gameManager.zombiesSpawned = false;
         interactor.SetActive(true);
@@ -50,12 +51,12 @@ public class NPC : MonoBehaviour
             interactor.SetActive(false);
         }
 
-        if (interactOn == true && Input.GetKeyDown(KeyCode.F) && GameManager.gameManager.inDialogue == false && deniedFavour == false && GameManager.gameManager.favourCompleted == false && GameManager.gameManager.objectsWithTag.Length <= 0)
+        if (interactOn == true && Input.GetKeyDown(KeyCode.F) && GameManager.gameManager.inDialogue == false && GameManager.gameManager.favourCompleted == false && GameManager.gameManager.objectsWithTag.Length <= 0)
         {
             _dialogue.TriggerDialogue();
             GameManager.gameManager.inDialogue = true;
             GameManager.gameManager.canMove = false;
-        } else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && GameManager.gameManager.inDialogue == false && deniedFavour == true && GameManager.gameManager.favourCompleted == false & GameManager.gameManager.objectsWithTag.Length <= 0)
+        } else if (interactOn == true && Input.GetKeyDown(KeyCode.F) && GameManager.gameManager.inDialogue == false && GameManager.gameManager.favourCompleted == false & GameManager.gameManager.objectsWithTag.Length <= 0)
         {
             _dialogueReturn.TriggerReturnDialogue();
             GameManager.gameManager.inDialogue = true;
@@ -101,11 +102,31 @@ public class NPC : MonoBehaviour
 
             zombie.SetActive(true);
         }
-        
-        
+          
     }
 
     public void OpenFavourWindow()
+    {
+        dialogueManager.favourAnimator.SetBool("open", true);
+
+        ui.titleText.text = "" + favour.title;
+        ui.descriptionText.SetText("" + favour.description);
+        ui.fuelText.SetText("" + favour.fuelReward);
+    }
+
+    public void AcceptFavour()
+    {
+        dialogueManager.CloseFavourWindow();
+        favour.isActive = true;
+        //give qust to player
+        currentFavour.favour = favour;
+        //NPC._npc.EnemySpawn();
+        //GameManager.gameManager.zombiesSpawned = true;
+        dialogueManager.EndDialogue();
+
+    }
+
+  /*   public void OpenFavourWindow()
     {
         favourAnimator.SetBool("open", true);
 
@@ -117,7 +138,7 @@ public class NPC : MonoBehaviour
     public void CloseFavourWindow()
     {
         favourAnimator.SetBool("open", false);
-    }
+    } */
 
    
 }

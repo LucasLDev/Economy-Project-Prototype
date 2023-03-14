@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     public Camera cam;
 
-    private Animator animator;
+    public Animator animator;
     
     Vector2 movement;
     Vector2 mousePos;
@@ -24,18 +24,28 @@ public class Player : MonoBehaviour
 
     public float offset;
 
+    /* void Awake()
+    {
+        if(player == null)
+        {
+            player = this;
+            DontDestroyOnLoad(gameObject);
+        } else {
+            Destroy(gameObject);
+        }
+    } */
+
     void Start()
     {   
-        if(SpawnManager.lastScene == "MainScene")
+        /* if(SpawnManager.lastScene == "MainScene")
         {
             transform.position = SpawnManager.spawnPoints[0].transform.position;
         }
         if(SceneManager.GetActiveScene().name == "MainScene")
         {
-            areaOneSpawn = GameObject.FindGameObjectWithTag("Spawn");
-            transform.position = areaOneSpawn.transform.position;
-        }
-        animator = GetComponent<Animator>();
+            areaOneSpawn = GameObject.FindGameObjectWithTag("AreaOneSpawn");
+            player.transform.position = areaOneSpawn.transform.position;
+        } */
         animator.SetBool("move", false);
     }
 
@@ -173,6 +183,8 @@ public class Player : MonoBehaviour
         GameManager.gameManager.playerCurrentHealth = Mathf.Clamp(GameManager.gameManager.playerCurrentHealth + _value, 0, GameManager.gameManager.playerMaxHealth);
         MainUI.mainUI.hLerpTimer = 0f;
     }
+
+    
 
     /*void Shoot()
     {

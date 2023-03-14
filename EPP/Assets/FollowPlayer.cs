@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    public FollowPlayer instance;
+    public static FollowPlayer instance;
     private GameObject playerTransform;
     private Vector3 initialOffset;
 
     void Awake ()
     {
+        playerTransform = GameObject.FindGameObjectWithTag("Player");
+
         if(instance == null)
         {
             instance = this;
@@ -20,7 +22,6 @@ public class FollowPlayer : MonoBehaviour
     }
     private void Start()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player");
         // Store the initial offset of the canvas relative to the player object
         initialOffset = transform.position - playerTransform.transform.position;
     }
